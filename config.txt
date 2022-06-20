@@ -1,0 +1,10 @@
+keep
+#this is a configuration file.
+
+
+hat:Towering Pile Of Presents
+class:Soldier:*soldier.mdl
+date:2009-01-05/2010
+date:2014
+update:Scream Fortress 2018
+equip:Disconnected Floating Item

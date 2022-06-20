@@ -1,0 +1,1 @@
+char *wstrsep(char **, char *);
