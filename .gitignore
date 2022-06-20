@@ -1,0 +1,6 @@
+
+#executables
+nhcustom2*
+
+#vim swap files
+*.swp
