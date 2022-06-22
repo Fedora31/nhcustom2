@@ -74,7 +74,10 @@ csv_load(char* file)
 	s = b;
 	while(1){ //to infinity... and beyond!
 		s = wstrsep(&b, ";\n\r");
-		if(b == NULL) //if the match is "\0\0", we don't want to take it into account
+
+		//if the match is "\0\0", we don't want to take it into account (\n\0 -> \0\0 -> next round: match! even if there's nothing there)
+		//AND IF THERE IS CARRIAGE RETURNS? NVM, LOAD THE CSV LINE BY LINE TO FILTER THOSE, AND TO REMOVE THIS CRAPPY FIX
+		if(b == NULL)
 			break;
 
 		//printf("found (%d/%d) %d %s\n", x, y, c->lcount, s);
