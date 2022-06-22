@@ -5,10 +5,12 @@
 #include "str.h"
 
 
+static int getvalueindex(Csv *, int, char *);
+
 Csv *
 csv_load(char* file)
 {
-	printf("reading csv file...");
+	printf("loading csv file...");
 
 	FILE * f;
 	f = fopen(file, "rb");
@@ -41,16 +43,16 @@ csv_load(char* file)
 	//put a NUL byte at the end of the first line
 	char *content = strpbrk(c->buf, "\r\n");
 	int i;
-	for(i=0;content[i]=='\n' || content[i]=='\r';i++){
+	for(i = 0 ; content[i] == '\n' || content[i] == '\r'; i++){
 		content[i]='\0';
 	}
-	content+=i;//pass the NUL byte(s) added
+	content+=i;//go over the NUL byte(s) added
 
 
 	//get the header fields
 
 	char *b = c->buf, *s = b;
-	while(b!=NULL){
+	while(b != NULL){
 		s = wstrsep(&b, ";\n\r");
 		//printf("found %s\n", s);
 		c->headers[c->hcount++] = s;
@@ -61,7 +63,7 @@ csv_load(char* file)
 
 	c->ptrs = malloc(sizeof(char*) * c->hcount); //row
 	for(int a = 0; a < c->hcount; a++)
-		c->ptrs[a] = malloc(sizeof(char*) * c->lcount); //column (-1 bc the header ptrs are stored elsewhere)
+		c->ptrs[a] = malloc(sizeof(char*) * c->lcount); //column
 
 
 	//get the other fields
@@ -69,9 +71,9 @@ csv_load(char* file)
 	int x = 0, y = 0;
 	b = content;
 	s = b;
-	while(b!=NULL){
+	while(b != NULL){
 		s = wstrsep(&b, ";\n\r");
-		if(b!=NULL){ //if the match is "\0\0", we don't want to take it into account
+		if(b != NULL){ //if the match is "\0\0", we don't want to take it into account
 			//printf("found (type %d) %s\n", e, s);
 			c->ptrs[x++][y] = s;
 			if(x >= c->hcount){
@@ -84,35 +86,60 @@ csv_load(char* file)
 	return c;
 }
 
-char *
-csv_search(Csv *c, char *header, char *pattern)
+void
+csv_unload(Csv *c)
 {
-
-	/////temporary, this returns only the first result but there could be more than one, should
-	/////return a Csvres struct which is a linked list
-
-	int hi = -1;
-	for(int i = 0; i < c->hcount; i++){
-		if (strcmp(c->headers[i], header) == 0) {
-			hi = i;
-			break;
-		}
-	}
-	if(hi == -1){
-		fprintf(stderr, "Error: the header wasn't found in the Csv struct.\n");
-		return NULL;
-	}
-
-	char *result = NULL;
-	for(int i = 0; i < c->lcount-1; i++){ //??? if I don't do -1, the program crashes. There's a mistake somewhere...
-
-		if(strcmp(c->ptrs[hi][i], pattern) == 0){
-			result = c->ptrs[hi][i];
-			break;
-		}
-	}
-	if(result == NULL)
-		fprintf(stderr, "Error: pattern not found in the Csv struct.\n");
-
-	return result;
+	for(int i = 0; i < c->hcount; i++)
+		free(c->ptrs[i]);
+	free(c->ptrs);
+	free(c->buf);
+	free(c);
 }
+
+//return the X/Y position of the first match between header/pattern.
+//should give the start index for recursion...
+int
+csv_searchpos(Csv *c, char *header, char *pattern, int *pos)
+{
+	int hi = csv_getheaderindex(c, header);
+	if(hi == -1)
+		return -1;
+
+	int vi = getvalueindex(c, hi, pattern);
+	if(vi == -1)
+		return -1;
+
+	pos[0] = hi;
+	pos[1] = vi;
+
+	return 0;
+}
+
+int
+csv_getheaderindex(Csv *c, char *header)
+{
+	for(int i = 0; i < c->hcount; i++)
+		if (strcmp(c->headers[i], header) == 0)
+			return i;
+
+	fprintf(stderr, "Error: the header wasn't found in the Csv struct.\n");
+	return -1;
+}
+
+char *
+csv_ptr(Csv *c, int *pos)
+{
+	return c->ptrs[pos[0]][pos[1]];
+}
+
+static int
+getvalueindex(Csv *c, int xindex, char *pattern)
+{
+	for(int i = 0; i < c->lcount-1; i++) //??? if I don't do -1, the program crashes. There's a mistake somewhere...
+		if(strcmp(c->ptrs[xindex][i], pattern) == 0)
+			return i;
+
+	fprintf(stderr, "Error: pattern not found in the Csv struct.\n");
+	return -1;
+}
+

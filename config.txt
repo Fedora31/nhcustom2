@@ -2,9 +2,10 @@ keep
 #this is a configuration file.
 
 
-hat:Towering Pile Of Presents
-class:Soldier:*soldier.mdl
+hat:Towering Pile Of Presents|lol
+class:*Soldier:path:*soldier.mdl
+class:Multiple classes|All classes:class:*!Spy:date:2007/2008
 date:2009-01-05/2010
 date:2014
 update:Scream Fortress 2018
-equip:Disconnected Floating Item
+equip:Disconnected Floating Item|*Beard
