@@ -5,14 +5,13 @@
 #include "csv.h"
 #include "parser.h"
 
-#define MAX_VALUES 24 //max values (ex: class:Scout|Soldier|*Heavy|!Medic...)
-
-typedef struct Value{
-	char *num[MAX_VALUES];
-}Value;
 
 
-static int gethv(char **, char *, Value *);
+//get from the given string the header and the value(s) to search in it
+//the given string is modified.
+static int gethv(char **, Hvpair *);
+//redirect the header/values to the function suited to handle them
+static int redirect(Hvpair *);
 
 int
 parseline(Csv *db, char *line)
@@ -24,48 +23,64 @@ parseline(Csv *db, char *line)
 
 
 	char l[CSV_FIELD];
-	memcpy(l, line, strlen(line));
+	memcpy(l, line, strlen(line)+1); //+1 to copy '\0'
 
 	char *li = l; //line index
 
-	char h[CSV_FIELD];
-	Value v;
+	Hvpair hvpair;
 
 	int res;
 	while(1){
-		if ((res = gethv(&li, h, &v)) == -1)
+		if ((res = gethv(&li, &hvpair)) == -1)
 			return -1;
-		else if(res == -2)
+
+		printf("header: %s\n", hvpair.header);
+		for(int i = 0; i < hvpair.count; i++)
+			printf("value %d: %s\n", i, hvpair.value[i]);
+		printf("count: %d\n", hvpair.count);
+
+		redirect(&hvpair);
+
+		if(res == -2) //no more values to get from the string
 			break;
-
 	}
-
 	return 0;
-
-
 }
 
 static int
-gethv(char **s, char *header, Value *value)
+gethv(char **s, Hvpair *hvpair)
 {
-	header = wstrsep(s, ":"); //get the header
+	char *tmph = wstrsep(s, ":"); //get the header
+	memcpy(hvpair->header, tmph, strlen(tmph)+1);
+
 	if (*s == NULL) //we shouldn't be at the end of the string, no values have been found!
 		return -1;
-	printf("header: %s\n", header);
 
 	int i = 0;
-	char *values = wstrsep(s, ":"); //get the values
+	//get the values (the string up until the beginning of another header:value pair or a '\0'
+	char *values = wstrsep(s, ":");
+
+	if(strlen(values) == 0) //likewise, there should be values after the ":" notation
+		return -1;
+
+	char *tmpv;
 	while(values != NULL && i < MAX_VALUES){
-		value->num[i] = wstrsep(&values, "|");
-		printf("value %d: %s\n", i, value->num[i]);
+		tmpv = wstrsep(&values, "|");
+		memcpy(hvpair->value[i], tmpv, strlen(tmpv)+1);
 		i++;
 	}
+	hvpair->count = i;
 
-	if (*s == NULL) //have we arrived at the end of the line?
+	if (*s == NULL) //have we arrived at the end of the string?
 		return -2;
 	return 0;
 }
 
+static int
+redirect(Hvpair *hvpair)
+{
+	return 0;
+}
 
 
 

@@ -55,7 +55,7 @@ csv_load(char* file)
 	char *b = c->buf, *s = b;
 	while(b != NULL){
 		s = wstrsep(&b, ";");
-		printf("found %s\n", s);
+		//printf("found %s\n", s);
 		c->headers[c->hcount++] = s;
 	};
 

@@ -3,10 +3,12 @@
 #include "csv.h"
 #include "parser.h"
 
+
 #define LINE_LENGTH 128
 
 
 static void rmnl(char *);
+
 
 int
 main(int argc, char **args)
@@ -23,8 +25,6 @@ main(int argc, char **args)
 	char line[LINE_LENGTH] = {0};
 	int err = 0;
 
-	printf("-- nhcustom2 --\n"); ////////////////program seems to quit on fopen() on Windows
-
 	if(fgets(line, LINE_LENGTH, conf) == NULL){
 		fprintf(stderr, "Error: empty config file\n");
 		csv_unload(db);
@@ -34,9 +34,9 @@ main(int argc, char **args)
 	rmnl(line);
 
 	if(strcmp(line, "keep") == 0)
-		printf("-- keep mode --\n");
+		printf("<keep mode>\n");
 	else if (strcmp(line, "remove") == 0)
-		printf("-- remove mode --\n");
+		printf("<remove mode>\n");
 	else {
 		fprintf(stderr, "Error: unkown mode. Either \"keep\" or \"remove\" must be on the first line.\n");
 		csv_unload(db);

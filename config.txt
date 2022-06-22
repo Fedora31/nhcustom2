@@ -1,7 +1,9 @@
 keep
 #this is a configuration file.
 
-
+bouh
+hat:
+aaa:
 hat:Towering Pile Of Presents|lol
 class:*Soldier:path:*soldier.mdl
 class:Multiple classes|All classes:class:*!Spy:date:2007/2008

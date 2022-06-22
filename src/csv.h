@@ -1,6 +1,6 @@
-#define CSV_MAX_LINE_LENGTH 1024 //max length of a line in the csv file
+#define CSV_MAX_LINE_LENGTH 2048 //max length of a line in the csv file
 #define CSV_MAX_HEADERS 24 //max number of headers
-#define CSV_FIELD 128 //max length of a field (for;example;this)
+#define CSV_FIELD 1024 //max length of a single field (for;example;this) (some cosmetics have reaaaally long path fields)
 
 typedef struct Csv{
 	char *headers[CSV_MAX_HEADERS];
