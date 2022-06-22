@@ -23,6 +23,7 @@ main(int argc, char **args)
 	char line[LINE_LENGTH] = {0};
 	int err = 0;
 
+	printf("-- nhcustom2 --\n"); ////////////////program seems to quit on fopen() on Windows
 
 	if(fgets(line, LINE_LENGTH, conf) == NULL){
 		fprintf(stderr, "Error: empty config file\n");

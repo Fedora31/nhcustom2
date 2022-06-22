@@ -3,6 +3,7 @@
 #include <string.h>
 #include "csv.h"
 #include "str.h"
+#include <unistd.h>
 
 
 static int getvalueindex(Csv *, int, char *);
@@ -14,11 +15,10 @@ csv_load(char* file)
 
 	FILE * f;
 	f = fopen(file, "rb");
-	if(f==NULL){
+	if(f == NULL){
 		fprintf(stderr, "Error: could not open file %s\n", file);
 		return NULL;
 	}
-
 
 	//get the size of the file and get its content
 	fseek(f, 0, SEEK_END);
@@ -37,24 +37,25 @@ csv_load(char* file)
 		if (c->buf[a]=='\n')
 			c->lcount++;
 	}
-	c->lcount--;
+	c->lcount--; //the header is stored separately (join?)
 
 
-	//put a NUL byte at the end of the first line
+	//put a '\0' at the end of the first line
+
 	char *content = strpbrk(c->buf, "\r\n");
 	int i;
 	for(i = 0 ; content[i] == '\n' || content[i] == '\r'; i++){
 		content[i]='\0';
 	}
-	content+=i;//go over the NUL byte(s) added
+	content+=i;//go over the '\0' byte(s) added
 
 
 	//get the header fields
 
 	char *b = c->buf, *s = b;
 	while(b != NULL){
-		s = wstrsep(&b, ";\n\r");
-		//printf("found %s\n", s);
+		s = wstrsep(&b, ";");
+		printf("found %s\n", s);
 		c->headers[c->hcount++] = s;
 	};
 
@@ -71,18 +72,26 @@ csv_load(char* file)
 	int x = 0, y = 0;
 	b = content;
 	s = b;
-	while(b != NULL){
+	while(1){ //to infinity... and beyond!
 		s = wstrsep(&b, ";\n\r");
-		if(b != NULL){ //if the match is "\0\0", we don't want to take it into account
-			//printf("found (type %d) %s\n", e, s);
-			c->ptrs[x++][y] = s;
-			if(x >= c->hcount){
-				x = 0;
-				y++;
-			}
+		if(b == NULL) //if the match is "\0\0", we don't want to take it into account
+			break;
+
+		//printf("found (%d/%d) %d %s\n", x, y, c->lcount, s);
+		c->ptrs[x++][y] = s;
+
+		if(x >= c->hcount){
+			x = 0;
+			y++;
 		}
-	};
+		//garde-fous, Windows liked to go past this because of errors in the csv file
+		//maybe I should've read the csv file line by line to make it easier to me...
+		if(y >= c->lcount)
+			break;
+
+	}
 	printf("done\n");
+
 	return c;
 }
 

@@ -133,7 +133,7 @@ Bolt Action Blitzer;All classes;Hat;2012-04-17;None;models/player/items/all_clas
 Bolt Boy;Scout;Glasses;2013-05-17;Robotic Boogaloo;models/workshop/player/items/scout/robo_scout_bolt_boy
 Bolted Bicorne;Demoman;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/items/demo/robo_demo_buccaneer_bicorne
 Bolted Birdcage;Pyro;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/items/pyro/robo_pyro_birdcage
-aAT=(Bolted Bombardier) Demoman;Beard;2013-05-17;Robotic Boogaloo;models/workshop/player/items/demo/robo_demo_beard_bombardier
+Bolted Bombardier;Demoman;Beard;2013-05-17;Robotic Boogaloo;models/workshop/player/items/demo/robo_demo_beard_bombardier
 Bolted Bushman;Sniper;Hat;2012-08-15;Mann vs. Machine Update;models/player/items/mvm_loot/sniper/robo_sniper_hat.*
 Bomb Beanie;Demoman;Hat;2016-12-21;Smissmas 2016;models/workshop/player/items/demo/dec16_bomb_beanie
 Bomber Knight;Demoman;Hat;2016-12-21;Smissmas 2016;models/workshop/player/items/demo/dec16_bomber_knight
@@ -251,7 +251,7 @@ Classified Coif;Soldier;Coat;2014-06-18;Love & War Update;models/workshop/player
 Classy Capper;Sniper;Head;2017-10-20;Jungle Inferno Update;models/workshop/player/items/sniper/fall17_hunter
 Claws And Infect;Scout;Hands;2014-10-29;Scream Fortress 2014;models/workshop/player/items/scout/sf14_scout_hunter_arm
 Climbing Commander;Soldier;Hat;2018-12-19;Smissmas 2018;models/workshop/player/items/soldier/dec18_climbing_commander
-Clockwerk's Helm;Engineer;Hat;1970-01-01;UPDATE=(None)models/player/items/engineer/clockwerk_hat.*
+Clockwerk's Helm;Engineer;Hat;1970-01-01;None;models/player/items/engineer/clockwerk_hat.*
 Cloud Crasher;Soldier;Hat;2013-06-13;Second Workshop Content Pack;models/workshop/player/items/soldier/cloud_crasher
 Clubsy The Seal;Engineer;Pocket;2014-12-22;Smissmas 2014;models/workshop/player/items/engineer/dec2014_engineer_seal
 Co-Pilot;All classes;Hat;2014-12-22;Smissmas 2014;models/workshop/player/items/all_class/dec2014_copilot_2014
@@ -684,7 +684,7 @@ Insulated Inventor;Engineer;Shirt;2014-12-08;End of the Line Update;models/works
 Intangible Ascot;Spy;Shirt;2011-10-27;Very Scary Halloween Special;models/player/items/spy/hwn_spy_misc2.*
 Iron Fist;Engineer;Left Arm;2014-10-29;Scream Fortress 2014;models/workshop/player/items/engineer/sf14_iron_fist
 Iron Lung;Engineer;Shirt;2015-10-28;Scream Fortress 2015;models/workshop/player/items/engineer/hwn2015_iron_lung
-Itsy Bitsy Spyer;Engineer|Sniper;EQUIP=(Pocket)) 2011-12-01;None;models/player/items/engineer/xms_engineer_voodoospy.*|models/player/items/sniper/sniper_voodoospy.*
+Itsy Bitsy Spyer;Engineer|Sniper;Pocket;2011-12-01;None;models/player/items/engineer/xms_engineer_voodoospy.*|models/player/items/sniper/sniper_voodoospy.*
 Ivan The Inedible;Heavy;Disconnected Floating Item;2013-10-29;Scream Fortress 2013;models/workshop/player/items/heavy/hw2013_ivan_the_inedible
 J.Axer's Dapper Topper;All classes;Hat;2010-01-27;None;models/player/items/[CLASS]/hat_first.*
 Janissary Ketche;Spy;Hat;2011-04-28;None;models/player/items/spy/mbsf_spy.*
@@ -790,7 +790,7 @@ Marsupial Muzzle;Sniper;Whole Head;2014-10-29;Scream Fortress 2014;models/worksh
 Marxman;All classes;Glasses;2012-08-02;Triad Pack;models/player/items/all_class/sd_glasses_[CLASS].cigar.*
 Mask of the Shaman;Demoman;Whole Head;2011-07-29;None;models/player/items/[CLASS]/dust_mask.*
 Master Mind;Engineer;Hat;2012-10-26;Spectral Halloween Special;models/player/items/engineer/engineer_brain.*
-Master's Yellow Belt;Sniper;Headband;2009-08-13;UPDATE=(Classless Update)models/player/items/sniper/jarate_headband.*
+Master's Yellow Belt;Sniper;Headband;2009-08-13;Classless Update;models/player/items/sniper/jarate_headband.*
 Max's Severed Head;All classes;None;2010-04-15;None;models/player/items/demo/demo_ttg_max.*
 Mecha-Medes;Medic;Left Shoulder;2013-05-17;Robotic Boogaloo;models/workshop/player/items/medic/robo_medic_archimedes
 Medi-Mask;Medic;Beard;2012-09-06;First Workshop Content Pack;models/workshop/player/items/medic/medic_gasmask
@@ -927,7 +927,7 @@ Pocket Pardner;Pyro;Belt;2018-12-19;Smissmas 2018;models/workshop/player/items/p
 Pocket Pauling;Scout;Backpack;2017-05-15;Rainy Day Pack;models/workshop/player/items/scout/spr17_pocket_pauling
 Pocket Purrer;Engineer;Pocket;2012-09-06;First Workshop Content Pack;models/player/items/engineer/engineer_pocketcat.*
 Pocket Pyro;Engineer;Pocket;2013-06-13;Second Workshop Content Pack;models/workshop/player/items/engineer/pocket_protector
-Pocket Raiders;All classes;EQUIP=(Pocket)|Grenades) 2015-01-15;None;models/workshop/player/items/all_class/pocket_raiders|models/workshop/player/items/all_class/pocket_raiders_carter_style|models/workshop/player/items/all_class/pocket_raiders_horus_style|models/workshop/player/items/all_class/pocket_raiders_isis_style|models/workshop_partner/player/items/all_class/pocket_raiders|models/workshop_partner/player/items/all_class/pocket_raiders_carter_style|models/workshop_partner/player/items/all_class/pocket_raiders_horus_style|models/workshop_partner/player/items/all_class/pocket_raiders_isis_style
+Pocket Raiders;All classes;Pocket|Grenades;2015-01-15;None;models/workshop/player/items/all_class/pocket_raiders|models/workshop/player/items/all_class/pocket_raiders_carter_style|models/workshop/player/items/all_class/pocket_raiders_horus_style|models/workshop/player/items/all_class/pocket_raiders_isis_style|models/workshop_partner/player/items/all_class/pocket_raiders|models/workshop_partner/player/items/all_class/pocket_raiders_carter_style|models/workshop_partner/player/items/all_class/pocket_raiders_horus_style|models/workshop_partner/player/items/all_class/pocket_raiders_isis_style
 Pocket Santa;All classes;Belt;2017-12-21;Smissmas 2017;models/workshop/player/items/all_class/dec17_pocket_santa
 Pocket Saxton;All classes;Pocket;2017-10-20;Jungle Inferno Update;models/workshop/player/items/all_class/fall17_pocket_saxton
 Pocket Yeti;All classes;Pocket;2017-12-21;Smissmas 2017;models/workshop/player/items/all_class/dec17_pocket_yeti
@@ -1122,7 +1122,7 @@ Soldier's Stash;Soldier;None;2009-05-21;Sniper vs. Spy Update;models/player/item
 Soldier's Stogie;Soldier;Cigar;2012-08-15;Mann vs. Machine Update;models/player/items/soldier/cigar.*
 Sole Mate;Pyro;Hat;2014-02-07;Strongbox Pack;models/workshop/player/items/pyro/sbox2014_sole_mate
 Sole Saviors;Scout|Demoman;Feet;2014-02-07;Strongbox Pack;models/workshop/player/items/all_class/sbox2014_armor_shoes
-Something Special For Someone Special;All classes;;2012-02-14;None;models/player/items/all_class/ring_[CLASS].*
+Something Special For Someone Special;All classes;None;2012-02-14;None;models/player/items/all_class/ring_[CLASS].*
 Soot Suit;Pyro;Shirt;2013-07-10;Summer Event 2013;models/workshop/player/items/pyro/jul13_soot_suit
 Soul of 'Spensers Past;Engineer;Disconnected Floating Item;2014-10-29;Scream Fortress 2014;models/workshop/player/items/engineer/sf14__soul_of_spensers_past
 Southie Shinobi;Scout;Shirt;2014-06-18;Love & War Update;models/workshop/player/items/scout/short2014_minja_vest
@@ -1308,7 +1308,7 @@ Virtual Viewfinder;All classes;Glasses;2013-07-10;Summer Event 2013;models/works
 Virus Doctor;Medic;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/items/medic/robo_medic_grimm_hatte
 Vive La France;All classes;Hat|Glasses;2014-06-18;Love & War Update;models/workshop/player/items/all_class/short2014_vintage_director
 Void Monk Hair;Scout;Hat;2012-08-10;None;models/player/items/scout/hero_academy_scout.*
-HAT=(Voodoo JuJu (Slight Return)) Demoman;Hat;2012-10-26;Spectral Halloween Special;models/player/items/demo/demo_bonehat.*
+Voodoo JuJu (Slight Return);Demoman;Hat;2012-10-26;Spectral Halloween Special;models/player/items/demo/demo_bonehat.*
 Voodoo Juju;All classes;Hat;2010-10-27;Scream Fortress Update;models/player/items/demo/demo_bonehat.*
 Voodoo Vizier;Spy;Hat;2019-10-10;Scream Fortress 2019;models/workshop/player/items/spy/hwn2019_voodoo_vizier
 Voodoo-Cursed Demoman Soul;Demoman;Zombie Body;2012-10-26;Spectral Halloween Special;models/player/items/demo/demo_zombie.*
@@ -1426,7 +1426,7 @@ Invasion Community Update Medal;All classes;Medal;2015-10-06;Invasion Update;mod
 Universal Translator;All classes;Hat;2015-10-06;Invasion Community Update;models/workshop/player/items/all_class/invasion_universal_translator
 Magnanimous Monarch;All classes;Hat;2011-03-23;Japan Charity Bundle;models/player/items/demo/japan_hat_monarch.*|models/player/items/engineer/japan_hat_monarch.*|models/player/items/heavy/japan_hat_monarch.*|models/player/items/medic/japan_hat_monarch.*|models/player/items/pyro/japan_hat_monarch.*|models/player/items/scout/japan_hat_monarch.*|models/player/items/sniper/japan_hat_monarch.*|models/player/items/soldier/japan_hat_monarch.*|models/player/items/spy/japan_hat_monarch.*
 Jarmaments;Sniper;Bullets;2020-08-21;Summer 2020 Pack;models/workshop/player/items/sniper/sum20_jarmaments
-Jingle Jam;All classes;;2020-10-23;None;models/workshop/player/items/all_class/jingle_jam_medal
+Jingle Jam;All classes;Medal;2020-10-23;None;models/workshop/player/items/all_class/jingle_jam_medal
 King Cardbeard;All classes;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/items/all_class/hwn2020_king_cardbeard
 Loaf Loafers;All classes;Feet;2020-08-21;Summer 2020 Pack;models/workshop/player/items/all_class/sum20_loaf_loafers_style1|models/workshop/player/items/all_class/sum20_loaf_loafers_style2
 Lord Cockswain's Novelty Mutton Chops and Pipe;Soldier;Beard|Cigar;2011-07-20;Dr. Grordbort's Victory Pack Update;models/player/items/soldier/drg_hair_beard.*
