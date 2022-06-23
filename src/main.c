@@ -44,7 +44,7 @@ main(int argc, char **args)
 		return 1;
 	}
 
-
+	parser_init();
 	while(fgets(line, LINE_LENGTH, conf) != NULL){
 		rmnl(line);
 		if(parseline(db, line) < 0) {
@@ -53,15 +53,19 @@ main(int argc, char **args)
 		}
 	}
 
+	parser_show(db);
+
 	if(err){
 		fprintf(stderr, "Errors occured, aborting.\n");
 		csv_unload(db);
 		fclose(conf);
+		parser_clean();
 		return 1;
 	}
 
 	csv_unload(db);
 	fclose(conf);
+	parser_clean();
 	return 0;
 }
 

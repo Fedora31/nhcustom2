@@ -4,10 +4,18 @@ keep
 bouh
 hat:
 aaa:
-hat:Towering Pile Of Presents|lol
-class:*Soldier:path:*soldier.mdl
-class:Multiple classes|All classes:class:*!Spy:date:2007/2008
-date:2009-01-05/2010
-date:2014
-update:Scream Fortress 2018
-equip:Disconnected Floating Item|*Beard
+hat:Magnanimous Monarch
+hat:!Magnanimous Monarch
+hat:Electronic Sports League
+hat:Marxman
+hat:Towering Pile Of Presents:hat:Marxman:hat:!Marxman
+update:Scream Fortress 2020
+
+
+
+
+#class:*Soldier:path:*soldier.mdl
+#class:Multiple classes:class:All classes:class:*!Spy:date:2007/2008
+#date:2009-01-05/2010
+#date:2014
+#equip:Disconnected Floating Item|*Beard

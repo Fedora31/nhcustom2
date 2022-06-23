@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 
-static int getvalueindex(Csv *, int, char *);
+static int getvalueindex(Csv *, int, char *, int);
 
 Csv *
 csv_load(char* file)
@@ -80,7 +80,7 @@ csv_load(char* file)
 		if(b == NULL)
 			break;
 
-		//printf("found (%d/%d) %d %s\n", x, y, c->lcount, s);
+		//printf("found (%d/%d) %d \"%s\"\n", x, y, c->lcount, s);
 		c->ptrs[x++][y] = s;
 
 		if(x >= c->hcount){
@@ -111,13 +111,13 @@ csv_unload(Csv *c)
 //return the X/Y position of the first match between header/pattern.
 //should give the start index for recursion...
 int
-csv_searchpos(Csv *c, char *header, char *pattern, int *pos)
+csv_searchpos(Csv *c, char *header, char *pattern, int starty, int *pos)
 {
 	int hi = csv_getheaderindex(c, header);
 	if(hi == -1)
 		return -1;
 
-	int vi = getvalueindex(c, hi, pattern);
+	int vi = getvalueindex(c, hi, pattern, starty);
 	if(vi == -1)
 		return -1;
 
@@ -128,13 +128,27 @@ csv_searchpos(Csv *c, char *header, char *pattern, int *pos)
 }
 
 int
+csv_searchline(Csv *c, char *header, char *pattern, int y)
+{
+	int x = csv_getheaderindex(c, header);
+	if(x == -1)
+		return -1;
+
+	if (strcmp(c->ptrs[x][y], pattern) == 0)
+		return x;
+
+	//fprintf(stderr, "Error: pattern \"%s\" not found in the specified line.\n", pattern);
+	return -1;
+}
+
+int
 csv_getheaderindex(Csv *c, char *header)
 {
 	for(int i = 0; i < c->hcount; i++)
 		if (strcmp(c->headers[i], header) == 0)
 			return i;
 
-	fprintf(stderr, "Error: the header wasn't found in the Csv struct.\n");
+	//fprintf(stderr, "Error: the header wasn't found in the Csv struct.\n");
 	return -1;
 }
 
@@ -145,13 +159,13 @@ csv_ptr(Csv *c, int *pos)
 }
 
 static int
-getvalueindex(Csv *c, int xindex, char *pattern)
+getvalueindex(Csv *c, int xindex, char *pattern, int starty)
 {
-	for(int i = 0; i < c->lcount-1; i++) //??? if I don't do -1, the program crashes. There's a mistake somewhere...
+	for(int i = starty; i < c->lcount; i++)
 		if(strcmp(c->ptrs[xindex][i], pattern) == 0)
 			return i;
 
-	fprintf(stderr, "Error: pattern not found in the Csv struct.\n");
+	//fprintf(stderr, "Error: pattern \"%s\" not found in the Csv struct.\n", pattern);
 	return -1;
 }
 

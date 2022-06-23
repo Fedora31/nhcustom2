@@ -18,7 +18,8 @@ typedef struct Csvres{
 }Csvres;
 
 Csv * csv_load(char *);
-int csv_searchpos(Csv *, char *, char *, int *);
+int csv_searchpos(Csv *, char *, char *, int,  int *);
+int csv_searchline(Csv *, char *, char *, int);
 int csv_getheaderindex(Csv *, char *);
 char * csv_ptr(Csv *, int *);
 void csv_unload(Csv *);

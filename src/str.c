@@ -15,3 +15,12 @@ wstrsep(char **strp, char *delim)
 	}
 	return start;
 }
+
+//remove the char at the given index, then shift all the chars after it back one case
+void
+strremc(char *s, int index)
+{
+	for(; s[index] != '\0'; index++){
+		s[index] = s[index+1];
+	}
+}
