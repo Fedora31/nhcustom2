@@ -165,17 +165,23 @@ getvalueindex(Csv *c, int xindex, char *pattern, int starty)
 	regex_t regex;
 	regmatch_t match[1];
 
-	if(regcomp(&regex, pattern, REG_ICASE)) //don't care about case
+	int res;
+	if((res = regcomp(&regex, pattern, REG_ICASE | REG_EXTENDED))){ //don't care about case
+		char err[44];
+		regerror(res, &regex, err, 44);
+		printf("regex error %d: %s\n", res, err);
 		return -2;
-
+	}
 
 	for(int i = starty; i < c->lcount; i++){
 		if(!regexec(&regex, c->ptrs[xindex][i], sizeof(match) / sizeof(match[0]), match, 0)){
+			regfree(&regex);
 			return i;
 		}
 	}
 
 	//fprintf(stderr, "Error: pattern \"%s\" not found in the Csv struct.\n", pattern);
+	regfree(&regex);
 	return -1;
 }
 

@@ -6,7 +6,7 @@
 #include "pathlist.h"
 #include "parser.h"
 #include "defield.h"
-
+#include "date.h"
 
 //Paths gotten at every line
 static Pathlist globalpaths;
@@ -132,13 +132,10 @@ gethv(char **s, Hvpair *hvpair)
 static int
 redirect(Csv *db, Csvi *csvi, Hvpair *hvpair)
 {
-	if(strcmp(hvpair->header, "class") == 0)
-		printf("class\n");
-	else if(strcmp(hvpair->header, "date") == 0)
-		printf("date\n");
-	else if(strcmp(hvpair->header, "equip") == 0)
-		printf("equip\n");
-
+	if(strcmp(hvpair->header, "date") == 0)
+		return date_add(db, csvi, hvpair);
+	if(strcmp(hvpair->header, "path") == 0)
+		printf("path\n");
 	return defield_add(db, csvi, hvpair);
 }
 

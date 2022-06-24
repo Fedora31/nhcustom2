@@ -3,7 +3,7 @@ SRC = src/*.c
 CFLAGS = -Wall
 
 ifeq ($(OS), Windows_NT)
-	CFLAGS += -lregex
+	CFLAGS += -l:libregex.a -l:libtre.a -l:libintl.a -l:libtre.a -l:libiconv.a
 endif
 
 build:

@@ -1,21 +1,20 @@
 keep
 #this is a configuration file.
 
-bouh
-hat:
-aaa:
-hat:Magnanimous Monarch
-hat:!Magnanimous Monarch
-hat:Electronic Sports League
-hat:Marxman
-hat:Towering Pile Of Presents:hat:Marxman:hat:!Marxman
-update:Scream Fortress 2020
+#bouh
+#hat:
+#aaa:
+#hat:Magnanimous Monarch
+#hat:!Magnanimous Monarch
+#hat:Electronic Sports League
+#hat:marxman
+#hat:towering pile of presents:hat:Marxman:hat:!Marxman
+#update:Scream Fortress 20:update:!scream fortress 201
 
+#class:Multiple classes
+#class:^((?!All classes).)*$
+#class:All classes
 
+#hat:aaa
 
-
-#class:*Soldier:path:*soldier.mdl
-#class:Multiple classes:class:All classes:class:*!Spy:date:2007/2008
-#date:2009-01-05/2010
-#date:2014
-#equip:Disconnected Floating Item|*Beard
+date:2021-05-05
