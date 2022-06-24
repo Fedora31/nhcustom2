@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <regex.h>
 #include "csv.h"
 #include "str.h"
 #include <unistd.h>
@@ -114,12 +115,12 @@ int
 csv_searchpos(Csv *c, char *header, char *pattern, int starty, int *pos)
 {
 	int hi = csv_getheaderindex(c, header);
-	if(hi == -1)
-		return -1;
+	if(hi < 0)
+		return hi;
 
 	int vi = getvalueindex(c, hi, pattern, starty);
-	if(vi == -1)
-		return -1;
+	if(vi < 0)
+		return vi;
 
 	pos[0] = hi;
 	pos[1] = vi;
@@ -161,9 +162,18 @@ csv_ptr(Csv *c, int *pos)
 static int
 getvalueindex(Csv *c, int xindex, char *pattern, int starty)
 {
-	for(int i = starty; i < c->lcount; i++)
-		if(strcmp(c->ptrs[xindex][i], pattern) == 0)
+	regex_t regex;
+	regmatch_t match[1];
+
+	if(regcomp(&regex, pattern, REG_ICASE)) //don't care about case
+		return -2;
+
+
+	for(int i = starty; i < c->lcount; i++){
+		if(!regexec(&regex, c->ptrs[xindex][i], sizeof(match) / sizeof(match[0]), match, 0)){
 			return i;
+		}
+	}
 
 	//fprintf(stderr, "Error: pattern \"%s\" not found in the Csv struct.\n", pattern);
 	return -1;

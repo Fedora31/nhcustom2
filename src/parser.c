@@ -90,9 +90,8 @@ parseline(Csv *db, char *line)
 
 
 	//modify the gcsvi according to the lcsvi and if the first value was an exception
-	if(exception){
+	if(exception)
 		csvi_remfrom(&gcsvi, &lcsvi);
-	}
 	else
 		csvi_addfrom(&gcsvi, &lcsvi);
 	
