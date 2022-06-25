@@ -1,39 +1,29 @@
 #include <stdio.h>
 #include <string.h>
 #include <regex.h>
+#include <time.h>
+#include "str.h"
 #include "csv.h"
 #include "pathlist.h"
 #include "parser.h"
 #include "date.h"
 
-static void formatdate(char *);
 
-#define Y11 0
-#define Y12 1
-#define Y13 2
-#define Y14 3
-#define M11 5
-#define M12 6
-#define D11 8
-#define D12 9
-#define Y21 11
-#define Y22 12
-#define Y23 13
-#define Y24 14
-#define M21 16
-#define M22 17
-#define D21 19
-#define D22 20
+
+static void formatdate(char *, char *);
+static time_t getepoch(char *);
+
 
 int
 date_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
 {
-	printf("DATE: %s\n", hvpair->value);
-
 	char pattern[] = "^([0-9]{4})(-[0-9]{2})?(-[0-9]{2})?(/)?([0-9]{4})?(-[0-9]{2})?(-[0-9]{2})?$";
 	regex_t regex;
 	regmatch_t match[8];
 	int res;
+
+	//if I don't set it to 0, an char from nowhere sometimes appear in the 1st position of the string. ??
+	char date[22] = {0}; //0000-00-00/0000-00-00\0
 
 	if((res = regcomp(&regex, pattern, REG_EXTENDED))){
 		char err[44];
@@ -46,38 +36,89 @@ date_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
 		regfree(&regex);
 		return -1;
 	}
-
-	printf("MATCH\n");
-	for(int i = 0; i < 8; i++){
-		printf("%s\n", hvpair->value + match[i].rm_so);
-	}
-
-
-
 	regfree(&regex);
 
+	//add any missing years, months, or days
+	formatdate(hvpair->value, date);
+
+	printf("formatted date: %s\n", date);
+
+	//separate the dates and parse them to transform them into seconds since the epoch.
+	//windows and unix epoch are different, but it shouldn't matter in this case.
+
+	time_t time1, time2;
+	char *d1, *d2, *ptr = date;
+	d1 = wstrsep(&ptr, "/");
+	d2 = ptr;
+	if((time1 = getepoch(d1)) < 0)
+		return -1;
+	if((time2 = getepoch(d2)) < 0)
+		return -1;
+
+	printf("time1 %ld\ntime2 %ld\n", time1, time2);
 
 
+	int pos[2];
+	int y = 0;
 
+	//process every line in the db
+	while (csv_searchpos(db, hvpair->header, ".*", y, pos) >= 0){
+		y++;
 
+		time_t t;
+		if((t = getepoch(csv_ptr(db, pos))) < 0){
+			printf("Warning: bad date in the csv file, pos %d/%d\n", pos[0], pos[1]); //maybe before the UNIX or Windows epoch?
+			continue;
+		}
 
-
-
-	/*char t[] = "0000-00-00/0000-12-31";
-	char *d = hvpair->value;
-
-	memcpy(t, d, strlen(d));
-	printf("DATE: %s\n", t);
-
-	formatdate(t);
-
-	printf("DATE: %s\n", t);*/
-
+		if(t >= time1 && t <= time2){
+			if(hvpair->exception)
+				csvi_remy(csvi, pos[1]);
+			else
+				csvi_addpos(csvi, pos);
+		}
+	}
 	return 0;
 }
 
 static void
-formatdate(char *d)
+formatdate(char *d, char *fd)
 {
-	//copy the date code from the original nhcustom
+	//I'm aware that this is the most basic and useless code ever written to format a date.
+	//the code from the original nhcustom was waay more complicated that that and
+	//hielded bad results anyway. For the sake of simplicity, I give the burden of creating
+	//correct dates to the user.
+
+	memcpy(fd, "0000-01-01/0000-12-31", 22);
+	memcpy(fd, d, strlen(d)); //get the year
+
+	//copy the first year over to the second year if it's empty
+	if(fd[11] == '0' && fd[12] == '0' && fd[13] == '0' && fd[14] == '0')
+		memcpy(fd + 11, d, 4);
+}
+
+static time_t getepoch(char *date)
+{
+	//Windows doesn't have strptime(), gaaah
+
+	//don't forget to set the tm structs to 0!
+	struct tm tm = {0};
+	int year, month, day;
+	time_t time;
+
+	if(sscanf(date, "%d-%d-%d", &year, &month, &day) < 3){
+		fprintf(stderr, "Error: time1 sscanf()\n");
+		return -3;
+	}
+	tm.tm_year = year - 1900;
+	tm.tm_mon = month - 1;
+	tm.tm_mday = day;
+	tm.tm_isdst = -1;
+	time = mktime(&tm);
+	if(time < 0){
+		fprintf(stderr, "Error: time1 mktime()\n");
+		return -4;
+	}
+
+	return time;
 }
