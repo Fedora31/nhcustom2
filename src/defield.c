@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include "csv.h"
-#include "pathlist.h"
 #include "parser.h"
+#include "pl.h"
 #include "defield.h"
 
 int
-defield_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
+defield_add(Csv *db, Pl* pl, Hvpair *hvpair)
 {
 	int pos[2];
+	int cpos[2];
+
 	int ok = 0;
 	int y = 0;
 
@@ -17,10 +19,15 @@ defield_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
 
 		//printf("match: \"%s\" at pos %d/%d\n", csv_ptr(db, pos), pos[0], pos[1]);
 
+		pos[0] = csv_getheaderindex(db, "path");
+		cpos[0] = csv_getheaderindex(db, "class");
+		cpos[1] = pos[1];
+
 		if(hvpair->exception)
-			csvi_remy(csvi, pos[1]);
+			pl_frem(pl, csv_ptr(db, cpos), csv_ptr(db, pos));
 		else
-			csvi_addpos(csvi, pos);
+			pl_fadd(pl, csv_ptr(db, cpos), csv_ptr(db, pos));
+
 	}
 	if(ok)//at least 1 result
 		return 0;

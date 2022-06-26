@@ -56,30 +56,30 @@ or add extra fields, assuming that any new fields are added *in every line* of t
 database.
 
 `hat`, `update`, `equip` or `class` can take any word or string, as long as something
-in the database matches it. The `date` header, however, **must** be written like
-so:
+in the database matches it. The `date` header, however, **must** be written with
+care:
 
 ```
 date:2021
-#or
+#will expand to 2021-01-01/2021-12-31
 date:2021-05
-#or
-date:2021-05-05
-#or
-date:2021-05-05/2022
-#or
-date:2021-05-05/2022-05
-#or
-date:2021-05-05/2022-05-05
-
-#NOT
-date:2021-05/2022-05-05
-#(its missing the days of the first date)
-#...or any sort of notation
+#will expand to 2021-05-01/2021-12-31
+date:2021-05-06
+#will expand to 2021-05-06/2021-12-31
+date:2021-05-06/2022
+#will expand to 2021-05-06/2022-12-31
 ```
 
-This is due to a limitation of the program. I however think it's not terribly
-difficult to follow those rules.
+writing
+
+```
+date:2021/2022
+```
+
+will **NOT** work, as opposed to the previous program.
+
+This is due to a limitation of the program. As a rule of thumb, always write
+dates entirely to avoid confusion.
 
 You can also "stack" statements one after the other, by separating them with
 a colon `:`. Doing this allows to filter out results found in the first statement.
@@ -141,11 +141,12 @@ class:^Scout$
 
 For people experienced with regexes, please note that the regex implementation
 used by this program isn't the most feature-complete one, which could cause
-some advanced regexes to fail. Also, there is currently no way of writing
-regexes with colons in it, or that begin with a `!`.
+some "modern" regexes to fail. The standard used is the [POSIX Extended Regular
+Syntax](https://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended).
 
-Another important point is that regexes **cannot** be used with the `date`
-header.
+Also, there is currently no way of writing regexes with colons in it, or that begin with a `!`.
+
+Another important point is that regexes **cannot** be used with the `date` header.
 
 
 ## the `input` and `output` folders

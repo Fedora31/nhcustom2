@@ -63,6 +63,8 @@ main(int argc, char **args)
 		return 1;
 	}
 
+	parser_exec(db);
+
 	csv_unload(db);
 	fclose(conf);
 	parser_clean();

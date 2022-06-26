@@ -4,8 +4,8 @@
 #include <time.h>
 #include "str.h"
 #include "csv.h"
-#include "pathlist.h"
 #include "parser.h"
+#include "pl.h"
 #include "date.h"
 
 
@@ -15,7 +15,7 @@ static time_t getepoch(char *);
 
 
 int
-date_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
+date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 {
 	char pattern[] = "^([0-9]{4})(-[0-9]{2})?(-[0-9]{2})?(/)?([0-9]{4})?(-[0-9]{2})?(-[0-9]{2})?$";
 	regex_t regex;
@@ -44,7 +44,7 @@ date_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
 	printf("formatted date: %s\n", date);
 
 	//separate the dates and parse them to transform them into seconds since the epoch.
-	//windows and unix epoch are different, but it shouldn't matter in this case.
+	//windows and UNIX epoch are different, but it shouldn't matter in this case.
 
 	time_t time1, time2;
 	char *d1, *d2, *ptr = date;
@@ -59,6 +59,7 @@ date_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
 
 
 	int pos[2];
+	int cpos[2];
 	int y = 0;
 
 	//process every line in the db
@@ -71,11 +72,15 @@ date_add(Csv *db, Csvi *csvi, Hvpair *hvpair)
 			continue;
 		}
 
+		pos[0] = csv_getheaderindex(db, "path");
+		cpos[0] = csv_getheaderindex(db, "class");
+		cpos[1] = pos[1];
+
 		if(t >= time1 && t <= time2){
 			if(hvpair->exception)
-				csvi_remy(csvi, pos[1]);
+				pl_frem(pl, csv_ptr(db, cpos), csv_ptr(db, pos));
 			else
-				csvi_addpos(csvi, pos);
+				pl_fadd(pl, csv_ptr(db, cpos), csv_ptr(db, pos));
 		}
 	}
 	return 0;

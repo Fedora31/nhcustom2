@@ -3,25 +3,24 @@
 #include <stdlib.h>
 #include "str.h"
 #include "csv.h"
-#include "pathlist.h"
 #include "parser.h"
+#include "pl.h"
 #include "defield.h"
 #include "date.h"
 
-//Paths gotten at every line
-static Pathlist globalpaths;
 
 
 static Csvi gcsvi; //global indexes
 static Csvi lcsvi; //line indexes
-
+static Pl gpl; //global pathlist
+static Pl lpl; //line pathlist
 
 //get from the given string the header and the value(s) to search in it
 //the given string is modified.
 static int gethv(char **, Hvpair *);
 
 //redirect the header/values to the function suited to handle them
-static int redirect(Csv *, Csvi *, Hvpair *);
+static int redirect(Csv *, Pl*, Hvpair *);
 
 
 void
@@ -40,13 +39,20 @@ void
 parser_show(Csv *db)
 {
 	printf("~matches~\n");
-	int hatindex = csv_getheaderindex(db, "hat");
+	/*int hatindex = csv_getheaderindex(db, "hat");
 	
 	for(int i = 0; i < gcsvi.max; i++){
 		if(gcsvi.pos[i][0] == -1)
 			continue;
 		printf("%s\n", db->ptrs[hatindex][gcsvi.pos[i][1]]);
+	}*/
+
+	for(int i = 0; i < gpl.max; i++){
+		if(gpl.path[i][0] == 0)
+			continue;
+		printf("%s\n", gpl.path[i]);
 	}
+
 	printf("~end~\n");
 }
 
@@ -62,6 +68,7 @@ parseline(Csv *db, char *line)
 
 	Hvpair hvpair;
 	csvi_alloc(&lcsvi);
+	pl_alloc(&lpl);
 
 	int exception; //holds if the first value of the line is an exception
 	int res;
@@ -80,7 +87,7 @@ parseline(Csv *db, char *line)
 			hvpair.exception = 0;
 		}
 
-		if(redirect(db, &lcsvi, &hvpair) < 0)
+		if(redirect(db, &lpl, &hvpair) < 0)
 			return -1;
 
 		i++;
@@ -90,14 +97,27 @@ parseline(Csv *db, char *line)
 
 
 	//modify the gcsvi according to the lcsvi and if the first value was an exception
-	if(exception)
+	/*if(exception)
 		csvi_remfrom(&gcsvi, &lcsvi);
 	else
-		csvi_addfrom(&gcsvi, &lcsvi);
-	
+		csvi_addfrom(&gcsvi, &lcsvi);*/
+
+	if(exception)
+		pl_remfrom(&gpl, &lpl);
+	else
+		pl_addfrom(&gpl, &lpl);
+
+
 	csvi_free(&lcsvi);
+	pl_free(&lpl);
 
 	return 0;
+}
+
+void
+parser_exec(Csv *db)
+{
+	//do the stuff here
 }
 
 static int
@@ -130,13 +150,17 @@ gethv(char **s, Hvpair *hvpair)
 }
 
 static int
-redirect(Csv *db, Csvi *csvi, Hvpair *hvpair)
+redirect(Csv *db, Pl* pl, Hvpair *hvpair)
 {
 	if(strcmp(hvpair->header, "date") == 0)
-		return date_add(db, csvi, hvpair);
-	if(strcmp(hvpair->header, "path") == 0)
+		return date_add(db, pl, hvpair);
+	if(strcmp(hvpair->header, "path") == 0){
 		printf("path\n");
-	return defield_add(db, csvi, hvpair);
+		return 0;
+	}
+
+
+	return defield_add(db, pl, hvpair);
 }
 
 
