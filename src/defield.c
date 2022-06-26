@@ -10,11 +10,9 @@ defield_add(Csv *db, Pl* pl, Hvpair *hvpair)
 	int pos[2];
 	int cpos[2];
 
-	int ok = 0;
 	int y = 0;
 
 	while (csv_searchpos(db, hvpair->header, hvpair->value, y, pos) >= 0){
-		ok = 1;
 		y = pos[1]+1;//get past the current result
 
 		//printf("match: \"%s\" at pos %d/%d\n", csv_ptr(db, pos), pos[0], pos[1]);
@@ -29,7 +27,5 @@ defield_add(Csv *db, Pl* pl, Hvpair *hvpair)
 			pl_fadd(pl, csv_ptr(db, cpos), csv_ptr(db, pos));
 
 	}
-	if(ok)//at least 1 result
-		return 0;
-	return -1;
+	return 0;
 }

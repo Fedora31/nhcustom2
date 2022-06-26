@@ -65,7 +65,7 @@ strswap(char *s, char *pattern, char *new)
 		return;
 
 	//temporary string
-	char *tmp = calloc(STR_LEN, sizeof(char)); //no more than STR_LEN then, watch out :)
+	char *tmp = calloc(STR_LEN, sizeof(char)); //no more than STR_LEN then, watch out :)))))
 
 	//copy the first bit of the string, the new part, then the end of the string
 	memcpy(tmp, s, subs - s);

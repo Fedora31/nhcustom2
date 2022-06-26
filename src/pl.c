@@ -56,7 +56,7 @@ pl_add(Pl *pl, char *path)
 		if(pl->path[i][0] != 0)
 			continue;
 		memcpy(pl->path[i], path, strlen(path)+1);
-		printf("added %s\n", path);
+		//printf("added %s\n", path);
 		return;
 	}
 	pl_realloc(pl);
@@ -71,7 +71,7 @@ pl_rem(Pl *pl, char *path)
 			continue;
 		if(strcmp(pl->path[i], path) == 0){
 			memset(pl->path[i], 0, CSV_FIELD);
-			printf("removed %s\n", path);	
+			//printf("removed %s\n", path);	
 			return;
 		}
 	}
@@ -116,7 +116,7 @@ static void pl_modify(Pl *pl, char *classstr, char *pathsstr, int remove)
 	char classes[CSV_FIELD];
 	//replace potential "All classes" string by a string with all the classes
 	if(strcmp(classstr, "All classes") == 0)
-		memcpy(classes, allclasses, sizeof(allclasses)+1);
+		memcpy(classes, allclasses, sizeof(allclasses));
 	else
 		memcpy(classes, classstr, strlen(classstr)+1);
 

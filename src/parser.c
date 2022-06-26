@@ -7,11 +7,12 @@
 #include "pl.h"
 #include "defield.h"
 #include "date.h"
+#include "path.h"
 
 
 
-static Csvi gcsvi; //global indexes
-static Csvi lcsvi; //line indexes
+//static Csvi gcsvi; //global indexes
+//static Csvi lcsvi; //line indexes
 static Pl gpl; //global pathlist
 static Pl lpl; //line pathlist
 
@@ -26,13 +27,15 @@ static int redirect(Csv *, Pl*, Hvpair *);
 void
 parser_init(void)
 {
-	csvi_alloc(&gcsvi);
+	//csvi_alloc(&gcsvi);
+	pl_alloc(&gpl);
 }
 
 void
 parser_clean(void)
 {
-	csvi_free(&gcsvi);
+	//csvi_free(&gcsvi);
+	pl_free(&gpl);
 }
 
 void
@@ -67,7 +70,7 @@ parseline(Csv *db, char *line)
 	char *li = l; //line index
 
 	Hvpair hvpair;
-	csvi_alloc(&lcsvi);
+	//csvi_alloc(&lcsvi);
 	pl_alloc(&lpl);
 
 	int exception; //holds if the first value of the line is an exception
@@ -108,7 +111,7 @@ parseline(Csv *db, char *line)
 		pl_addfrom(&gpl, &lpl);
 
 
-	csvi_free(&lcsvi);
+	//csvi_free(&lcsvi);
 	pl_free(&lpl);
 
 	return 0;
@@ -154,12 +157,8 @@ redirect(Csv *db, Pl* pl, Hvpair *hvpair)
 {
 	if(strcmp(hvpair->header, "date") == 0)
 		return date_add(db, pl, hvpair);
-	if(strcmp(hvpair->header, "path") == 0){
-		printf("path\n");
-		return 0;
-	}
-
-
+	if(strcmp(hvpair->header, "path") == 0)
+		return path_add(db, pl, hvpair);
 	return defield_add(db, pl, hvpair);
 }
 

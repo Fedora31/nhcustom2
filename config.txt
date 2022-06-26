@@ -1,25 +1,24 @@
 keep
 #this is a configuration file.
 
-#bouh
-#hat:
-#aaa:
 
 hat:Magnanimous Monarch
-#hat:!Magnanimous Monarch
+hat:!Magnanimous Monarch
 hat:Electronic Sports League
 hat:marxman:hat:!marxman
 hat:Team Captain
 hat:Military Grade JACK Hat
 
-#hat:towering pile of presents:hat:Marxman:hat:!Marxman
-#update:Scream Fortress 20:update:!scream fortress 201
+hat:towering pile of presents:hat:Marxman:hat:!Marxman
 
-#class:Multiple classes
-#class:^((?!All classes).)*$
-#class:All classes
 
-#hat:aaa
+
+hat:aaa
 
 date:2009-01-01/2010:date:!2009
-date:!2009-01-01/2088
+
+path:.*scout.\*:path:!.*scout.\*
+path:style[1-2]:path:!style1
+
+hat:millennial mercenary:path:!style
+hat:$lol^

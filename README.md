@@ -50,12 +50,16 @@ By default, the values that can go in place of `header` are the following:
 * `equip` for an equip region
 * `class`
 * `date`
+* `path`
 
 Those values are taken from the first line of the database. One could modify them
 or add extra fields, assuming that any new fields are added *in every line* of the
 database.
 
-`hat`, `update`, `equip` or `class` can take any word or string, as long as something
+`path` is a new addition. It lets the user specify  paths, which coupled with the new
+syntax could for example allow to show/remove specific styles of cosmetics.
+
+`hat`, `update`, `equip`, `class` or `path` can take any word or string, as long as something
 in the database matches it. The `date` header, however, **must** be written with
 care:
 
@@ -161,7 +165,7 @@ and is ready to be compiled into a .vpk file by the program of your choice.
 
 ## Examples
 
-Below are some example of the syntax used by the configuration file.
+Below are some example of what could be entered in the configuration file.
 
 ```
 #find hats that can be worn by mutiple classes but that are not all-class
@@ -169,9 +173,12 @@ class:.*:class:!All classes
 
 #deselect hats that came out between 2008 and march 1st, 2013, except
 #if they can be worn by the soldier (along with other classes)
-date:!2008-2013-3-1:class:!Soldier
+date:!2008-01-01/2013-3-1:class:!Soldier
 
-#finds all the hats containing the string "aaa"
+#find all the hats containing the string "aaa"
 hat:aaa
+
+#find only the 1st style of the Millennial Mercenary
+hat:millennial mercenary:path:!style
 
 ```

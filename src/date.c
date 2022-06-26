@@ -55,7 +55,7 @@ date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 	if((time2 = getepoch(d2)) < 0)
 		return -1;
 
-	printf("time1 %ld\ntime2 %ld\n", time1, time2);
+	//printf("time1 %ld\ntime2 %ld\n", time1, time2);
 
 
 	int pos[2];
