@@ -4,3 +4,7 @@ nhcustom2*
 
 #vim swap files
 *.swp
+
+#folders
+input
+output
