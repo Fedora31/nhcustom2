@@ -13,7 +13,7 @@ static void rmnl(char *);
 int
 main(int argc, char **args)
 {
-	printf("-- nhcustom2 --\n");
+	//printf("-- nhcustom2 --\n");
 
 	Csv *db = csv_load("database.csv");
 	FILE *conf = fopen("config.txt", "rb");
@@ -22,6 +22,7 @@ main(int argc, char **args)
 		csv_unload(db);
 		return 1;
 	}
+	int remove = 1;
 	char line[LINE_LENGTH] = {0};
 	int err = 0;
 
@@ -33,11 +34,13 @@ main(int argc, char **args)
 	}
 	rmnl(line);
 
-	if(strcmp(line, "keep") == 0)
-		printf("<keep mode>\n");
-	else if (strcmp(line, "remove") == 0)
-		printf("<remove mode>\n");
-	else {
+	if(strcmp(line, "keep") == 0){
+		//printf("<keep mode>\n");
+		remove = 0;
+	}else if (strcmp(line, "remove") == 0){
+		remove = 1;
+		//printf("<remove mode>\n");
+	}else{
 		fprintf(stderr, "Error: unkown mode. Either \"keep\" or \"remove\" must be on the first line.\n");
 		csv_unload(db);
 		fclose(conf);
@@ -63,7 +66,7 @@ main(int argc, char **args)
 		return 1;
 	}
 
-	parser_exec(db);
+	//parser_exec(remove);
 
 	csv_unload(db);
 	fclose(conf);

@@ -8,6 +8,7 @@
 #include "defield.h"
 #include "date.h"
 #include "path.h"
+#include "copy.h"
 
 
 
@@ -41,7 +42,7 @@ parser_clean(void)
 void
 parser_show(Csv *db)
 {
-	printf("~matches~\n");
+	//printf("~matches~\n");
 	/*int hatindex = csv_getheaderindex(db, "hat");
 	
 	for(int i = 0; i < gcsvi.max; i++){
@@ -56,7 +57,7 @@ parser_show(Csv *db)
 		printf("%s\n", gpl.path[i]);
 	}
 
-	printf("~end~\n");
+	//printf("~end~\n");
 }
 
 int
@@ -84,7 +85,7 @@ parseline(Csv *db, char *line)
 		//the first value of a line will always be added, but it's exception status is saved
 		//and will determine if the whole line will be added to or deleted from the gcsvis
 		if(i == 0) {
-			printf("%s\n", line);
+			//printf("%s\n", line);
 
 			exception = hvpair.exception;
 			hvpair.exception = 0;
@@ -118,9 +119,10 @@ parseline(Csv *db, char *line)
 }
 
 void
-parser_exec(Csv *db)
+parser_exec(int remove)
 {
 	//do the stuff here
+	copypaths(&gpl, remove);
 }
 
 static int

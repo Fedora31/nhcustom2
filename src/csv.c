@@ -12,7 +12,7 @@ static int getvalueindex(Csv *, int, char *, int);
 Csv *
 csv_load(char* file)
 {
-	printf("loading csv file...");
+	//printf("loading csv file...");
 
 	FILE * f;
 	f = fopen(file, "rb");
@@ -94,7 +94,7 @@ csv_load(char* file)
 			break;
 
 	}
-	printf("done\n");
+	//printf("done\n");
 
 	return c;
 }

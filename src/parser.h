@@ -20,7 +20,7 @@ typedef struct Csvi{
 
 void parser_init(void);
 void parser_show(Csv *);
-void parser_exec(Csv *);
+void parser_exec(int);
 void parser_clean(void);
 int parseline(Csv *, char *);
 
