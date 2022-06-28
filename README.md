@@ -47,11 +47,17 @@ file containing the script used by the program. Lines beginning with a
 pound sign (`#`) are taken as comments and not parsed. It should contain only
 ASCII characters.
 
-The **first** line of the file MUST contain either the word `remove` or `keep`.
-This informs the program wether the hats the file specifies must be removed
-from the game, or kept in with everything else removed.
+The **first** line of the file MUST contain either the word (called flag) `remove`
+or `keep`. This informs the program wether the hats the file specifies must be
+removed from the game, or kept in with everything else removed.
 
-The syntax of the file is the following:
+If you plan to remove a lot of cosmetics, I recommand using the `keep` flag. The
+database doesn't cover all the cosmetics (like medals) and probably contains
+errors. the `keep` flag makes the program work with paths from the input
+directory instead, which greatly reduces the risk of encountering unwanted
+cosmetics in game.
+
+The syntax of the configuration file is the following:
 
 ```
 header:pattern
@@ -74,7 +80,7 @@ or add extra fields, assuming that any new fields are added *in every line* of t
 database.
 
 `path` is a new addition. It lets the user specify  paths, which coupled with the new
-syntax could for example allow to show/remove specific styles of cosmetics.
+syntax can for example allow to show/remove specific styles of cosmetics.
 
 `hat`, `update`, `equip`, `class` or `path` can take any word or string, as long as something
 in the database matches it. The `date` header, however, **must** be written with
