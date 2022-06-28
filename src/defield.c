@@ -4,6 +4,8 @@
 #include "pl.h"
 #include "defield.h"
 
+
+//add the paths of the matches in the database in pl.
 int
 defield_add(Csv *db, Pl* pl, Hvpair *hvpair)
 {

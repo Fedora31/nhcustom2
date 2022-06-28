@@ -13,8 +13,6 @@ static void rmnl(char *);
 int
 main(int argc, char **args)
 {
-	//printf("-- nhcustom2 --\n");
-
 	Csv *db = csv_load("database.csv");
 	FILE *conf = fopen("config.txt", "rb");
 	if(conf == NULL) {
@@ -35,11 +33,9 @@ main(int argc, char **args)
 	rmnl(line);
 
 	if(strcmp(line, "keep") == 0){
-		//printf("<keep mode>\n");
 		remove = 0;
 	}else if (strcmp(line, "remove") == 0){
 		remove = 1;
-		//printf("<remove mode>\n");
 	}else{
 		fprintf(stderr, "Error: unkown mode. Either \"keep\" or \"remove\" must be on the first line.\n");
 		csv_unload(db);
@@ -47,12 +43,16 @@ main(int argc, char **args)
 		return 1;
 	}
 
+
 	if(parser_init(db, remove) < 0){
 		fprintf(stderr, "Error: could not initialize the parser\n");
+		csv_unload(db);
+		fclose(conf);
 		return 1;
 	}
 
 
+	//send each line to the parser
 	while(fgets(line, LINE_LENGTH, conf) != NULL){
 		rmnl(line);
 		if(parseline(line) < 0) {
@@ -61,7 +61,9 @@ main(int argc, char **args)
 		}
 	}
 
+	//then output the matches to stdout
 	parser_show();
+
 
 	if(err){
 		fprintf(stderr, "Errors occured, aborting.\n");
@@ -71,7 +73,6 @@ main(int argc, char **args)
 		return 1;
 	}
 
-	//parser_exec(remove);
 
 	csv_unload(db);
 	fclose(conf);
@@ -80,6 +81,7 @@ main(int argc, char **args)
 }
 
 //"remove" newline (and carriage return)
+//move to str.c?
 static void
 rmnl(char *s)
 {

@@ -41,7 +41,7 @@ date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 	//add any missing years, months, or days
 	formatdate(hvpair->value, date);
 
-	printf("formatted date: %s\n", date);
+	//printf("formatted date: %s\n", date);
 
 	//separate the dates and parse them to transform them into seconds since the epoch.
 	//windows and UNIX epoch are different, but it shouldn't matter in this case.
@@ -57,7 +57,6 @@ date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 
 	//printf("time1 %ld\ntime2 %ld\n", time1, time2);
 
-
 	int pos[2];
 	int cpos[2];
 	int y = 0;
@@ -68,7 +67,8 @@ date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 
 		time_t t;
 		if((t = getepoch(csv_ptr(db, pos))) < 0){
-			printf("Warning: bad date in the csv file, pos %d/%d\n", pos[0], pos[1]); //maybe before the UNIX or Windows epoch?
+			//maybe the error is due to a date being before the UNIX or Windows epoch?
+			printf("Warning: bad date in the csv file, pos %d/%d\n", pos[0], pos[1]);
 			continue;
 		}
 
@@ -121,7 +121,7 @@ static time_t getepoch(char *date)
 	tm.tm_isdst = -1;
 	time = mktime(&tm);
 	if(time < 0){
-		fprintf(stderr, "Error: time1 mktime()\n");
+		fprintf(stderr, "Error: mktime()\n");
 		return -4;
 	}
 
