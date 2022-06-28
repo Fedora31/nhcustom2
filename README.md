@@ -5,17 +5,32 @@ the Team Fortress 2 mod "no hats mod".
 
 Some improvements have been made, including:
 
-* A more developped config syntax
+* A more advanced config syntax
 * The use of regular expressions (regexes)
+* The ability to search and filter paths
+
+The main drawback of this version is its speed: the program is a lot slower than
+its predecessor, especially on slow pcs. This is partly due to a lack of
+optimization (this will hopefully be fixed at some point) and to some parts of the
+program being handled by shell/batch scripts.
 
 Some parts of the program work differently than in the first version, making the
 configuration files made for the original program unusable. However, They are
 relatively easy to convert to the new syntax.
 
-The program is known to work with Windows 10 and Fedora (Linux). I don't
+The program is known to work with Windows 10 and Fedora 34 (Linux). I don't
 offer any support with this program, but feel free to let me know if something
 doesn't work as expected or if the database contains errors.
 
+## how to use
+
+Do not launch the program `nhcustom2` directly, unless you want to see what
+paths will be copied without actually touching your files. To generate a mod
+with your parameters, use the `START` shell/batch script corresponding to your
+OS.
+
+Add the parameters you want in the configuration file, then execute the script.
+The script **MUST** be executed while being in the same directory.
 
 ## the database
 
@@ -163,6 +178,17 @@ After the program is run, the resulting mod will be placed in the `output` folde
 and is ready to be compiled into a .vpk file by the program of your choice.
 
 
+## Compiling
+
+On Linux, simply use the makefile in the repository.
+
+If you want to compile this program for Windows 10, you'll have to install
+[MSYS2](https://msys2.org/) and use mingw64 when executing the makefile.
+
+This program has only been tested with GCC. It might compile on other
+OSes, but I haven't checked.
+
+
 ## Examples
 
 Below are some example of what could be entered in the configuration file.
@@ -180,5 +206,11 @@ hat:aaa
 
 #find only the 1st style of the Millennial Mercenary
 hat:millennial mercenary:path:!style
+
+#find every path with the word "scout" in them
+path:.*scout.*
+
+#find only the first style of the Foppish Physician
+hat:foppish physician:path:!necktie
 
 ```
