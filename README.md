@@ -1,4 +1,4 @@
-# nhcustom2
+# nhcustom2 (WIP)
 
 This program is the second version of nhcustom, a program created to modify
 the Team Fortress 2 mod "no hats mod".
