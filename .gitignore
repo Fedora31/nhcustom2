@@ -8,3 +8,6 @@ nhcustom2*
 #folders
 input
 output
+
+#config file
+config.txt
