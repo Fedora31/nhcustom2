@@ -2,7 +2,7 @@
  * requires: "csv.h"
  */
 
-#define PL_DEF_SIZE 4 //to increase lol
+#define PL_DEF_SIZE 512
 
 //path list
 typedef struct Pl{
@@ -21,3 +21,4 @@ void pl_addfrom(Pl *, Pl *);
 void pl_rem(Pl *, char *);
 void pl_frem(Pl *, char *, char *);
 void pl_remfrom(Pl *, Pl *);
+int pl_contain(Pl *, char *);

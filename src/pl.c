@@ -2,15 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <regex.h>
 #include "str.h"
 #include "csv.h"
 #include "parser.h"
 #include "pl.h"
 
-//hardcoded and ugly
-static char allclasses[] = "Scout|Soldier|Pyro|Demoman|Heavy|Engineer|Medic|Sniper|Spy\0";
+#define INPUT_DIR "./input/\0"
+#define OUTPUT_DIR "./output/\0"
 
-static void pl_modify(Pl *, char*, char*, int);
+//hardcoded and ugly
+static char allclasses[] = "Scout|Soldier|Pyro|Demo|Heavy|Engineer|Medic|Sniper|Spy\0";
+
+static void pl_modify(Pl *, char *, char *, int);
+static void getfiles(Pl *, char *, int);
 
 void
 pl_alloc(Pl *pl)
@@ -109,8 +116,23 @@ pl_frem(Pl *pl, char *classstr, char *pathsstr)
 	pl_modify(pl, classstr, pathsstr, 1);
 }
 
+int
+pl_contain(Pl *pl, char *path)
+{
+	for(int i = 0; i < pl->max; i++){
+		if(pl->path[i][0] == 0)
+			continue;
+		if(strcmp(pl->path[i], path) == 0)
+			return 1;
+	}
+	return 0;
+}
+
 static void pl_modify(Pl *pl, char *classstr, char *pathsstr, int remove)
 {
+	if(strlen(pathsstr) == 0)
+		return;
+
 	//copy the classes and paths, as they will be modified
 
 	char classes[CSV_FIELD];
@@ -142,10 +164,13 @@ static void pl_modify(Pl *pl, char *classstr, char *pathsstr, int remove)
 
 		//no need to format it?
 		if(strstr(path[i], "[CLASS]") == NULL){
-			if(remove)
+			/*if(remove)
 				pl_rem(pl, path[i]);
 			else
-				pl_add(pl, path[i]);
+				pl_add(pl, path[i]);*/
+
+			getfiles(pl, path[i], remove);
+
 			continue;
 		}
 
@@ -155,14 +180,88 @@ static void pl_modify(Pl *pl, char *classstr, char *pathsstr, int remove)
 		//"[CLASS]" swapped by current class
 		strswapall(fpath, "[CLASS]", class[e]);
 
-		if(remove)
+		/*if(remove)
 			pl_rem(pl, fpath);
 		else
-			pl_add(pl, fpath);
+			pl_add(pl, fpath);*/
+
+		getfiles(pl, fpath, remove);
 
 	}
 	}
 
 	free(class);
 	free(path);
+}
+
+static void
+getfiles(Pl *pl, char *path, int remove)
+{
+	//Ze Code Butcher
+
+	int len = strlen(path);
+	char fpath[1024] = {INPUT_DIR};
+	char wholepath[1024];
+
+	//default pattern used on paths that
+	//reference a folder
+	char pattern[128] = {".*"};
+	char *pd;
+
+	
+	strcat(fpath, path);
+
+	if(path[len-1] == '*'){
+		//filepath targets files, make fpath the
+		//parent directory and get the pattern
+		pd = strrchr(fpath, '/');
+		fpath[pd - fpath] = '\0';
+		strcpy(pattern, pd+1); //+1 to exclue de '/'
+
+	}else if(fpath[len-1] == '/') //remove unnecessary slashes at the end of folder names
+		fpath[len-1] = '\0';
+
+	//printf("FPATH: %s\nPATTERN: %s\n", fpath, pattern);
+
+	regex_t regex;
+	regmatch_t match[1];
+	int res;
+	if((res = regcomp(&regex, pattern, REG_EXTENDED))){
+		char err[44];
+		regerror(res, &regex, err, 44);
+		printf("regex error %d: %s\n", res, err);
+		return;
+	}
+
+	struct dirent *file;
+	DIR *dir;
+
+	if((dir = opendir(fpath)) == NULL){
+		fprintf(stderr, "Error: could not open directory %s\n", fpath);
+		return;
+	}
+
+	while((file = readdir(dir)) != NULL){
+		if(strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
+			continue;
+
+		if(regexec(&regex, file->d_name, sizeof(match) / sizeof(match[0]), match, 0))
+			continue;
+
+		memcpy(wholepath, fpath, strlen(fpath)+1);
+		strcat(wholepath, "/");
+		strcat(wholepath, file->d_name);
+		strswap(wholepath, INPUT_DIR, "");
+		//printf("FILE: %s\n", wholepath);
+
+
+		if(remove)
+			pl_rem(pl, wholepath);
+		else
+			pl_add(pl, wholepath);
+	}
+
+	closedir(dir);
+	free(file);
+	regfree(&regex);
 }

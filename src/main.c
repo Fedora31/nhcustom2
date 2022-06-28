@@ -47,16 +47,21 @@ main(int argc, char **args)
 		return 1;
 	}
 
-	parser_init();
+	if(parser_init(db, remove) < 0){
+		fprintf(stderr, "Error: could not initialize the parser\n");
+		return 1;
+	}
+
+
 	while(fgets(line, LINE_LENGTH, conf) != NULL){
 		rmnl(line);
-		if(parseline(db, line) < 0) {
+		if(parseline(line) < 0) {
 			fprintf(stderr, "Error parsing line: \"%s\"\n", line);
 			err = 1;
 		}
 	}
 
-	parser_show(db);
+	parser_show();
 
 	if(err){
 		fprintf(stderr, "Errors occured, aborting.\n");

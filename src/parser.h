@@ -18,11 +18,11 @@ typedef struct Csvi{
 	int max; //max number of indexes
 }Csvi;
 
-void parser_init(void);
-void parser_show(Csv *);
+int parser_init(Csv *, int);
+void parser_show(void);
 void parser_exec(int);
 void parser_clean(void);
-int parseline(Csv *, char *);
+int parseline(char *);
 
 void csvi_alloc(Csvi *);
 void csvi_realloc(Csvi *);

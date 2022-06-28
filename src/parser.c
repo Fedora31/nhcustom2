@@ -14,8 +14,23 @@
 
 //static Csvi gcsvi; //global indexes
 //static Csvi lcsvi; //line indexes
-static Pl gpl; //global pathlist
-static Pl lpl; //line pathlist
+
+//all the paths in the input dir, used at the very end
+static Pl apl; 
+
+//global pathlist, containing paths gotten during the
+//execution of the configuration file
+static Pl gpl; 
+
+//line pathlist, containing paths gotten each line,
+//reset after each line
+static Pl lpl;
+
+//database used
+static Csv *db;
+
+//remove flag (if not 1, means keep flag)
+static int removeflag = 1;
 
 //get from the given string the header and the value(s) to search in it
 //the given string is modified.
@@ -25,11 +40,29 @@ static int gethv(char **, Hvpair *);
 static int redirect(Csv *, Pl*, Hvpair *);
 
 
-void
-parser_init(void)
+int
+parser_init(Csv *database, int flag)
 {
+	removeflag = flag;
 	//csvi_alloc(&gcsvi);
+
+	db = database;
 	pl_alloc(&gpl);
+	pl_alloc(&apl);
+
+	/*
+	//get all the paths and store them in apl
+	Hvpair hvpair;
+	strcpy(hvpair.header, "path");
+	strcpy(hvpair.value, ".*");
+	hvpair.exception = 0;
+
+	redirect(db, &apl, &hvpair);*/
+
+	char path[1024] = "./input\0";
+	if (getallfiles(&apl, path) < 0)
+		return -1;
+	return 0;
 }
 
 void
@@ -37,10 +70,11 @@ parser_clean(void)
 {
 	//csvi_free(&gcsvi);
 	pl_free(&gpl);
+	pl_free(&apl);
 }
 
 void
-parser_show(Csv *db)
+parser_show(void)
 {
 	//printf("~matches~\n");
 	/*int hatindex = csv_getheaderindex(db, "hat");
@@ -51,17 +85,30 @@ parser_show(Csv *db)
 		printf("%s\n", db->ptrs[hatindex][gcsvi.pos[i][1]]);
 	}*/
 
+	//if remove flag, print all the paths we found
+	if(removeflag){
 	for(int i = 0; i < gpl.max; i++){
 		if(gpl.path[i][0] == 0)
 			continue;
 		printf("%s\n", gpl.path[i]);
 	}
 
+	//else (keep), print the paths we haven't found
+	}else{
+	for(int i = 0; i < apl.max; i++){
+		if(apl.path[i][0] == 0)
+			continue;
+
+		if(!pl_contain(&gpl, apl.path[i]))
+			printf("%s\n", apl.path[i]);
+	}
+	}
+
 	//printf("~end~\n");
 }
 
 int
-parseline(Csv *db, char *line)
+parseline(char *line)
 {
 	if(strlen(line) == 0 || line[0] == '#')
 		return 0;
@@ -118,12 +165,12 @@ parseline(Csv *db, char *line)
 	return 0;
 }
 
-void
+/*void
 parser_exec(int remove)
 {
 	//do the stuff here
 	copypaths(&gpl, remove);
-}
+}*/
 
 static int
 gethv(char **s, Hvpair *hvpair)
