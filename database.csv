@@ -22,7 +22,7 @@ Alakablamicon;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/pla
 Alien Cranium;Scout;Hat;2014-09-17;None;models/workshop/player/items/scout/ai_head|models/workshop_partner/player/items/scout/ai_head
 Alien Swarm Parasite;All classes;Hat;2010-07-19;None;models/player/items/all_class/parasite_hat_[CLASS].*
 All Hallows' Hatte;All classes;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/items/all_class/hwn2020_hallows_hatte
-All-Father;Soldier|Demo|Heavy|Engineer|Medic,;Beard;2011-12-15;Australian Christmas 2011;models/workshop/player/items/all_class/xms_beard
+All-Father;Soldier|Demo|Heavy|Engineer|Medic;Beard;2011-12-15;Australian Christmas 2011;models/workshop/player/items/all_class/xms_beard
 Allbrero;Demo;Hat;2014-06-18;Love & War Update;models/player/items/demo/demo_fiesta_sombrero.*
 Aloha Apparel;Scout|Engineer|Spy;Shirt;2017-10-20;Jungle Inferno Update;models/workshop/player/items/all_class/fall17_aloha_apparel
 Alternative Medicine Mann;Medic;Hat|Face;2013-10-29;Scream Fortress 2013;models/workshop/player/items/medic/hw2013_witching_ward
