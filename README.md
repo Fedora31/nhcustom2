@@ -3,6 +3,8 @@
 This program is the second version of nhcustom, a program created to modify
 the Team Fortress 2 mod "no hats mod".
 
+**!! NOT finished. while it shouldn't explode in your face, use it at your own risk. !!**
+
 Some improvements have been made, including:
 
 * A more advanced config syntax
