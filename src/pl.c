@@ -9,9 +9,8 @@
 #include "csv.h"
 #include "parser.h"
 #include "pl.h"
+#include "copy.h"
 
-#define INPUT_DIR "./input/\0"
-#define OUTPUT_DIR "./output/\0"
 
 //hardcoded and ugly
 static char allclasses[] = "Scout|Soldier|Pyro|Demo|Heavy|Engineer|Medic|Sniper|Spy\0";
@@ -200,7 +199,10 @@ getfiles(Pl *pl, char *path, int remove)
 	//Ze Code Butcher
 
 	int len = strlen(path);
+
 	char fpath[1024] = {INPUT_DIR};
+	strcat(fpath, "/");
+
 	char wholepath[1024];
 
 	//default pattern used on paths that
@@ -216,7 +218,7 @@ getfiles(Pl *pl, char *path, int remove)
 		//parent directory and get the pattern
 		pd = strrchr(fpath, '/');
 		fpath[pd - fpath] = '\0';
-		strcpy(pattern, pd+1); //+1 to exclue de '/'
+		strcpy(pattern, pd+1); //+1 to exclude de '/'
 
 	}else if(fpath[len-1] == '/') //remove unnecessary slashes at the end of folder names
 		fpath[len-1] = '\0';
@@ -251,7 +253,10 @@ getfiles(Pl *pl, char *path, int remove)
 		memcpy(wholepath, fpath, strlen(fpath)+1);
 		strcat(wholepath, "/");
 		strcat(wholepath, file->d_name);
+
 		strswap(wholepath, INPUT_DIR, "");
+		strswap(wholepath, "/", "");
+
 		//printf("FILE: %s\n", wholepath);
 
 

@@ -9,10 +9,6 @@
 #include "copy.h"
 
 
-#define INPUT_DIR "./input/"
-#define OUTPUT_DIR "./output/"
-
-
 static int isdir(char *);
 
 
@@ -49,7 +45,8 @@ getallfiles(Pl *pl, char *path)
 			if(isdir(path) == 0){
 				char tmp[1024];
 				strcpy(tmp, path);
-				strswap(tmp, "./input/", "");
+				strswap(tmp, INPUT_DIR, "");
+				strswap(tmp, "/", "");
 				pl_add(pl, tmp);
 				//printf("found %s\n", tmp);
 

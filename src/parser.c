@@ -45,7 +45,7 @@ parser_init(Csv *database, int flag)
 	pl_alloc(&apl);
 
 
-	char path[1024] = "./input\0";
+	char path[1024] = INPUT_DIR;
 	if (getallfiles(&apl, path) < 0)
 		return -1;
 	return 0;
