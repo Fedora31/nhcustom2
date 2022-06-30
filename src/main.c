@@ -34,8 +34,10 @@ main(int argc, char **args)
 
 	int remove = 1;
 	if(strcmp(line, "keep") == 0){
+		printf("<keep>\n");
 		remove = 0;
 	}else if (strcmp(line, "remove") == 0){
+		printf("<remove>\n");
 		remove = 1;
 	}else{
 		fprintf(stderr, "Error: unkown mode. Either \"keep\" or \"remove\" must be on the first line.\n");

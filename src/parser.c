@@ -60,7 +60,7 @@ parser_init(Csv *database, int flag)
 
 	//don't need to do that with the remove flag
 	if(!removeflag){
-		printf("scanning the input folder...");
+		printf("scanning the input folder...\n");
 		char path[1024] = INPUT_DIR;
 		if (getallfiles(&apl, path) < 0)
 			return -1;
@@ -78,7 +78,7 @@ parser_clean(void)
 int
 parser_exec(void)
 {
-	//char tmp[1024] = {0};
+	printf("copying found files...\n");
 
 	//if remove flag, copy all the paths we found
 	if(removeflag){
