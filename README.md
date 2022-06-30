@@ -27,8 +27,8 @@ doesn't work as expected or if the database contains errors.
 The `output` directory is deleted each time the program is run. Backup any mod
 previously generated if you want to keep them.
 
-Add the parameters you want in the configuration file, then execute the script.
-The script **MUST** be executed while being in the same directory.
+Add the parameters you want in the configuration file, then execute the program.
+The program **MUST** be executed while being in the same directory.
 
 
 ## the database
