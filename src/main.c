@@ -13,36 +13,38 @@ static void rmnl(char *);
 int
 main(int argc, char **args)
 {
-	Csv *db = csv_load("database.csv");
+	printf("-- nhcustom2 --\n");
+
 	FILE *conf = fopen("config.txt", "rb");
 	if(conf == NULL) {
 		fprintf(stderr, "Error: could not find the config file \"config.txt\"\n");
-		csv_unload(db);
 		return 1;
 	}
-	int remove = 1;
+
+
 	char line[LINE_LENGTH] = {0};
 	int err = 0;
 
 	if(fgets(line, LINE_LENGTH, conf) == NULL){
 		fprintf(stderr, "Error: empty config file\n");
-		csv_unload(db);
 		fclose(conf);
 		return 1;
 	}
 	rmnl(line);
 
+	int remove = 1;
 	if(strcmp(line, "keep") == 0){
 		remove = 0;
 	}else if (strcmp(line, "remove") == 0){
 		remove = 1;
 	}else{
 		fprintf(stderr, "Error: unkown mode. Either \"keep\" or \"remove\" must be on the first line.\n");
-		csv_unload(db);
 		fclose(conf);
 		return 1;
 	}
 
+	printf("loading the database...\n");
+	Csv *db = csv_load("database.csv");
 
 	if(parser_init(db, remove) < 0){
 		fprintf(stderr, "Error: could not initialize the parser\n");
@@ -50,7 +52,6 @@ main(int argc, char **args)
 		fclose(conf);
 		return 1;
 	}
-
 
 	//send each line to the parser
 	while(fgets(line, LINE_LENGTH, conf) != NULL){
@@ -61,10 +62,6 @@ main(int argc, char **args)
 		}
 	}
 
-	//then output the matches to stdout
-	parser_show();
-
-
 	if(err){
 		fprintf(stderr, "Errors occured, aborting.\n");
 		csv_unload(db);
@@ -73,10 +70,13 @@ main(int argc, char **args)
 		return 1;
 	}
 
+	parser_exec();
 
 	csv_unload(db);
 	fclose(conf);
 	parser_clean();
+
+	printf("done.\n");
 	return 0;
 }
 

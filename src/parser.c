@@ -35,11 +35,12 @@ static int gethv(char **, Hvpair *);
 //redirect the header/values to the function suited to handle them
 static int redirect(Csv *, Pl*, Hvpair *);
 
-static void copy(char *);
+static int copy(char *);
 
 int
 parser_init(Csv *database, int flag)
 {
+	printf("initializing the parser...\n");
 	removeflag = flag;
 	db = database;
 	pl_alloc(&gpl);
@@ -59,6 +60,7 @@ parser_init(Csv *database, int flag)
 
 	//don't need to do that with the remove flag
 	if(!removeflag){
+		printf("scanning the input folder...");
 		char path[1024] = INPUT_DIR;
 		if (getallfiles(&apl, path) < 0)
 			return -1;
@@ -73,38 +75,30 @@ parser_clean(void)
 	pl_free(&apl);
 }
 
-void
-parser_show(void)
+int
+parser_exec(void)
 {
 	//char tmp[1024] = {0};
 
-	//if remove flag, print all the paths we found
+	//if remove flag, copy all the paths we found
 	if(removeflag){
 	for(int i = 0; i < gpl.max; i++){
 		if(gpl.path[i][0] == 0)
 			continue;
-
-		/*printf("%s\n", gpl.path[i]);
-		sprintf(tmp, "%s/%s", OUTPUT_DIR, gpl.path[i]);
-		makedirs(tmp, 0755);*/
 		copy(gpl.path[i]);
 	}
 
-	//else (keep), print the paths we haven't found
+	//else (keep), copy the paths we haven't found
 	}else{
 		for(int i = 0; i < apl.max; i++){
 			if(apl.path[i][0] == 0)
 				continue;
-
 			if(!pl_contain(&gpl, apl.path[i])){
-				/*printf("%s\n", apl.path[i]);
-				sprintf(tmp, "%s/%s", OUTPUT_DIR, apl.path[i]);
-				makedirs(tmp, 0755);*/
 				copy(apl.path[i]);
 			}
 		}
 	}
-
+	return 0;
 }
 
 int
@@ -131,6 +125,7 @@ parseline(char *line)
 		//the matches of the first value of the line will always be added to the lpl, but it's exception
 		//status is saved and will determine if the lpl will be added to or deleted from the gpl
 		if(i == 0) {
+			printf("%s\n", line);
 			exception = hvpair.exception;
 			hvpair.exception = 0;
 		}
@@ -203,16 +198,22 @@ redirect(Csv *db, Pl* pl, Hvpair *hvpair)
 	return defield_add(db, pl, hvpair);
 }
 
-static void copy(char *path)
+static int copy(char *path)
 {
+	//dirs: output/models/player/... up until the last folder in the path
+	//tmp1: input/models/...
+	//tmp2: output/models/...
+
 	char tmp1[1024], tmp2[1024], dirs[1024] = {0};
 	sprintf(tmp1, "%s/%s", INPUT_DIR, path);
 	sprintf(tmp2, "%s/%s", OUTPUT_DIR, path);
 	sprintf(dirs, "%s/", OUTPUT_DIR);
 	strncat(dirs, path, strrchr(path, '/') - path);
 
-	//printf("INPUT: %s\nOUTPUT: %s\n DIRS: %s\n", tmp1, tmp2, dirs);
 
-	makedirs(dirs, 0755);
-	fcopy(tmp1, tmp2);
+	if(makedirs(dirs, 0755) < 0)
+		return -1;
+	if(fcopy(tmp1, tmp2) < 0)
+		return -1;
+	return 0;
 }

@@ -9,6 +9,6 @@ typedef struct Hvpair{
 }Hvpair;
 
 int parser_init(Csv *, int);
-void parser_show(void);
+int parser_exec(void);
 void parser_clean(void);
 int parseline(char *);
