@@ -45,7 +45,7 @@ pound sign (`#`) are taken as comments and not parsed. It should contain only
 ASCII characters.
 
 The **first** line of the file MUST contain either the word (called flag) `remove`
-or `keep`. This informs the program wether the hats the file specifies must be
+or `keep`. This informs the program whether the hats the file specifies must be
 removed from the game, or kept in with everything else removed.
 
 If you plan to remove a lot of cosmetics, I recommand using the `keep` flag. The
