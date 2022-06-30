@@ -17,7 +17,7 @@ Some parts of the program work differently than in the first version, making the
 configuration files made for the original program unusable. However, They are
 relatively easy to convert to the new syntax.
 
-The program is known to work with Windows 7, 10 and Fedora 34 (Linux). I don't
+The program is known to work with Windows 7, 10 and Fedora 36 (Linux). I don't
 offer any support with this program, but feel free to let me know if something
 doesn't work as expected or if the database contains errors.
 
@@ -193,8 +193,8 @@ On Linux, simply use the makefile in the repository.
 If you want to compile this program for Windows, you'll have to install
 [MSYS2](https://msys2.org/) and use mingw64 when executing the makefile.
 
-This program has only been tested with GCC. It might compile on other
-OSes, but I haven't checked.
+This program has only been tested with GCC and glibc. It might compile on other
+environment, but I haven't checked.
 
 
 ## Examples
