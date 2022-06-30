@@ -21,6 +21,10 @@ The program is known to work with Windows 7, 10 and Fedora 36 (Linux). I don't
 offer any support with this program, but feel free to let me know if something
 doesn't work as expected or if the database contains errors.
 
+The program was created to work with the
+[bgum version](https://github.com/Fedora31/no-hats-bgum) of "no hats mod",
+but should work with other versions.
+
 
 ## how to use
 
@@ -29,6 +33,11 @@ previously generated if you want to keep them.
 
 Add the parameters you want in the configuration file, then execute the program.
 The program **MUST** be executed while being in the same directory.
+
+The `input` folder must be filled with the content of
+[this zip file](https://github.com/Fedora31/no-hats-bgum/blob/master/nhm_source/mechbgum_no_hats_mod/no_hats_bgum.zip), or any other version of "no hats mod".
+
+Make sure to keep the database and the input folder up do date.
 
 
 ## the database
