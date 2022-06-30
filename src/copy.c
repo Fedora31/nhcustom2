@@ -145,6 +145,25 @@ rmtree(char *path)
 int
 fcopy(char *from, char *to)
 {
+	FILE *of, *nf;
+	if((of = fopen(from, "rb")) == NULL)
+		return -1;
+	if((nf = fopen(to, "wb")) == NULL)
+		return -2;
+	char buf[4096];
+	int n;
+
+	while((n = fread(buf, sizeof(char), sizeof(buf), of)) > 0){
+		if(fwrite(buf, sizeof(char), n, nf) < n){
+			fprintf(stderr, "Error: an error occured while writing file %s\n", to);
+			fclose(nf);
+			fclose(of);
+			return -1;
+		}
+	} 
+
+	fclose(nf);
+	fclose(of);
 	return 0;
 }
 
@@ -159,7 +178,7 @@ makedirs(char *path, int rights)
 		strcat(tmp, list[i]);
 
 		if(!direxist(tmp)){
-			printf("should make %s\n", tmp);
+			//printf("should make %s\n", tmp);
 			if(makedir(tmp, rights) < 0){
 				fprintf(stderr, "Error: could not create directory \"%s\"\n", tmp);
 				return -1;

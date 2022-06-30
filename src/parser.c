@@ -35,6 +35,7 @@ static int gethv(char **, Hvpair *);
 //redirect the header/values to the function suited to handle them
 static int redirect(Csv *, Pl*, Hvpair *);
 
+static void copy(char *);
 
 int
 parser_init(Csv *database, int flag)
@@ -54,13 +55,14 @@ parser_init(Csv *database, int flag)
 	if(direxist(opath))
 		if(rmtree(opath) < 0)
 			return -1;
-
-	//windows should use another function, like _mkdir or CreateDirectory
 	makedir(OUTPUT_DIR, 0755);
 
-	char path[1024] = INPUT_DIR;
-	if (getallfiles(&apl, path) < 0)
-		return -1;
+	//don't need to do that with the remove flag
+	if(!removeflag){
+		char path[1024] = INPUT_DIR;
+		if (getallfiles(&apl, path) < 0)
+			return -1;
+	}
 	return 0;
 }
 
@@ -74,7 +76,7 @@ parser_clean(void)
 void
 parser_show(void)
 {
-	char tmp[1024] = {0};
+	//char tmp[1024] = {0};
 
 	//if remove flag, print all the paths we found
 	if(removeflag){
@@ -82,10 +84,10 @@ parser_show(void)
 		if(gpl.path[i][0] == 0)
 			continue;
 
-		printf("%s\n", gpl.path[i]);
+		/*printf("%s\n", gpl.path[i]);
 		sprintf(tmp, "%s/%s", OUTPUT_DIR, gpl.path[i]);
-		makedirs(tmp, 0755);
-
+		makedirs(tmp, 0755);*/
+		copy(gpl.path[i]);
 	}
 
 	//else (keep), print the paths we haven't found
@@ -95,9 +97,10 @@ parser_show(void)
 				continue;
 
 			if(!pl_contain(&gpl, apl.path[i])){
-				printf("%s\n", apl.path[i]);
+				/*printf("%s\n", apl.path[i]);
 				sprintf(tmp, "%s/%s", OUTPUT_DIR, apl.path[i]);
-				makedirs(tmp, 0755);
+				makedirs(tmp, 0755);*/
+				copy(apl.path[i]);
 			}
 		}
 	}
@@ -198,4 +201,18 @@ redirect(Csv *db, Pl* pl, Hvpair *hvpair)
 	if(strcmp(hvpair->header, "path") == 0)
 		return path_add(db, pl, hvpair);
 	return defield_add(db, pl, hvpair);
+}
+
+static void copy(char *path)
+{
+	char tmp1[1024], tmp2[1024], dirs[1024] = {0};
+	sprintf(tmp1, "%s/%s", INPUT_DIR, path);
+	sprintf(tmp2, "%s/%s", OUTPUT_DIR, path);
+	sprintf(dirs, "%s/", OUTPUT_DIR);
+	strncat(dirs, path, strrchr(path, '/') - path);
+
+	//printf("INPUT: %s\nOUTPUT: %s\n DIRS: %s\n", tmp1, tmp2, dirs);
+
+	makedirs(dirs, 0755);
+	fcopy(tmp1, tmp2);
 }
