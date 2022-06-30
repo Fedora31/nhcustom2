@@ -194,12 +194,12 @@ If you want to compile this program for Windows, you'll have to install
 [MSYS2](https://msys2.org/) and use mingw64 when executing the makefile.
 
 This program has only been tested with GCC and glibc. It might compile on other
-environment, but I haven't checked.
+environments, but I haven't checked.
 
 
 ## Examples
 
-Below are some example of what could be entered in the configuration file.
+Below are some examples of what could be entered in the configuration file.
 
 ```
 #find hats that can be worn by mutiple classes but that are not all-class
