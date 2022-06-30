@@ -26,7 +26,7 @@ The program was created to work with the
 but should work with other versions.
 
 
-## how to use
+## How to use
 
 The `output` directory is deleted each time the program is run. Backup any mod
 previously generated if you want to keep them.
@@ -40,13 +40,13 @@ The `input` folder must be filled with the content of
 Make sure to keep the database and the input folder up do date.
 
 
-## the database
+## The database
 
 The database is now in the .csv format, making it usable with spreadsheet
 programs. It should contain only ASCII characters.
 
 
-## the configuration file
+## The configuration file
 
 A file named 'config.txt' needs to be in the same folder as the program. It's the
 file containing the script used by the program. Lines beginning with a
@@ -134,7 +134,7 @@ header is case-sensitive.)
 file where some examples are given, after reading the other points.*
 
 
-## the exception (`!`) flag
+## The exception (`!`) flag
 
 Like in the previous program, you can decide wether or not the pattern to search
 is an exception or not. For example,
@@ -151,7 +151,7 @@ syntax, this statement could also have been written like this:
 date:2007:hat:!Fancy Fedora
 ```
 
-## regular expressions (asterisks replacement)
+## Regular expressions (asterisks replacement)
 
 The original program had a concept of "asterisks" (`*`) to select, for example, all
 the hats that could be worn by the Scout alone or by the Scout and other classes
@@ -182,7 +182,7 @@ Also, there is currently no way of writing regexes with colons in it, or that be
 Another important point is that regexes **cannot** be used with the `date` header.
 
 
-## the `input` and `output` folders
+## The `input` and `output` folders
 
 The `input` folder is where must be an **uncompiled** version of the
 no-hats-mod. If done correctly, the path should start with the following:
