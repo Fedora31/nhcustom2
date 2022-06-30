@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 #include "str.h"
 #include "csv.h"
 #include "parser.h"
@@ -39,11 +40,23 @@ int
 parser_init(Csv *database, int flag)
 {
 	removeflag = flag;
-
 	db = database;
 	pl_alloc(&gpl);
 	pl_alloc(&apl);
 
+	char opath[1024] = OUTPUT_DIR;
+
+	if(!direxist(INPUT_DIR)){
+		fprintf(stderr, "Error: input directory \"%s\" doesn't exist\n", INPUT_DIR);
+		return -1;
+	}
+
+	if(direxist(opath))
+		if(rmtree(opath) < 0)
+			return -1;
+
+	//windows should use another function, like _mkdir or CreateDirectory
+	makedir(OUTPUT_DIR, 0755);
 
 	char path[1024] = INPUT_DIR;
 	if (getallfiles(&apl, path) < 0)
