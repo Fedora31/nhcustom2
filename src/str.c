@@ -30,14 +30,14 @@ strremc(char *s, int index)
 //separate a string and returns an array of pointers to the resulting substrings.
 //the given string is modified, and the returned array must be freed after use.
 char **
-strsplit(char *in)
+strsplit(char *in, char *seps)
 {
 	char **res = malloc(sizeof(char*) * STRL_LEN + 1); //+1 so there will always be a NULL at the end of the list
 	for(int i = 0; i < STRL_LEN + 1; i++)
 		res[i] = NULL;
 
 	for(int i = 0; in != NULL && i < STRL_LEN; i++)
-		res[i] = wstrsep(&in, "|");
+		res[i] = wstrsep(&in, seps);
 
 	return res;
 }

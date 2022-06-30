@@ -74,23 +74,32 @@ parser_clean(void)
 void
 parser_show(void)
 {
+	char tmp[1024] = {0};
+
 	//if remove flag, print all the paths we found
 	if(removeflag){
 	for(int i = 0; i < gpl.max; i++){
 		if(gpl.path[i][0] == 0)
 			continue;
+
 		printf("%s\n", gpl.path[i]);
+		sprintf(tmp, "%s/%s", OUTPUT_DIR, gpl.path[i]);
+		makedirs(tmp, 0755);
+
 	}
 
 	//else (keep), print the paths we haven't found
 	}else{
-	for(int i = 0; i < apl.max; i++){
-		if(apl.path[i][0] == 0)
-			continue;
+		for(int i = 0; i < apl.max; i++){
+			if(apl.path[i][0] == 0)
+				continue;
 
-		if(!pl_contain(&gpl, apl.path[i]))
-			printf("%s\n", apl.path[i]);
-	}
+			if(!pl_contain(&gpl, apl.path[i])){
+				printf("%s\n", apl.path[i]);
+				sprintf(tmp, "%s/%s", OUTPUT_DIR, apl.path[i]);
+				makedirs(tmp, 0755);
+			}
+		}
 	}
 
 }

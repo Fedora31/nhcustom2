@@ -152,8 +152,8 @@ static void pl_modify(Pl *pl, char *classstr, char *pathsstr, int remove)
 
 
 	//split the classes and paths
-	char **class = strsplit(classes);
-	char **path = strsplit(paths);
+	char **class = strsplit(classes, "|");
+	char **path = strsplit(paths, "|");
 
 
 	//format the paths and add/remove them. To tidy up, preferably...

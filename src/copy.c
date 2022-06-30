@@ -143,6 +143,35 @@ rmtree(char *path)
 }
 
 int
+fcopy(char *from, char *to)
+{
+	return 0;
+}
+
+int
+makedirs(char *path, int rights)
+{
+	char tmp[1024] = {0};
+
+	char **list = strsplit(path, "/");
+
+	for(int i = 0; list[i] != NULL; i++){
+		strcat(tmp, list[i]);
+
+		if(!direxist(tmp)){
+			printf("should make %s\n", tmp);
+			if(makedir(tmp, rights) < 0){
+				fprintf(stderr, "Error: could not create directory \"%s\"\n", tmp);
+				return -1;
+			}
+		}
+
+		strcat(tmp, "/");
+	}
+	return 0;
+}
+
+int
 direxist(char *path)
 {
 	//not a very robust function...
