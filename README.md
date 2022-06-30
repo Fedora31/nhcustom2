@@ -24,6 +24,7 @@ The program is known to work with Windows 10 and Fedora 34 (Linux). I don't
 offer any support with this program, but feel free to let me know if something
 doesn't work as expected or if the database contains errors.
 
+
 ## how to use
 
 Do not launch the program `nhcustom2` directly, unless you want to see what
@@ -31,8 +32,12 @@ paths will be copied without actually touching your files. To generate a mod
 with your parameters, use the `START` shell/batch script corresponding to your
 OS.
 
+The `output` directory is deleted each time the program is run. Backup any mod
+previously generated if you want to keep them.
+
 Add the parameters you want in the configuration file, then execute the script.
 The script **MUST** be executed while being in the same directory.
+
 
 ## the database
 
@@ -182,8 +187,11 @@ The `input` folder is where must be an **uncompiled** version of the
 no-hats-mod. If done correctly, the path should start with the following:
 `input/models/...`
 
+The program will refuse to run if there isn't an `input` folder.
+
 After the program is run, the resulting mod will be placed in the `output` folder,
-and is ready to be compiled into a .vpk file by the program of your choice.
+and is ready to be compiled into a .vpk file by the program of your choice. Like I
+wrote previously, the `output` folder is wiped at every start of the program.
 
 
 ## Compiling
