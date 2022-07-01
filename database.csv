@@ -450,7 +450,7 @@ Dueler;All classes;Hat;2012-03-28;None;models/player/items/all_class/dueler_[CLA
 Dumb Bell;Soldier;Hat;2018-12-19;Smissmas 2018;models/workshop/player/items/soldier/dec18_dumb_bell
 Dynamite Abs;Demo;Shirt;2019-07-25;Summer 2019 Pack;models/workshop/player/items/demo/sum19_dynamite_abs
 Détective Noir;Spy;Hat;2010-12-17;Australian Christmas;models/player/items/spy/spy_detective_noir.*
-Earbuds;All classes;None;2010-06-10;Mac Update;models/player/items/demo/demo_earbuds.*
+Earbuds;All classes;None;2010-06-10;Mac Update;models/player/items/[CLASS]/[CLASS]_earbuds.*
 Ebenezer;All classes;Hat;2011-12-15;Australian Christmas 2011;models/player/items/all_class/xms_winter_joy_hat_[CLASS].*
 Egghead's Overalls;Engineer;Shirt;2014-06-18;Love & War Update;models/workshop/player/items/engineer/short2014_engineer_nerd_shirt
 Ein;Engineer;Left Shoulder;2014-02-07;Strongbox Pack;models/workshop/player/items/engineer/sbox2014_einstein
