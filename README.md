@@ -1,7 +1,7 @@
 # nhcustom2
 
-This program is the second version of nhcustom, a program created to modify
-the Team Fortress 2 mod "no hats mod".
+This program is the second version of [nhcustom](https://github.com/Fedora31/nhcustom),
+a program created to modify the Team Fortress 2 mod "no hats mod".
 
 Some improvements have been made, including:
 
