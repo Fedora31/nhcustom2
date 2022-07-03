@@ -18,7 +18,7 @@ Airborne Attire;Scout|Heavy|Sniper;Shirt;2017-05-15;Rainy Day Pack;models/worksh
 Airdog;Scout;Hat;2016-05-11;Mayflower Pack;models/workshop/player/items/scout/snowboard_hat
 Airtight Arsonist;Pyro;Head Replacement;2017-05-15;Rainy Day Pack;models/workshop/player/items/pyro/spr17_airtight_arsonist
 Aladdin's Private Reserve;Demo;Belt;2012-01-26;None;models/player/items/demo/djinn_lamp.*
-Alakablamicon;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_alakablamicon
+Alakablamicon;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_alakablamicon
 Alien Cranium;Scout;Hat;2014-09-17;None;models/workshop/player/items/scout/ai_head|models/workshop_partner/player/items/scout/ai_head
 Alien Swarm Parasite;All classes;Hat;2010-07-19;None;models/player/items/all_class/parasite_hat_[CLASS].*
 All Hallows' Hatte;All classes;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/items/all_class/hwn2020_hallows_hatte
@@ -93,7 +93,7 @@ Base Metal Billycock;Spy;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/
 Bat Backup;Scout;Shirt;2015-12-04;None;models/workshop/player/items/scout/bak_bat_backup
 Bat Hat;All classes;Hat;2019-10-10;Scream Fortress 2019;models/workshop/player/items/all_class/hwn2019_bat_hat
 Batbelt;All classes;None;2015-12-04;None;models/workshop/player/items/all_class/bak_batbelt
-Batter's Beak;Scout;None;2021-10-1;Scream Fortress 2021;models/workshop/player/items/scout/hwn2021_batters_beak
+Batter's Beak;Scout;None;2021-10-01;Scream Fortress 2021;models/workshop/player/items/scout/hwn2021_batters_beak
 Batter's Bracers;All classes;Sleeves;2015-12-04;None;models/workshop/player/items/all_class/bak_batarm
 Batter's Helmet;Scout;Hat;2009-05-21;Sniper vs. Spy Update;models/player/items/scout/batter_helmet.*
 Battery Bandolier;Demo;Grenades;2012-08-15;Mann vs. Machine Update;models/player/items/mvm_loot/demo/battery_grenade.*
@@ -102,7 +102,7 @@ Battle Bob;Soldier;Hat;2012-02-02;None;models/player/items/soldier/jag_bob_hairc
 Battle Boonie;Medic;Hat;2017-10-20;Jungle Inferno Update;models/workshop/player/items/medic/fall17_battle_boonie
 Bazaar Bauble;Soldier;Hat;2020-08-21;Summer 2020 Pack;models/workshop/player/items/soldier/sum20_bazaar_bauble
 Beacon from Beyond;All classes;Disconnected Floating Item;2013-10-29;Scream Fortress 2013;models/workshop/player/items/all_class/hw2013_the_enlightening_lantern
-Beanie The All-Gnawing;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_beanie_all_gnawing
+Beanie The All-Gnawing;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_beanie_all_gnawing
 Bear Necessities;Heavy;Hat;2013-07-10;Summer Event 2013;models/workshop/player/items/heavy/jul13_bear_necessitys
 Bear Walker;Heavy;Pants;2020-12-03;Smissmas 2020;models/workshop/player/items/heavy/dec20_bear_walker
 Bearded Bombardier;Demo;Beard;2012-09-06;First Workshop Content Pack;models/workshop/player/items/demo/demo_beardpipe|models/workshop/player/items/demo/demo_beardpipe_s2
@@ -159,7 +159,7 @@ Bomber Knight;Demo;Hat;2016-12-21;Smissmas 2016;models/workshop/player/items/dem
 Bomber's Bucket Hat;Demo;Hat;2014-12-08;End of the Line Update;models/workshop/player/items/demo/eotl_summerhat
 Bombing Run;Scout;Hat;2010-09-30;Mann-Conomy Update;models/player/items/scout/pilot_protector.*
 Bombinomicon;All classes;Medal;2011-10-27;Very Scary Halloween Special;models/player/items/all_class/bombonomicon.*
-Bone Cone;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_bone_cone|models/workshop/player/items/all_class/hwn2021_bone_cone_style2
+Bone Cone;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_bone_cone|models/workshop/player/items/all_class/hwn2021_bone_cone_style2
 Bone Dome;Pyro;Hat;2013-10-10;Fall Event 2013;models/workshop/player/items/pyro/fall2013_air_raider|models/workshop/player/items/pyro/fall2013_air_raider_s2
 Bone-Cut Belt;Heavy;Left Shoulder|Shirt;2014-10-29;Scream Fortress 2014;models/workshop/player/items/heavy/sf14_halloween_bone_cut_belt
 Bonedolier;Soldier|Pyro|Demo;Grenades;2012-10-26;Spectral Halloween Special;models/player/items/all_class/demo_grenade_skulls.*|models/player/items/all_class/pyro_grenade_skulls.*|models/player/items/all_class/soldier_grenade_skulls.*
@@ -310,7 +310,7 @@ Commissar's Coat;Heavy;Shirt;2015-08-27;Gun Mettle Update;models/workshop/player
 Companion Cube Pin;All classes;Medal;2010-11-19;None;models/player/items/all_class/p2_pin.*
 Company Man;All classes;Hat;2011-08-18;Manno-Technology Bundle;models/player/items/all_class/all_bug_hat_[CLASS].*
 Compatriot;Soldier;Left Shoulder;2013-07-10;Summer Event 2013;models/workshop/player/items/soldier/jul13_soldier_eagle
-Computron 5000;Scout|Heavy|Medic|Spy;None;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_computron
+Computron 5000;Scout|Heavy|Medic|Spy;None;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_computron
 Conagher's Combover;Engineer;Hat;2014-12-22;Smissmas 2014;models/workshop/player/items/engineer/dec2014_engineer_detectiveglasses
 Conaghers' Utility Idol;Engineer;Belt;2017-10-20;Jungle Inferno Update;models/workshop/player/items/engineer/fall17_conaghers_utility_idol
 Condor Cap;Soldier;Hat;2014-12-08;End of the Line Update;models/workshop/player/items/soldier/eotl_soldierhat
@@ -326,7 +326,7 @@ Cool Cat Cardigan;Scout;Shirt;2013-07-10;Summer Event 2013;models/workshop/playe
 Cop Caller;Engineer;Pocket;2014-12-22;Smissmas 2014;models/workshop/player/items/engineer/dec2014_engineer_detectiveradio
 Copper's Hard Top;Heavy;Hat;2011-07-01;Summer Camp Sale;models/player/items/heavy/cop_helmet.*
 Corona Australis;Sniper;Whole Head;2015-10-06;Invasion Community Update;models/workshop/player/items/sniper/invasion_corona_australis
-Corpse Carrier;Scout;Pants;2021-10-1;Scream Fortress 2021;models/workshop/player/items/scout/hwn2021_corpse_carrier
+Corpse Carrier;Scout;Pants;2021-10-01;Scream Fortress 2021;models/workshop/player/items/scout/hwn2021_corpse_carrier
 Corpsemopolitan;Pyro;Hat|Head Replacement;2013-10-29;Scream Fortress 2013;models/workshop/player/items/pyro/hw2013_corpsemopolitan
 Corpus Christi Cranium;Engineer;Head Skin;2016-10-21;Scream Fortress 2016;models/workshop/player/items/engineer/hwn2016_corpus_christi_cranium
 Cosa Nostra Cap;Spy;Hat;2011-06-23;Über Update;models/player/items/spy/spy_gang_cap.*
@@ -345,7 +345,7 @@ Cranial Conspiracy;Sniper;Head Skin;2014-10-29;Scream Fortress 2014;models/works
 Crazy Legs;Scout;Pants|Feet;2014-10-29;Scream Fortress 2014;models/workshop/player/items/scout/sf14_scout_hunter_legs
 Creature From The Heap;Pyro;Back;2013-10-29;Scream Fortress 2013;models/workshop/player/items/pyro/hw2013_the_creature_from_the_heap
 Creature's Grin;Pyro;Head Replacement;2014-10-29;Scream Fortress 2014;models/workshop/player/items/pyro/sf14_the_creatures_grin
-Creepy Crawlers;All classes;Right Shoulder;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_creepy_crawlies|models/workshop/player/items/all_class/hwn2021_creepy_crawlies_style2
+Creepy Crawlers;All classes;Right Shoulder;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_creepy_crawlies|models/workshop/player/items/all_class/hwn2021_creepy_crawlies_style2
 Cremator's Conscience;Pyro;Grenades;2011-10-13;Manniversary Update & Sale;models/player/items/pyro/fwk_pyro_conscience.*
 Criminal Cloak;Sniper;Vest;2014-02-19;None;models/workshop/player/items/sniper/thief_sniper_hood|models/workshop_partner/player/items/sniper/thief_sniper_hood
 Crispy Golden Locks;Pyro;Hat;2013-10-29;Scream Fortress 2013;models/workshop/player/items/pyro/hw2013_golden_crisp_locks
@@ -400,7 +400,7 @@ Deadbeats;All classes;Ears;2018-10-19;Scream Fortress 2018;models/workshop/playe
 Deadliest Duckling;Soldier|Pyro|Demo|Engineer|Sniper;Pocket|Grenades;2012-11-16;None;models/player/items/all_class/hm_duck_[CLASS].*
 Dealer's Visor;Heavy;Hat;2010-11-03;None;models/player/items/heavy/ttg_visor.*
 Death Racer's Helmet;Scout;Hat;2015-10-28;Scream Fortress 2015;models/workshop/player/items/scout/hwn2015_death_racer_helmet
-Death Stare;Demo;Face;2021-10-1;Scream Fortress 2021;models/workshop/player/items/demo/hwn2021_death_stare
+Death Stare;Demo;Face;2021-10-01;Scream Fortress 2021;models/workshop/player/items/demo/hwn2021_death_stare
 Death Support Pack;Pyro;Grenades;2013-10-29;Scream Fortress 2013;models/workshop/player/items/pyro/hw2013_tin_can
 Deep Cover Operator;Sniper|Spy;Hat;2014-02-07;Strongbox Pack;models/workshop/player/items/all_class/sbox2014_camo_headband
 Defiant Spartan;Soldier;Hat|Face;2010-12-17;Australian Christmas;models/player/items/soldier/soldier_spartan.*
@@ -494,7 +494,7 @@ Extra Layer;Sniper;Vest;2013-12-20;Smissmas 2013;models/workshop/player/items/sn
 Eye-Catcher;All classes;Lenses;2014-06-18;Love & War Update;models/workshop/player/items/all_class/short2014_all_eyepatch
 Eye-See-You;All classes;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/items/all_class/hwn2020_eye_see_you
 Eyeborg;Demo;Glasses;2014-10-29;Scream Fortress 2014;models/workshop/player/items/demo/sf14_demo_cyborg
-Eyequarium;All classes;Glasses;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_eyequarium|models/workshop/player/items/all_class/hwn2021_eyequarium_style2
+Eyequarium;All classes;Glasses;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_eyequarium|models/workshop/player/items/all_class/hwn2021_eyequarium_style2
 FR-0;Demo;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/items/demo/robo_demo_fro
 Face Full of Festive;Engineer;Beard;2013-12-20;Smissmas 2013;models/workshop/player/items/engineer/xms2013_festive_beard
 Face Plante;Scout;Face;2013-10-29;Scream Fortress 2013;models/workshop/player/items/scout/hw2013_boston_bandy_mask
@@ -616,7 +616,7 @@ Glob;Pyro;Head Replacement;2013-10-29;Scream Fortress 2013;models/player/items/p
 Globetrotter;All classes;Hat;2019-12-16;Smissmas 2019;models/workshop/player/items/all_class/dec19_globetrotter_s2
 Glow from Below;Sniper;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/items/sniper/hwn2020_glow_below|models/workshop/player/items/sniper/hwn2020_glow_below_style2
 Gnome Dome;All classes;Hat|Beard;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_gnome_dome|models/workshop/player/items/all_class/dec21_gnome_dome_style1|models/workshop/player/items/all_class/dec21_gnome_dome_style2|models/workshop/player/items/all_class/dec21_gnome_dome_style3
-Goalkeeper;All classes;Face;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_goalkeeper|models/workshop/player/items/all_class/hwn2021_goalkeeper_style2
+Goalkeeper;All classes;Face;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_goalkeeper|models/workshop/player/items/all_class/hwn2021_goalkeeper_style2
 Goblineer;Engineer;Head Skin;2020-10-01;Scream Fortress 2020;models/workshop/player/items/engineer/hwn2020_goblineer|models/workshop/player/items/engineer/hwn2020_goblineer_style2
 Gold Digger;Engineer;Beard;2013-10-10;Fall Event 2013;models/workshop/player/items/engineer/fall2013_the_gold_digger
 Gold Dueling Badge;All classes;Medal;2010-09-30;Mann-Conomy Update;models/player/items/all_class/dueling_medal.*
@@ -646,7 +646,7 @@ Grizzled Veteran;All classes;Medal;2010-04-29;119th Update;models/player/items/a
 Ground Control;Soldier;Hat;2014-02-07;Strongbox Pack;models/workshop/player/items/soldier/sbox2014_soldier_major
 Grounded Flyboy;Scout;Pants;2020-10-01;Scream Fortress 2020;models/workshop/player/items/scout/hwn2020_grounded_flyboy
 Grub Grenades;Soldier;Grenades;2013-10-29;Scream Fortress 2013;models/workshop/player/items/soldier/hw2013_combat_maggots
-Gruesome Gourd;Spy;Face;2021-10-1;Scream Fortress 2021;models/workshop/player/items/spy/hwn2021_gruesome_gourd
+Gruesome Gourd;Spy;Face;2021-10-01;Scream Fortress 2021;models/workshop/player/items/spy/hwn2021_gruesome_gourd
 Guano;All classes;Disconnected Floating Item;2013-10-29;Scream Fortress 2013;models/workshop/player/items/all_class/hw2013_the_fire_bat_v2
 Guilden Guardian;Sniper;Shirt;2017-05-15;Rainy Day Pack;models/workshop/player/items/sniper/spr17_guilden_guardian
 Gym Rat;Heavy;Hat;2011-10-13;Manniversary Update & Sale;models/player/items/heavy/fwk_heavy_gym.*
@@ -670,7 +670,7 @@ Harlequin's Hooves;Scout;Feet;2014-12-22;Smissmas 2014;models/workshop/player/it
 Harmburg;Spy;Hat;2013-07-10;Summer Event 2013;models/workshop/player/items/spy/hw2013_harmburg|models/workshop/player/items/spy/jul13_harmburg
 Harry;Medic|Spy;Necklace;2018-12-19;Smissmas 2018;models/workshop/player/items/all_class/dec18_harry
 Hat Chocolate;All classes;Hat;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_hat_chocolate
-Hat Outta Hell;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_hat_outta_hell|models/workshop/player/items/all_class/hwn2021_hat_outta_hell_style2|models/workshop/player/items/all_class/hwn2021_hat_outta_hell_style3
+Hat Outta Hell;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_hat_outta_hell|models/workshop/player/items/all_class/hwn2021_hat_outta_hell_style2|models/workshop/player/items/all_class/hwn2021_hat_outta_hell_style3
 Hat With No Name;Soldier|Demo|Engineer|Sniper;Hat;2011-10-13;Manniversary Update & Sale;models/workshop/player/items/all_class/fwk_cowboyhat
 Hat of Cards;Spy;Hat;2012-09-06;First Workshop Content Pack;models/player/items/spy/spy_cardhat.*
 Hat of Undeniable Wealth And Respect;All classes;Hat;2010-12-07;None;models/player/items/[CLASS]/treasure_hat_oct.*
@@ -726,7 +726,7 @@ Hong Kong Cone;All classes;Hat;2013-10-10;Fall Event 2013;models/workshop/player
 Hood of Sorrows;Demo;Hat;2015-12-04;None;models/workshop/player/items/demo/bak_hood_of_sorrows
 Hooded Haunter;All classes;Disconnected Floating Item;2014-10-29;Scream Fortress 2014;models/workshop/player/items/all_class/sf14_hooded_haunter_classes
 Hook, Line, and Cinder;Pyro;Back;2021-06-22;Summer 2021 Pack;models/workshop/player/items/pyro/sum21_hook_line_cinder
-Hook, Line, and Thinker;Engineer;Head Skin;2021-10-1;Scream Fortress 2021;models/workshop/player/items/engineer/hwn2021_hook_line_thinker
+Hook, Line, and Thinker;Engineer;Head Skin;2021-10-01;Scream Fortress 2021;models/workshop/player/items/engineer/hwn2021_hook_line_thinker
 Horace;All classes;Hat;2014-08-27;None;models/workshop/player/items/all_class/horace
 Hornblower;Soldier;Coat;2013-07-10;Summer Event 2013;models/workshop/player/items/soldier/jul13_generals_attire
 Horned Honcho;Heavy;Hat;2013-10-29;Scream Fortress 2013;models/workshop/player/items/heavy/hw2013_horned_honcho
@@ -912,7 +912,7 @@ Mercenary;All classes;Medal;2010-04-29;119th Update;models/player/items/all_clas
 Merry Cone;All classes;Hat;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_merry_cone
 Messenger's Mail Bag;Scout;Backpack;2017-05-15;Rainy Day Pack;models/workshop/player/items/scout/spr17_messengers_mail_bag
 Metal Slug;Pyro;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/items/pyro/robo_pyro_tribtrojan
-Miami Rooster;Pyro;Head Replacement;2021-10-1;Scream Fortress 2021;models/workshop/player/items/pyro/hwn2021_miami_rooster
+Miami Rooster;Pyro;Head Replacement;2021-10-01;Scream Fortress 2021;models/workshop/player/items/pyro/hwn2021_miami_rooster
 Mighty Mitre;Medic;Hat;2018-12-19;Smissmas 2018;models/workshop/player/items/medic/dec18_mighty_mitre
 Mildly Disturbing Halloween Mask;All classes;Whole Head;2009-10-29;Haunted Hallowe'en Special;models/player/items/demo/demo_halloween.*
 Mildly Disturbing Halloween Mask;All classes;Whole Head;2009-10-29;Haunted Hallowe'en Special;models/player/items/scout/scout_halloween.*|models/player/items/soldier/soldier_halloween.*|models/player/items/pyro/pyro_halloween.*|models/player/items/demo/demo_halloween.*|models/player/items/engineer/engineer_halloween.*|models/player/items/heavy/heavy_halloween.*|models/player/items/medic/medic_halloween.*|models/player/items/sniper/sniper_halloween.*|models/player/items/spy/spy_halloween.*
@@ -984,7 +984,7 @@ Operation Mecha Engine Badge;All classes;Medal;2012-12-20;Mecha Update;models/pl
 Operation Oil Spill Badge;All classes;Medal;2012-10-09;None;models/player/items/mvm_loot/all_class/mvm_badge_rust.dx90.*
 Operation Steel Trap Badge;All classes;Medal;2012-08-15;Mann vs. Machine Update;models/player/items/mvm_loot/all_class/mvm_badge.*
 Operation Two Cities Badge;All classes;Medal;2013-11-21;Two Cities Update;models/workshop/player/items/scout/tr_orions_belt
-Optic Nerve;Medic;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/medic/hwn2021_optic_nerve
+Optic Nerve;Medic;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/medic/hwn2021_optic_nerve
 Orion's Belt;Scout;None;2015-01-15;None;models/workshop/player/items/scout/tr_orions_belt|models/workshop_partner/player/items/scout/tr_orions_belt
 Ornament Armament;Soldier|Pyro|Demo;Grenades;2011-12-15;Australian Christmas 2011;models/player/items/soldier/xms_[CLASS]_ornaments.*
 Otolaryngologist's Mirror;Medic;Hat;2009-08-13;Classless Update;models/player/items/medic/medic_mirror.*
@@ -1059,7 +1059,7 @@ Pom-Pommed Provocateur;Spy;Hat;2013-06-13;Second Workshop Content Pack;models/wo
 Pomade Prince;Scout;Hat;2014-06-18;Love & War Update;models/player/items/scout/scout_pompadour.*
 Pompous Privateer;Scout;Shirt;2019-07-25;Summer 2019 Pack;models/workshop/player/items/scout/sum19_pompous_privateer
 Poolside Polo;Scout;Shirt;2020-08-21;Summer 2020 Pack;models/workshop/player/items/scout/sum20_poolside_polo
-Poopy Doe;Soldier;None;2021-10-1;Scream Fortress 2021;models/workshop/player/items/soldier/hwn2021_poopy_doe
+Poopy Doe;Soldier;None;2021-10-01;Scream Fortress 2021;models/workshop/player/items/soldier/hwn2021_poopy_doe
 Pop-eyes;Pyro;Lenses;2013-10-10;Fall Event 2013;models/workshop/player/items/pyro/fall2013_popeyes
 Portable Smissmas Spirit Dispenser;Pyro;Back;2013-12-18;None;models/player/items/pyro/xms_backpack_snowglobe.*
 Potassium Bonnet;All classes;Hat;2015-08-27;Gun Mettle Update;models/workshop/player/items/all_class/cc_summer2015_potassium_bonnett
@@ -1172,7 +1172,7 @@ Saxton;All classes;Hat;2017-10-20;Jungle Inferno Update;models/workshop/player/i
 Saxxy Clapper Badge;All classes;Medal;2012-11-29;None;models/player/items/all_class/all_clacker_badge.*
 Scaly Scrapers;Sniper;Sleeves;2014-10-29;Scream Fortress 2014;models/workshop/player/items/sniper/sf14_skinless_slashers
 Scarecrow;Spy;Face;2012-10-26;Spectral Halloween Special;models/workshop/player/items/spy/spy_scarecrowface
-Scariest Mask EVER;All classes;Face;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_scariest_mask
+Scariest Mask EVER;All classes;Face;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_scariest_mask
 Scoped Spartan;Sniper;Vest;2016-05-11;Mayflower Pack;models/workshop/player/items/sniper/headhunters_wrap
 Scoper's Scales;Sniper;Arms|Legs;2018-10-19;Scream Fortress 2018;models/workshop/player/items/sniper/hwn2018_scopers_scales
 Scoper's Smoke;Sniper;Beard;2014-06-18;Love & War Update;models/workshop/player/items/sniper/short2014_scopers_smoke
@@ -1194,7 +1194,7 @@ Seared Sorcerer;Pyro;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/
 Seasonal Employee;Scout;Shirt;2021-12-02;Smissmas 2021;models/workshop/player/items/scout/dec21_seasonal_employee|models/workshop/player/items/scout/dec21_seasonal_employee_style1
 Seasonal Spring;All classes;Hat;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_seasonal_spring
 Second Opinion;Medic;Head Skin;2013-10-29;Scream Fortress 2013;models/workshop/player/items/medic/hw2013_second_opinion
-Second-Head Headwear;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_second_headwear|models/workshop/player/items/all_class/hwn2021_second_headwear_style2
+Second-Head Headwear;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_second_headwear|models/workshop/player/items/all_class/hwn2021_second_headwear_style2
 Security Shades;Heavy;Glasses;2011-07-01;Summer Camp Sale;models/player/items/heavy/cop_glasses.*
 Seeing Double;Demo;Glasses;2014-06-18;Love & War Update;models/player/items/demo/demo_fiesta_shades.*
 Self-Care;Medic;Necklace;2020-08-21;Summer 2020 Pack;models/workshop/player/items/medic/sum20_self_care
@@ -1240,7 +1240,7 @@ Sleeveless in Siberia;Heavy;Shirt;2014-12-08;End of the Line Update;models/works
 Slick Cut;Medic;Hat;2013-10-10;Fall Event 2013;models/workshop/player/items/medic/fall2013_medic_wc_hair
 Slithering Scarf;All classes;Necklace;2017-10-20;Jungle Inferno Update;models/workshop/player/items/all_class/fall17_slithering_scarf
 Slo-Poke;Soldier;Hat;2013-12-20;Smissmas 2013;models/workshop/player/items/soldier/xms2013_soldier_marshal_hat
-Smiling Somen;Pyro;Head Replacement;2021-10-1;Scream Fortress 2021;models/workshop/player/items/pyro/hwn2021_smiling_somen
+Smiling Somen;Pyro;Head Replacement;2021-10-01;Scream Fortress 2021;models/workshop/player/items/pyro/hwn2021_smiling_somen
 Smissmas Caribou;Sniper;Hat;2013-12-18;None;models/player/items/sniper/xms_braindeer.*
 Smissmas Saxton;All classes;Hat;2019-12-16;Smissmas 2019;models/workshop/player/items/all_class/dec19_smissmas_saxton
 Smissmas Wreath;All classes;Medal;2012-12-20;Mecha Update;models/player/items/all_class/all_wreath_badge.*
@@ -1299,7 +1299,7 @@ Spirit Of Giving;All classes;Medal;2011-12-21;None;models/player/items/all_class
 Spirit of the Bombing Past;Demo;Hat;2016-10-21;Scream Fortress 2016;models/workshop/player/items/demo/hwn2016_spirit_of_the_bombing_past
 Spook Specs;Soldier;Hat;2014-06-18;Love & War Update;models/workshop/player/items/soldier/short2014_soldier_fedhair
 Spooktacles;All classes;Glasses;2016-10-21;Scream Fortress 2016;models/workshop/player/items/all_class/hwn2016_spooktacles
-Spooky Head-Bouncers;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_spooky_head_bouncers|models/workshop/player/items/all_class/hwn2021_spooky_head_bouncers_style2|models/workshop/player/items/all_class/hwn2021_spooky_head_bouncers_style3
+Spooky Head-Bouncers;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_spooky_head_bouncers|models/workshop/player/items/all_class/hwn2021_spooky_head_bouncers_style2|models/workshop/player/items/all_class/hwn2021_spooky_head_bouncers_style3
 Spooky Shoes;Scout;Feet;2012-10-26;Spectral Halloween Special;models/workshop/player/items/scout/scout_halloweenshoes
 Spooky Sleeves;Scout|Demo|Heavy|Engineer|Sniper;Sleeves;2012-10-26;Spectral Halloween Special;models/workshop/player/items/all_class/halloweenjacket
 Sprinting Cephalopod;Scout;Feet;2013-10-29;Scream Fortress 2013;models/workshop/player/items/scout/hw2013_running_octopus
@@ -1402,7 +1402,7 @@ Torcher's Tabard;Pyro;Shirt;2014-12-22;Smissmas 2014;models/workshop/player/item
 Toss-Proof Towel;Heavy;Towel;2012-04-27;None;models/player/items/heavy/heavy_boxingtowel.*
 Tough Guy's Toque;Heavy;Hat;2009-08-13;Classless Update;models/player/items/heavy/heavy_stocking_cap.*
 Tough Stuff Muffs;All classes;Hat;2012-12-20;Mecha Update;models/workshop/player/items/all_class/all_earmuffs_style1|models/workshop/player/items/all_class/all_earmuffs_style2|models/workshop/player/items/all_class/all_earmuffs_style3|models/workshop/player/items/all_class/all_earmuffs_style4
-Towering Patch of Pumpkins;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_towering_patch
+Towering Patch of Pumpkins;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_towering_patch
 Towering Pile Of Presents;All classes;Hat;2020-12-03;Smissmas 2020;models/workshop/player/items/all_class/dec20_pile_of_presents
 Towering Pillar Of Summer Shades;All classes;Hat;2014-06-18;Love & War Update;models/player/items/all_class/summer_deal_[CLASS].*
 Towering Pillar of Beanies;All classes;Hat;2020-12-03;Smissmas 2020;models/workshop/player/items/all_class/dec20_pillar_of_beanies
@@ -1426,7 +1426,7 @@ Triad Trinket;Scout|Heavy|Engineer|Sniper|Spy;Shirt;2012-08-02;Triad Pack;models
 Tribal Bones;Pyro;Necklace;2012-08-10;None;models/workshop_partner/player/items/pyro/hero_academy_pyro/hero_academy_pyro.*
 Triboniophorus Tyrannus;Pyro;Hat;2010-03-18;First Community Contribution Update;models/player/items/pyro/pyro_brainsucker.*
 Trick Stabber;Pyro|Engineer;None;2019-10-10;Scream Fortress 2019;models/workshop/player/items/all_class/hwn2019_trick_stabber
-Trickster's Treats;Soldier|Pyro|Demo;Grenades;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_tricksters_treats|models/workshop/player/items/all_class/hwn2021_tricksters_treats_style2
+Trickster's Treats;Soldier|Pyro|Demo;Grenades;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_tricksters_treats|models/workshop/player/items/all_class/hwn2021_tricksters_treats_style2
 Trickster's Turnout Gear;Pyro;Shirt;2013-10-10;Fall Event 2013;models/workshop/player/items/pyro/fall2013_the_insidious_incinerator
 Triclops;Pyro;Whole Head;2012-05-10;None;models/player/items/pyro/smnc_pyro.*
 Triggerman's Tacticals;Sniper;Legs;2014-06-18;Love & War Update;models/workshop/player/items/sniper/short2014_sniper_cargo_pants
@@ -1442,7 +1442,7 @@ Tungsten Toque;Heavy;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/item
 Tuque or Treat;All classes;Hat;2013-10-29;Scream Fortress 2013;models/workshop/player/items/all_class/hw2013_pumpkin_top
 Tux;All classes;None;2013-02-14;None;models/player/items/all_class/all_penguin.*|models/player/items/all_class/all_penguin_demo.*|models/player/items/all_class/all_penguin_pyro.*
 Tuxxy;All classes;Shirt;2012-11-29;None;models/player/items/all_class/tuxxy_[CLASS].*
-Twisted Topper;All classes;Hat;2021-10-1;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_twisted_topper|models/workshop/player/items/all_class/hwn2021_twisted_topper_style2
+Twisted Topper;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_twisted_topper|models/workshop/player/items/all_class/hwn2021_twisted_topper_style2
 Two Punch Mann;Heavy;Head Skin;2021-06-22;Summer 2021 Pack;models/workshop/player/items/heavy/sum21_punchmann_style1|models/workshop/player/items/heavy/sum21_punchmann_style2
 Tyrant's Helm;Soldier;Hat;2009-08-13;Classless Update;models/player/items/soldier/soldier_viking.*
 Tyrantium Helmet;Soldier;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/items/soldier/robo_soldier_tyrantium
@@ -1496,9 +1496,9 @@ Vox Diabolus;Engineer;Hat;2013-02-22;None;models/player/items/engineer/bio_voxho
 Wagga Wagga Wear;Sniper;Shirt;2019-07-25;Summer 2019 Pack;models/workshop/player/items/sniper/sum19_wagga_wagga_wear
 Wally Pocket;Sniper;Pocket;2014-12-22;Smissmas 2014;models/workshop/player/items/sniper/dec2014_wally_pocket
 Wanderer's Wear;Pyro;Shirt;2019-07-25;Summer 2019 Pack;models/workshop/player/items/pyro/sum19_spawn_camper_jacket
-Wandering Wraith;Pyro;Whole Head;2021-10-1;Scream Fortress 2021;models/workshop/player/items/pyro/hwn2021_wandering_wraith
+Wandering Wraith;Pyro;Whole Head;2021-10-01;Scream Fortress 2021;models/workshop/player/items/pyro/hwn2021_wandering_wraith
 War Blunder;Soldier;Legs;2020-10-01;Scream Fortress 2020;models/workshop/player/items/soldier/hwn2020_war_blunder
-War Dog;Soldier;None;2021-10-1;Scream Fortress 2021;models/workshop/player/items/soldier/hwn2021_war_dog|models/workshop/player/items/soldier/hwn2021_war_dog_style2
+War Dog;Soldier;None;2021-10-01;Scream Fortress 2021;models/workshop/player/items/soldier/hwn2021_war_dog|models/workshop/player/items/soldier/hwn2021_war_dog_style2
 War Eagle;Soldier|Demo|Heavy;Hat;2017-10-20;Jungle Inferno Update;models/workshop/player/items/all_class/fall17_war_eagle
 War Goggles;Heavy;Glasses;2014-02-07;Strongbox Pack;models/workshop/player/items/heavy/sbox2014_war_goggles
 War Head;Heavy;Hat;2011-11-16;None;models/player/items/heavy/trn_heavy_knight.*
