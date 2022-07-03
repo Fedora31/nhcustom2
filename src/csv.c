@@ -12,10 +12,11 @@ static int getvalueindex(Csv *, int, char *, int);
 Csv *
 csv_load(char* file)
 {
-	//printf("loading csv file...");
-
 	FILE * f;
-	f = fopen(file, "rb");
+	//"r" should make it so that any CR+LF are converted to LF, but strchr() still reports the presence
+	//of carriage returns if all the lines of the file end in CR+LF... I should add a notice stating that
+	//csv files must have their end of lines be LF only.
+	f = fopen(file, "r");
 	if(f == NULL){
 		fprintf(stderr, "Error: could not open file %s\n", file);
 		return NULL;
@@ -38,17 +39,13 @@ csv_load(char* file)
 		if (c->buf[a]=='\n')
 			c->lcount++;
 	}
-	c->lcount--; //the header is stored separately (join?)
+	c->lcount--; //the header pointers are stored separately (join?)
 
 
-	//put a '\0' at the end of the first line
-
-	char *content = strpbrk(c->buf, "\r\n");
-	int i;
-	for(i = 0 ; content[i] == '\n' || content[i] == '\r'; i++){
-		content[i]='\0';
-	}
-	content+=i;//go over the '\0' byte(s) added
+	//put a '\0' instead of the first newline to separate the headers from the content
+	char *content = strchr(c->buf, '\n');
+	content[0]='\0';
+	content++;
 
 
 	//get the header fields
@@ -56,16 +53,15 @@ csv_load(char* file)
 	char *b = c->buf, *s = b;
 	while(b != NULL){
 		s = wstrsep(&b, ";");
-		//printf("found %s\n", s);
 		c->headers[c->hcount++] = s;
 	};
 
 
 	//allocate all the pointers for the fields
 
-	c->ptrs = malloc(sizeof(char*) * c->hcount); //row
+	c->ptrs = malloc(sizeof(char*) * c->hcount); //x columns (the number of headers)
 	for(int a = 0; a < c->hcount; a++)
-		c->ptrs[a] = malloc(sizeof(char*) * c->lcount); //column
+		c->ptrs[a] = malloc(sizeof(char*) * c->lcount); //y rows (the number of newlines)
 
 
 	//get the other fields
@@ -74,10 +70,10 @@ csv_load(char* file)
 	b = content;
 	s = b;
 	while(1){ //to infinity... and beyond!
-		s = wstrsep(&b, ";\n\r");
+		s = wstrsep(&b, ";\n");
 
 		//if the match is "\0\0", we don't want to take it into account (\n\0 -> \0\0 -> next round: match! even if there's nothing there)
-		//AND IF THERE IS CARRIAGE RETURNS? NVM, LOAD THE CSV LINE BY LINE TO FILTER THOSE, AND TO REMOVE THIS CRAPPY FIX
+		//this can happen at the very end of the file if it ends with a newline
 		if(b == NULL)
 			break;
 
@@ -94,8 +90,6 @@ csv_load(char* file)
 			break;
 
 	}
-	//printf("done\n");
-
 	return c;
 }
 

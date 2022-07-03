@@ -46,7 +46,12 @@ main(int argc, char **args)
 	}
 
 	printf("loading the database...\n");
-	Csv *db = csv_load("database.csv");
+	Csv *db;
+	if((db = csv_load("database.csv")) == NULL){
+		fprintf(stderr, "Error: could not load the database\n");
+		fclose(conf);
+		return 1;
+	}
 
 	if(parser_init(db, remove) < 0){
 		fprintf(stderr, "Error: could not initialize the parser\n");
