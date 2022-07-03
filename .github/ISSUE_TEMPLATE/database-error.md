@@ -2,7 +2,7 @@
 name: Database error
 about: Report a cosmetic not being removed properly
 title: TYPE THE COSMETIC'S NAME HERE
-labels: ''
+labels: database
 assignees: ''
 
 ---
