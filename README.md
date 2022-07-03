@@ -43,7 +43,8 @@ Make sure to keep the database and the input folder up do date.
 ## The database
 
 The database is now in the .csv format, making it usable with spreadsheet
-programs. It should contain only ASCII characters.
+programs. It should contain only ASCII characters and must not possess
+any carriage returns in it (the CR in CR+LF line endings), only line feeds.
 
 
 ## The configuration file
