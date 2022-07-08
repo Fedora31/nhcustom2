@@ -40,6 +40,14 @@ The `input` folder must be filled with the content of
 Make sure to keep the database and the input folder up do date.
 
 
+## Arguments
+
+The program accepts the following arguments:
+
+* `-q`, don't print info messages
+* `-p`, don't modify the outpout folder and print the found paths to stdout.
+
+
 ## The database
 
 The database is now in the .csv format, making it usable with spreadsheet

@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <string.h>
+#include "arg.h"
 #include "csv.h"
 #include "parser.h"
 
 
-#define LINE_LENGTH 128
+//should make it "line length agnostic"
+#define LINE_LENGTH 254
 
+//don't print and information, appart from errors.
+int quiet = 0;
+//don't touch any files and print the found paths instead.
+int print = 0;
 
 static void rmnl(char *);
 
@@ -13,7 +19,28 @@ static void rmnl(char *);
 int
 main(int argc, char **args)
 {
-	printf("-- nhcustom2 --\n");
+	//parse the given arguments
+	for(int i = 1; i < argc; i++){
+		if(args[i][0] == '-'){
+			int len = strlen(args[i]);
+			for(int a = 1; a < len; a++){
+				switch(args[i][a]){
+				case 'q':
+					quiet = 1;
+					break;
+				case 'p':
+					print = 1;
+					break;
+				default:
+					fprintf(stderr, "Error: unkown option \"%c\"\n", args[i][a]);
+					return 1;
+				}
+			}
+		}
+	}
+
+	if(!quiet)
+		printf("-- nhcustom2 --\n");
 
 	FILE *conf = fopen("config.txt", "rb");
 	if(conf == NULL) {
@@ -34,18 +61,22 @@ main(int argc, char **args)
 
 	int remove = 1;
 	if(strcmp(line, "keep") == 0){
-		printf("<keep>\n");
+		if(!quiet)
+			printf("<keep>\n");
 		remove = 0;
 	}else if (strcmp(line, "remove") == 0){
-		printf("<remove>\n");
+		if(!quiet)
+			printf("<remove>\n");
 		remove = 1;
 	}else{
-		fprintf(stderr, "Error: unkown mode. Either \"keep\" or \"remove\" must be on the first line.\n");
+		if(!quiet)
+			fprintf(stderr, "Error: unkown mode. Either \"keep\" or \"remove\" must be on the first line.\n");
 		fclose(conf);
 		return 1;
 	}
 
-	printf("loading the database...\n");
+	if(!quiet)
+		printf("loading the database...\n");
 	Csv *db;
 	if((db = csv_load("database.csv")) == NULL){
 		fprintf(stderr, "Error: could not load the database\n");
@@ -77,13 +108,17 @@ main(int argc, char **args)
 		return 1;
 	}
 
-	parser_exec();
+	if(print)
+		parser_show();
+	else
+		parser_exec();
 
 	csv_unload(db);
 	fclose(conf);
 	parser_clean();
 
-	printf("done.\n");
+	if(!quiet)
+		printf("done.\n");
 	return 0;
 }
 

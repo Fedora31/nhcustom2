@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include "arg.h"
 #include "str.h"
 #include "csv.h"
 #include "parser.h"
@@ -40,7 +41,8 @@ static int copy(char *);
 int
 parser_init(Csv *database, int flag)
 {
-	printf("initializing the parser...\n");
+	if(!quiet)
+		printf("initializing the parser...\n");
 	removeflag = flag;
 	db = database;
 	pl_alloc(&gpl);
@@ -53,14 +55,18 @@ parser_init(Csv *database, int flag)
 		return -1;
 	}
 
-	if(direxist(opath))
-		if(rmtree(opath) < 0)
-			return -1;
-	makedir(OUTPUT_DIR, 0755);
+	//only touch the files if the print flag isn't set
+	if(!print){
+		if(direxist(opath))
+			if(rmtree(opath) < 0)
+				return -1;
+		makedir(OUTPUT_DIR, 0755);
+	}
 
 	//don't need to do that with the remove flag
 	if(!removeflag){
-		printf("scanning the input folder...\n");
+		if(!quiet)
+			printf("scanning the input folder...\n");
 		char path[1024] = INPUT_DIR;
 		if (getallfiles(&apl, path) < 0)
 			return -1;
@@ -78,7 +84,8 @@ parser_clean(void)
 int
 parser_exec(void)
 {
-	printf("copying found files...\n");
+	if(!quiet)
+		printf("copying found files...\n");
 
 	//if remove flag, copy all the paths we found
 	if(removeflag){
@@ -95,6 +102,28 @@ parser_exec(void)
 				continue;
 			if(!pl_contain(&gpl, apl.path[i])){
 				copy(apl.path[i]);
+			}
+		}
+	}
+	return 0;
+}
+
+int
+parser_show(void)
+{
+	//almost same code as parser_exec(). merge?
+	if(removeflag){
+	for(int i = 0; i < gpl.max; i++){
+		if(gpl.path[i][0] == 0)
+			continue;
+		printf("%s\n", gpl.path[i]);
+	}
+	}else{
+		for(int i = 0; i < apl.max; i++){
+			if(apl.path[i][0] == 0)
+				continue;
+			if(!pl_contain(&gpl, apl.path[i])){
+				printf("%s\n", apl.path[i]);
 			}
 		}
 	}
@@ -125,7 +154,8 @@ parseline(char *line)
 		//the matches of the first value of the line will always be added to the lpl, but it's exception
 		//status is saved and will determine if the lpl will be added to or deleted from the gpl
 		if(i == 0) {
-			printf("%s\n", line);
+			if(!quiet)
+				printf("%s\n", line);
 			exception = hvpair.exception;
 			hvpair.exception = 0;
 		}
@@ -198,7 +228,8 @@ redirect(Csv *db, Pl* pl, Hvpair *hvpair)
 	return defield_add(db, pl, hvpair);
 }
 
-static int copy(char *path)
+static int
+copy(char *path)
 {
 	//dirs: output/models/player/... up until the last folder in the path
 	//tmp1: input/models/...
