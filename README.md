@@ -25,6 +25,9 @@ The program was created to work with the
 [bgum version](https://github.com/Fedora31/no-hats-bgum) of "no hats mod",
 but should work with other versions.
 
+If you want the latest version, you should consider building the program from source,
+as I won't make new releases for small changes.
+
 
 ## How to use
 
