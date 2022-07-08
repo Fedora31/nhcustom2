@@ -127,7 +127,8 @@ pl_contain(Pl *pl, char *path)
 	return 0;
 }
 
-static void pl_modify(Pl *pl, char *classstr, char *pathsstr, int remove)
+static void
+pl_modify(Pl *pl, char *classstr, char *pathsstr, int remove)
 {
 	if(strlen(pathsstr) == 0)
 		return;
