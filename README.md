@@ -1,7 +1,16 @@
 # nhcustom2
 
 This program is the second version of [nhcustom](https://github.com/Fedora31/nhcustom),
-a program created to modify the Team Fortress 2 mod "no hats mod".
+a program created to modify the Team Fortress 2 mod "no hats mod". If you plan to modify
+it to stop seeing specific hats or handpick those you want to still see, this program makes
+doing so easier.
+
+**Note:** A problem can arise when creating a custom version of
+"[no-hats-bgum](https://github.com/Fedora31/no-hats-bgum)", where cosmetics appear
+clipped inside default headgears. It isn't a problem with this program, but with how
+no-hats-bgum is made. See
+[this image](https://github.com/Fedora31/no-hats-bgum/blob/master/.github/images/nhm_modify.png)
+for more information.
 
 Some improvements have been made, including:
 
