@@ -486,7 +486,7 @@ Engineer's Cap;Engineer;Hat;2009-08-13;Classless Update;models/player/items/engi
 Escapist;Spy;Shirt;2013-10-10;Fall Event 2013;models/workshop/player/items/spy/fall2013_escapist|models/workshop/player/items/spy/fall2013_escapist_s2
 Essential Accessories;Scout;Sleeves|Feet;2011-01-24;None;models/player/items/scout/mnc_mascot_outfit.*
 Ethereal Hood;Demo|Spy;Whole Head;2013-10-29;Scream Fortress 2013;models/workshop/player/items/all_class/hw2013_ethereal_hood
-Executioner;All classes;Hat;2012-10-26;Spectral Halloween Special;models/workshop/player/items/demo/hw2013_demo_executioner_hood
+Executioner;All classes;Hat;2012-10-26;Spectral Halloween Special;models/player/items/all_class/executionerhood_[CLASS].*
 Exorcizor;Soldier|Pyro|Medic|Spy;Shirt;2012-10-26;Spectral Halloween Special;models/workshop/player/items/all_class/hwn_spy_priest
 Exquisite Rack;Soldier;None;2010-12-17;Australian Christmas;models/player/items/soldier/soldier_holiday_antlers.*
 External Organ;Pyro;Back;2013-10-29;Scream Fortress 2013;models/workshop/player/items/pyro/hw2013_dark_orchestra
@@ -888,7 +888,7 @@ Marxman;All classes;Glasses;2012-08-02;Triad Pack;models/player/items/all_class/
 Mask of the Shaman;Demo;Whole Head;2011-07-29;None;models/player/items/[CLASS]/dust_mask.*
 Master Mind;Engineer;Hat;2012-10-26;Spectral Halloween Special;models/player/items/engineer/engineer_brain.*
 Master's Yellow Belt;Sniper;Headband;2009-08-13;Classless Update;models/player/items/sniper/jarate_headband.*
-Max's Severed Head;All classes;None;2010-04-15;None;models/player/items/demo/demo_ttg_max.*
+Max's Severed Head;All classes;None;2010-04-15;None;models/player/items/[CLASS]/[CLASS]_ttg_max.*
 Meal Dealer;Scout;Shirt;2021-06-22;Summer 2021 Pack;models/workshop/player/items/scout/sum21_meal_dealer
 Mecha-Medes;Medic;Left Shoulder;2013-05-17;Robotic Boogaloo;models/workshop/player/items/medic/robo_medic_archimedes
 Medi-Mask;Medic;Beard;2012-09-06;First Workshop Content Pack;models/workshop/player/items/medic/medic_gasmask
@@ -1051,7 +1051,7 @@ Pocket Yeti;All classes;Pocket;2017-12-21;Smissmas 2017;models/workshop/player/i
 Pocket-Medes;Medic;Hip;2019-12-16;Smissmas 2019;models/workshop/player/items/medic/dec19_pocketmedes|models/workshop/player/items/medic/dec19_pocketmedes_s2
 Point and Shoot;All classes;Hat;2011-11-16;None;models/player/items/all_class/trn_wiz_hat_[CLASS].*
 Polar Bear;Heavy;Hat;2017-12-21;Smissmas 2017;models/workshop/player/items/heavy/dec17_polar_bear
-Polar Pal;All classes;Left Shoulder;2018-12-19;Smissmas 2018;models/workshop/player/items/all_class/dec18_polar_pal_liberty
+Polar Pal;All classes;Left Shoulder;2018-12-19;Smissmas 2018;models/workshop/player/items/all_class/dec18_polar_pal|models/workshop/player/items/all_class/dec18_polar_pal_bamboo|models/workshop/player/items/all_class/dec18_polar_pal_liberty
 Polar Pullover;All classes;Head Skin;2013-12-20;Smissmas 2013;models/workshop/player/items/all_class/xms2013_polar_pullover
 Polly Putrid;Demo;Left Shoulder;2013-10-29;Scream Fortress 2013;models/workshop/player/items/demo/hw2013_zombie_parrot
 Polycount Pin;All classes;Medal;2010-09-30;Mann-Conomy Update;models/player/items/all_class/polypack_badge.*
