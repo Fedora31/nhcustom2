@@ -1554,3 +1554,28 @@ Yuri's Revenge;Heavy;Beard;2014-06-18;Love & War Update;models/workshop/player/i
 Ze Goggles;Medic;Hat;2010-05-20;Second Community Contribution Update;models/player/items/medic/medic_goggles.*
 Ze Übermensch;Medic;Beard;2014-06-18;Love & War Update;models/workshop/player/items/medic/short2014_medic_nietzsche
 Zipperface;Soldier;Head;2012-10-26;Spectral Halloween Special;models/player/items/soldier/soldier_zipperhead.*
+Squatter's Right;Heavy;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/heavy/sum22_squatters_right|models/workshop/player/items/heavy/sum22_squatters_right_style2
+Combat Casual;Heavy;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/heavy/sum22_combat_casual_style2|models/workshop/player/items/heavy/sum22_combat_casual
+Fizzy Pharmacist;Medic;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/medic/sum22_fizzy_pharmacist_style2|models/workshop/player/items/medic/sum22_fizzy_pharmacist
+Soda Cap;Medic;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/medic/sum22_soda_cap_style2|models/workshop/player/items/medic/sum22_soda_cap
+Kazan Karategi;Pyro;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/pyro/sum22_kazan_karategi
+Monsieur Grenouille;Spy;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/spy/sum22_monsieur_grenouille|models/workshop/player/items/spy/sum22_monsieur_grenouille_style2
+Tactical Turtleneck;Spy;Coat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/spy/sum22_tactical_turtleneck
+Night Vision Gawkers;Spy;Glasses;2022-07-29;Summer 2022 Pack;models/workshop/player/items/spy/sum22_night_vision_gawkers
+Decorated Veteran;All classes;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/all_class/sum22_decorated_veteran|models/workshop/player/items/all_class/sum22_decorated_veteran_style2|models/workshop/player/items/all_class/sum22_decorated_veteran_style3
+Undercover Brolly;All classes;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/all_class/sum22_undercover_brolly
+Chaser;Soldier;Coat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/soldier/sum22_chaser|models/workshop/player/items/soldier/sum22_chaser_style2
+Detective;Soldier;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/soldier/sum22_detective|models/workshop/player/items/soldier/sum22_detective_style2
+Western Wraps;Engineer;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/engineer/sum22_western_wraps
+Lawnmaker;Engineer;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/engineer/sum22_lawnmaker|models/workshop/player/items/engineer/sum22_lawnmaker_style2
+Tropical Camo;Sniper;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/sniper/sum22_tropical_camo|models/workshop/player/items/sniper/sum22_tropical_camo_style2
+Rocko;Sniper;Necklace;2022-07-29;Summer 2022 Pack;models/workshop/player/items/sniper/sum22_rocko
+Hawaiian Hunter;Sniper;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/sniper/sum22_hawaiian_hunter|models/workshop/player/items/sniper/sum22_hawaiian_hunter_style2
+Throttlehead;Scout;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/scout/sum22_throttlehead|models/workshop/player/items/scout/sum22_throttlehead_style2
+Pest's Pads;Scout;Pants|Arms;2022-07-29;Summer 2022 Pack;models/workshop/player/items/scout/sum22_pests_pads|models/workshop/player/items/scout/sum22_pests_pads_style2|models/workshop/player/items/scout/sum22_pests_pads_style3|models/workshop/player/items/scout/sum22_pests_pads_style4
+Boston Brain Bucket;Scout;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/scout/sum22_brain_bucket|models/workshop/player/items/scout/sum22_brain_bucket_style2|models/workshop/player/items/scout/sum22_brain_bucket_style3|models/workshop/player/items/scout/sum22_brain_bucket_style4
+Team Player;Scout;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/scout/sum22_team_player
+Ripped Rider;Scout;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/scout/sum22_ripped_rider
+Hawaiian Hangover;Demo;Shirt;2022-07-29;Summer 2022 Pack;models/workshop/player/items/demo/sum22_hawaiian_hangover|models/workshop/player/items/demo/sum22_hawaiian_hangover_style2
+Head Banger;Demo;Hat;2022-07-29;Summer 2022 Pack;models/workshop/player/items/demo/sum22_head_banger
+Barefoot Brawler;Demo;Pants|Feet;2022-07-29;Summer 2022 Pack;models/workshop/player/items/demo/sum22_barefoot_brawler
