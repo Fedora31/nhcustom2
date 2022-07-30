@@ -22,7 +22,7 @@ Alakablamicon;All classes;Hat;2021-10-01;Scream Fortress 2021;models/workshop/pl
 Alien Cranium;Scout;Hat;2014-09-17;None;models/workshop/player/items/scout/ai_head|models/workshop_partner/player/items/scout/ai_head
 Alien Swarm Parasite;All classes;Hat;2010-07-19;None;models/player/items/all_class/parasite_hat_[CLASS].*
 All Hallows' Hatte;All classes;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/items/all_class/hwn2020_hallows_hatte
-All-Father;Soldier|Demo|Heavy|Engineer|Medic;Beard;2011-12-15;Australian Christmas 2011;models/workshop/player/items/all_class/xms_beard
+All-Father;Soldier|Demo|Heavy|Engineer|Medic;Beard;2011-12-15;Australian Christmas 2011;models/workshop/player/items/all_class/xms_beard|models/workshop/player/items/all_class/xms_beard_s2
 Allbrero;Demo;Hat;2014-06-18;Love & War Update;models/player/items/demo/demo_fiesta_sombrero.*
 Aloha Apparel;Scout|Engineer|Spy;Shirt;2017-10-20;Jungle Inferno Update;models/workshop/player/items/all_class/fall17_aloha_apparel
 Alternative Medicine Mann;Medic;Hat|Face;2013-10-29;Scream Fortress 2013;models/workshop/player/items/medic/hw2013_witching_ward
@@ -607,7 +607,7 @@ Gift Bringer;Soldier|Heavy;Coat;2015-12-17;Tough Break Update;models/workshop/pl
 Giftcrafter;All classes;Hat;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_giftcrafter
 Gifting Man From Gifting Land;All classes;Hat;2012-03-28;None;models/player/items/all_class/generous_[CLASS].*
 Gilded Guard;Soldier;Hat;2014-02-19;None;models/workshop/player/items/soldier/thief_soldier_helmet|models/workshop_partner/player/items/soldier/thief_soldier_helmet
-Gingerbread Mann;All classes;Belt;2019-12-16;Smissmas 2019;models/workshop/player/items/all_class/dec19_gingerbread_mann_s1
+Gingerbread Mann;All classes;Belt;2019-12-16;Smissmas 2019;models/workshop/player/items/all_class/dec19_gingerbread_mann_s1|models/workshop/player/items/all_class/dec19_gingerbread_mann_s2
 Glasgow Great Helm;Demo;Hat;2013-07-10;Summer Event 2013;models/workshop/player/items/demo/jul13_pillagers_barrel
 Glengarry Bonnet;Demo;Hat;2009-08-13;Classless Update;models/player/items/demo/demo_scott.*
 Glitched Circuit Board;All classes;None;2013-11-22;None;models/player/items/all_class/all_bug_hat_[CLASS].*
