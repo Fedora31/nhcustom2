@@ -37,7 +37,7 @@ Antlers;All classes;None;2012-12-20;Mecha Update;models/player/items/soldier/sol
 Aperture Labs Hard Hat;All classes;Hat;2011-04-05;None;models/player/items/[CLASS]/hardhat.*
 Apparatchik's Apparel;Heavy;Shirt|Arm Tattoos;2012-06-27;Pyromania Update;models/player/items/heavy/heavy_shirt.*
 Apparition's Aspect;Pyro;Head Replacement;2011-10-27;Very Scary Halloween Special;models/workshop/player/items/pyro/ghost_aspect
-Aqua Flops;Heavy;Feet;2012-12-20;Mecha Update;models/workshop_partner/player/items/heavy/heavy_carl_flops/heavy_carl_flops.* 
+Aqua Flops;Heavy;Feet;2012-12-20;Mecha Update;models/workshop_partner/player/items/heavy/heavy_carl_flops/heavy_carl_flops.*
 Arachno-Arsonist;Pyro;Head Replacement;2018-10-19;Scream Fortress 2018;models/workshop/player/items/pyro/hwn2018_arachno_arsonist
 Archer's Groundings;Sniper;Feet;2014-02-07;Strongbox Pack;models/workshop/player/items/sniper/sbox2014_archers_groundings
 Archer's Sterling;Sniper;Hat;2017-05-15;Rainy Day Pack;models/workshop/player/items/sniper/spr17_archers_sterling
@@ -1606,3 +1606,26 @@ Masked Fiend;Scout;Face;2022-10-05;Scream Fortress XIV;models/workshop/player/it
 Alcoholic Automaton;Demo;Head Replacement;2022-10-05;Scream Fortress XIV;models/workshop/player/items/demo/hwn2022_alcoholic_automaton_style2|models/workshop/player/items/demo/hwn2022_alcoholic_automaton
 Nightbane Brim;Demo;Hat;2022-10-05;Scream Fortress XIV;models/workshop/player/items/demo/hwn2022_nightbane_brim
 Bombard Brigadier;Demo;Hat;2022-10-05;Scream Fortress XIV;models/workshop/player/items/demo/hwn2022_bombard_brigadier_style2|models/workshop/player/items/demo/hwn2022_bombard_brigadier
+Heavy Heating;Heavy;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/heavy/dec22_heavy_heating_style1|models/workshop/player/items/heavy/dec22_heavy_heating_style2|models/workshop/player/items/heavy/dec22_heavy_heating_style3
+Ol' Reliable;Heavy;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/heavy/dec22_ol_reliable_style1|models/workshop/player/items/heavy/dec22_ol_reliable_style2|models/workshop/player/items/heavy/dec22_ol_reliable_style3
+Oktoberfester;Medic;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/medic/dec22_oktoberfester_style1|models/workshop/player/items/medic/dec22_oktoberfester_style2|models/workshop/player/items/medic/dec22_oktoberfester_style3
+Wooly Pulli;Medic;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/medic/dec22_wooly_pulli_style1|models/workshop/player/items/medic/dec22_wooly_pulli_style2|models/workshop/player/items/medic/dec22_wooly_pulli_style3
+Partizan;Pyro;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/pyro/dec22_partizan
+Firebrand;Pyro;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/pyro/dec22_firebrand
+Infiltrator's Insulation;Spy;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/spy/dec22_infiltrators_insulation
+Frostbite Bonnet;Spy;Hat|Glasses;2022-12-05;Smissmas 2022;models/workshop/player/items/spy/dec22_frostbite_bonnet
+Cold Blooded Coat;Spy;Coat;2022-12-05;Smissmas 2022;models/workshop/player/items/spy/dec22_cold_blooded_coat
+Festive Rack;All classes;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/all_class/dec22_festive_rack_style2|models/workshop/player/items/all_class/dec22_festive_rack_style1
+Battle Bear;All classes;Left Shoulder|Right Shoulder;2022-12-05;Smissmas 2022;models/workshop/player/items/all_class/dec22_battle_bear_style1|models/workshop/player/items/all_class/dec22_battle_bear_style2
+Lumbercap;All classes;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/all_class/dec22_lumbercap
+Colonel Kringle;All classes;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/all_class/dec22_colonel_kringle
+Trapper's Flap;All classes;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/all_class/dec22_trappers_flap_style1|models/workshop/player/items/all_class/dec22_trappers_flap_style2
+Bulb Bonnet;Soldier;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/soldier/dec22_bulb_bonnet_style1|models/workshop/player/items/soldier/dec22_bulb_bonnet_style2
+Arctic Mole;Engineer;Hat|Glasses;2022-12-05;Smissmas 2022;models/workshop/player/items/engineer/dec22_arctic_mole_style1|models/workshop/player/items/engineer/dec22_arctic_mole_style2|models/workshop/player/items/engineer/dec22_arctic_mole_style3
+Underminer's Overcoat;Engineer;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/engineer/dec22_underminers_style1|models/workshop/player/items/engineer/dec22_underminers_style2|models/workshop/player/items/engineer/dec22_underminers_style3
+Soft Hard Hat;Engineer;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/engineer/dec22_soft_hard_hat
+Cool Warm Sweater;Engineer;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/engineer/dec22_cool_warm_sweater_style1|models/workshop/player/items/engineer/dec22_cool_warm_sweater_style2
+Crosshair Cardigan;Sniper;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/sniper/dec22_crosshair_cardigan
+Motley Sleeves;Scout;Arm Tattoos;2022-12-05;Smissmas 2022;models/workshop/player/items/scout/dec22_motley_sleeves
+Glasgow Bankroll;Demo;Shirt;2022-12-05;Smissmas 2022;models/workshop/player/items/demo/dec22_glasgow_bankroll_style1|models/workshop/player/items/demo/dec22_glasgow_bankroll_style2|models/workshop/player/items/demo/dec22_glasgow_bankroll_style3
+Plaid Lad;Demo;Hat;2022-12-05;Smissmas 2022;models/workshop/player/items/demo/dec22_plaid_lad_style1|models/workshop/player/items/demo/dec22_plaid_lad_style2|models/workshop/player/items/demo/dec22_plaid_lad_style3
