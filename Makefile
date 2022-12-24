@@ -1,6 +1,6 @@
 CC = gcc
-SRC = src/*.c
-CFLAGS = -Wall
+SRC = src/*.c lib/*.c
+CFLAGS = -Wall -Ilib
 
 ifeq ($(OS), Windows_NT)
 	CFLAGS += -l:libregex.a -l:libtre.a -l:libintl.a -l:libtre.a -l:libiconv.a
