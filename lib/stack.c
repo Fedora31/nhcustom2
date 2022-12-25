@@ -13,6 +13,8 @@ stack_init(Stack *s, int nmemb, int realloccount, long size)
 {
 	s->used = calloc(nmemb, sizeof(int));
 	s->stack = calloc(nmemb, size);
+	s->stacki = 0;
+	s->count = 0;
 	s->max = nmemb;
 	s->slotsize = size;
 	s->realloccount = realloccount;
@@ -97,7 +99,7 @@ stack_add(Stack *s, void *p)
 	int i = 0;
 	if(s->count >= s->max){
 		stack_realloc(s, s->max + s->realloccount);
-		i = s->max;
+		i = s->count;
 	}
 	for(; i < s->max; i++)
 		if(s->used[i] == 0)

@@ -4,6 +4,10 @@
 #include "csv.h"
 #include "parser.h"
 
+//#include <csv.h>
+#include <stack.h>
+#include "hat.h"
+
 
 //should make it "line length agnostic"
 #define LINE_LENGTH 254
@@ -37,6 +41,11 @@ main(int argc, char **args)
 				}
 			}
 		}
+	}
+
+	if(hat_init()<0){
+		fprintf(stderr, "hat_init() failed\n");
+		return 1;
 	}
 
 	if(!quiet)

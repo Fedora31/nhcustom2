@@ -1,4 +1,5 @@
 hat;class;equip;date;update;path
+defhat;Scout|Soldier|Pyro|Demo|Heavy|Engineer|Medic|Sniper|Spy;Hat;2001-01-01;None;models/this_path_doesnt_exist_and_dont_delete_this_hat_its_important
 A Brush with Death;Medic;Beard;2013-10-10;Fall Event 2013;models/workshop/player/items/medic/fall2013_medic_wc_beard
 A Handsome Handy Thing;All classes;Hat;2020-10-01;Scream Fortress 2020;models/workshop/player/items/all_class/hwn2020_handy_thing|models/workshop/player/items/all_class/hwn2020_handy_thing_style2
 A Hat to Kill For;Spy;Hat;2015-12-17;Tough Break Update;models/workshop/player/items/spy/dec15_a_hat_to_kill_for

@@ -124,3 +124,31 @@ csvs(Csv *csv, char *h1, char *key, char *h2)
 		return NULL;
 	return csv->cells[x2][y];
 }
+
+//Check if the y coordinate is valid
+int
+csvy(Csv *csv, int y)
+{
+	if(csv->lines > y)
+		return 1;
+	return 0;
+}
+
+int
+csvx(Csv *csv, int x)
+{
+	if(csv->columns > x)
+		return 1;
+	return 0;
+}
+
+char *
+csvsxy(Csv *csv, int x, int y)
+{
+	if(!csvy(csv, y))
+		return NULL;
+	if(!csvx(csv, x))
+		return NULL;
+
+	return csv->cells[x][y];
+}

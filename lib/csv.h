@@ -13,3 +13,6 @@ enum CSV_ERRORS{
 Csv * csvload(char *, char);
 void csvdel(Csv *);
 char * csvs(Csv *, char *, char *, char *);
+int csvy(Csv *, int);
+int csvx(Csv *, int);
+char * csvsxy(Csv *, int, int);
