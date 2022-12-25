@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <regex.h>
+#include <dirent.h>
+#include "str.h"
 
 #include <csv.h>
 #include <stack.h>
@@ -7,6 +12,8 @@
 
 static Hat *getdefhat(int);
 static int formatpaths(Stack *, char *, char *);
+static int getfiles(Stack *);
+static void splitfield(Stack *, char *, char *, int);
 
 Stack list;
 
@@ -83,13 +90,21 @@ hat_init(void)
 
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
 		Pty *name = stack_get(&hat->ptys, namei);
-		printf("%d: %s\n", i, name->val);
+		printf("Hat %d: %s\n", i, name->val);
 
 		Pty *path = stack_get(&hat->ptys, pathi);
 		Pty *class = stack_get(&hat->ptys, classi);
 		if(strcmp(class->val, "All classes") == 0)
 			class = stack_get(&defhat->ptys, classi);
+
 		formatpaths(&hat->paths, class->val, path->val);
+		getfiles(&hat->paths);
+
+		printf("Files:\n");
+		char *file;
+		for(int e = 0; (file = stack_getnextused(&hat->paths, &e)) != NULL;)
+			printf("%s\n", file);
+
 	}
 	return 0;
 }
@@ -126,12 +141,159 @@ static int
 formatpaths(Stack *npaths, char *cpty, char *ppty)
 {
 	Stack classes, paths;
+	char c[HAT_VALLEN] = {0}, p[HAT_PATHLEN] = {0};
+
 	stack_init(&classes, 9, 9, HAT_VALLEN);
 	stack_init(&paths, 1, 3, HAT_PATHLEN);
 
-	//copy the paths and classes into the stacks, and do the thing
+	strncpy(c, cpty, HAT_VALLEN);
+	strncpy(p, ppty, HAT_VALLEN);
+
+	//separate the classes and paths and add them to their stacks
+	splitfield(&classes, c, "|", HAT_VALLEN);
+	splitfield(&paths, p, "|", HAT_PATHLEN);
+
+	//now, we have all the classes and all the unformatted paths in stacks
+
+	char *path;
+	char *class;
+	for(int i = 0; (path = stack_getnextused(&paths, &i)) != NULL;){
+		if(strstr(path, "[CLASS]") == NULL)
+			continue;
+
+		Stack tmppaths;
+		stack_init(&tmppaths, 2, 7, HAT_PATHLEN);
+
+		//duplicate the path and replace [CLASS] by each class
+		for(int e = 0; (class = stack_getnextused(&classes, &e)) != NULL;){
+
+			//gotta lower the class name
+			char lclass[HAT_VALLEN] = {0};
+			for(int a = 0; class[a] != '\0'; a++)
+				lclass[a] = tolower(class[a]);
+
+			char tmp[HAT_PATHLEN] = {0};
+			strcpy(tmp, path);
+			strswapall(tmp, "[CLASS]", lclass);
+			stack_add(&tmppaths, tmp);
+		}
+		//we don't need the unformatted path anymore
+		stack_rem(&paths, i-1);
+
+		for(int e = 0; (path = stack_getnextused(&tmppaths, &e)) != NULL;)
+			stack_add(&paths, path);
+
+		stack_free(&tmppaths);
+	}
+
+	//now, we have formatted paths ready to be regexed against folders and files
+
+	for(int i = 0; (path = stack_getnextused(&paths, &i)) != NULL;)
+		stack_add(npaths, path);
 
 	stack_free(&classes);
 	stack_free(&paths);
 	return 0;
+}
+
+//replace the paths from the stack (which are used as regexes) with the
+//filepaths of the files they point to.
+static int
+getfiles(Stack *paths)
+{
+	Stack matches;
+	char *path;
+	char pattern[HAT_PATHLEN] = {".*"};
+
+	stack_init(&matches, 2, 3, HAT_PATHLEN);
+
+	for(int i = 0; (path = stack_getnextused(paths, &i)) != NULL;){
+		//printf("pattern: %s\n", path);
+
+		int len = strlen(path);
+		char fpath[HAT_PATHLEN] = {"./input"};
+		strcat(fpath, "/");
+		strcat(fpath, path);
+
+		if(path[len-1] == '*'){
+			//the path target files, separate the path into the parent directory and the pattern
+			char *delim = strrchr(fpath, '/');
+			fpath[delim - fpath] = '\0';
+			strcpy(pattern, delim+1); //+1 to exclude the '/'
+		}
+
+		//prepare and compile the regex
+		regex_t reg;
+		regmatch_t match[1];
+		int res;
+		if((res = regcomp(&reg, pattern, REG_EXTENDED))){
+			char err[44];
+			regerror(res, &reg, err, 44);
+			fprintf(stderr, "err: regex error %d: %s\n", res, err);
+
+			stack_free(&matches);
+			return -1;
+		}
+
+		struct dirent *file;
+		DIR *dir;
+
+		if((dir = opendir(fpath)) == NULL){
+			fprintf(stderr, "err: couldn't open directory %s\n", fpath);
+
+			stack_free(&matches);
+			return -1;
+		}
+
+		//go through all the files and see which ones match with the regex
+		while((file = readdir(dir)) != NULL){
+			char npath[HAT_PATHLEN] = {0};
+
+			if(strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
+				continue;
+			if(regexec(&reg, file->d_name, sizeof(match) / sizeof(match[0]), match, 0))
+				continue;
+
+			//format the filepath and add it to the stack
+			strcpy(npath, fpath);
+			strcat(npath, "/");
+			strcat(npath, file->d_name);
+			stack_add(&matches, npath);
+		}
+
+		//don't forget to cleanup
+		closedir(dir);
+		free(file);
+		regfree(&reg);
+	}
+
+	//empty the path stack and add the matched files instead
+	for(int i = 0; (path = stack_getnextused(paths, &i)) != NULL;)
+		stack_rem(paths, i-1);
+
+	for(int i = 0; (path = stack_getnextused(&matches, &i)) != NULL;){
+		stack_add(paths, path);
+		//printf("MATCH: %s\n", path);
+	}
+
+	stack_free(&matches);
+	return 0;
+}
+
+//separate field and add the parts to the stack
+static void
+splitfield(Stack *stack, char *s, char *sep, int size)
+{
+	//cannot add them to the stack directly, or it'll copy data outside the array
+	char *tmp = malloc(size);
+
+	for(char *next = s; next != NULL;){
+
+		char *val;
+		val = wstrsep(&next, sep);
+		strcpy(tmp, val);
+
+		stack_add(stack, tmp);
+	}
+	free(tmp);
 }

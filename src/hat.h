@@ -4,7 +4,7 @@
 
 #define HAT_KEYLEN 64
 #define HAT_VALLEN 1024
-#define HAT_PATHLEN 1024
+#define HAT_PATHLEN 1024 //must be >= HAT_VALLEN
 
 typedef struct Pty{
 	char key[HAT_KEYLEN];
