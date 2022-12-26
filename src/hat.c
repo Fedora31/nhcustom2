@@ -4,15 +4,14 @@
 #include <stdlib.h>
 #include <regex.h>
 #include <dirent.h>
-#include "str.h"
-
 #include <time.h>
+
 #include <csv.h>
 #include <stack.h>
 #include "strstack.h"
+#include "str.h"
 #include "hat.h"
-
-#include "parser.h"
+#include "parser.h" //only for date.h
 #include "date.h"
 
 static Hat *getdefhat(int);
@@ -24,6 +23,7 @@ static void splitfield(Stack *, char *, char *, int);
 Stack list;
 
 
+//fill the list stack with Hat structs
 int
 hat_init(void)
 {

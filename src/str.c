@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "str.h"
 
 //strsep is here because windows doesn't possess it
@@ -43,12 +44,6 @@ strsplit(char *in, char *seps)
 }
 
 void
-strl_realloc(char *sl)
-{
-	//not now
-}
-
-void
 strswapall(char *s, char *pattern, char *new)
 {
 	char *subs;
@@ -59,7 +54,6 @@ strswapall(char *s, char *pattern, char *new)
 void
 strswap(char *s, char *pattern, char *new)
 {
-
 	char *subs;
 	if((subs = strstr(s, pattern)) == NULL)
 		return;

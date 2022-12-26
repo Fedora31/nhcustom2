@@ -9,7 +9,7 @@ typedef struct Hvpair{
 	int filter;
 }Hvpair;
 
-int parser_init(Csv *, int);
+int parser_init(int);
 int parser_exec(void);
 int parser_show(void);
 void parser_clean(void);

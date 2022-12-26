@@ -4,34 +4,19 @@
 #include <sys/stat.h>
 #include "arg.h"
 #include "str.h"
-#include "csv.h"
-#include "pl.h"
 
 #include <stack.h>
 #include "strstack.h"
 #include "hat.h"
 #include "parser.h"
-#include "path.h"
-#include "defield.h"
 #include "date.h"
 #include "copy.h"
 
 #define PARSER_LINELEN 512
 
-
-//all the paths in the input dir, used at the very end
-static Pl apl;
-
 //global pathlist, containing paths gotten during the
 //execution of the configuration file
-static Pl gpl;
 static Stack gstack;
-
-//line pathlist, containing paths gotten each line, emptied after each line
-static Pl lpl;
-
-//database used
-static Csv *db;
 
 //remove flag (if not 1, means keep flag)
 static int removeflag = 1;
@@ -41,20 +26,17 @@ static int removeflag = 1;
 static int gethv(char **, Hvpair *);
 
 //redirect the header/values to the function suited to handle them
-//static int redirect(Csv *, Pl*, Hvpair *);
-static int redirect2(Stack *, Hvpair *);
-
+static int redirect(Stack *, Hvpair *);
 static int copy(char *);
+static int modifystack(Stack *, Stack *, int, int);
+
 
 int
-parser_init(Csv *database, int flag)
+parser_init(int flag)
 {
 	if(!quiet)
 		printf("initializing the parser...\n");
 	removeflag = flag;
-	db = database;
-	pl_alloc(&gpl);
-	pl_alloc(&apl);
 	stack_init(&gstack, 64, 512, HAT_PATHLEN);
 
 	char opath[1024] = OUTPUT_DIR;
@@ -72,22 +54,13 @@ parser_init(Csv *database, int flag)
 		makedir(OUTPUT_DIR, 0755);
 	}
 
-	//don't need to do that with the remove flag
-	if(!removeflag){
-		if(!quiet)
-			printf("scanning the input folder...\n");
-		char path[1024] = INPUT_DIR;
-		if (getallfiles(&apl, path) < 0)
-			return -1;
-	}
 	return 0;
 }
 
 void
 parser_clean(void)
 {
-	pl_free(&gpl);
-	pl_free(&apl);
+	stack_free(&gstack);
 }
 
 int
@@ -95,27 +68,6 @@ parser_exec(void)
 {
 	if(!quiet)
 		printf("copying found files...\n");
-
-	/*
-	//if remove flag, copy all the paths we found
-	if(removeflag){
-	for(int i = 0; i < gpl.max; i++){
-		if(gpl.path[i][0] == 0)
-			continue;
-		copy(gpl.path[i]);
-	}
-
-	//else (keep), copy the paths we haven't found
-	}else{
-		for(int i = 0; i < apl.max; i++){
-			if(apl.path[i][0] == 0)
-				continue;
-			if(!pl_contain(&gpl, apl.path[i])){
-				copy(apl.path[i]);
-			}
-		}
-	}
-	*/
 
 	char *path;
 	if(removeflag)
@@ -127,7 +79,9 @@ parser_exec(void)
 
 		stack_init(&tmp, 1024, 1024, HAT_PATHLEN);
 		printf("scanning the input folder...\n");
-		getallfiles2(&tmp, str);
+
+		if(getallfiles(&tmp, str)<0)
+			return -1;
 
 		for(int i = 0; (path = stack_getnextused(&tmp, &i)) != NULL;)
 			if(strstack_contain(&gstack, path)<0)
@@ -142,28 +96,11 @@ parser_exec(void)
 int
 parser_show(void)
 {
-	//almost same code as parser_exec(). merge?
-	if(removeflag){
-	for(int i = 0; i < gpl.max; i++){
-		if(gpl.path[i][0] == 0)
-			continue;
-		printf("%s\n", gpl.path[i]);
-	}
-	}else{
-		for(int i = 0; i < apl.max; i++){
-			if(apl.path[i][0] == 0)
-				continue;
-			if(!pl_contain(&gpl, apl.path[i])){
-				printf("%s\n", apl.path[i]);
-			}
-		}
-	}
-
+	//incomplete, to merge with parser_exec()
 
 	char *p;
 	for(int i = 0; (p = stack_getnextused(&gstack, &i)) != NULL;)
 		printf("%s\n", p);
-
 
 
 	return 0;
@@ -182,8 +119,6 @@ parseline(char *line)
 
 	strncpy(l, line, PARSER_LINELEN-1);
 
-
-	pl_alloc(&lpl);
 	stack_init(&lstack, 64, 128, HAT_PATHLEN);
 
 	int exception; //holds if the first value of the line is an exception
@@ -195,8 +130,8 @@ parseline(char *line)
 			return -1;
 
 
-		//the matches of the first value of the line will always be added to the lpl, but it's exception
-		//status is saved and will determine if the lpl will be added to or deleted from the gpl
+		//the matches of the first value of the line will always be added to the stack, but it's exception
+		//status is saved and will determine if the stack will be added to or deleted from the gstack
 		if(i == 0) {
 			if(!quiet)
 				printf("%s\n", line);
@@ -206,10 +141,8 @@ parseline(char *line)
 			hvpair.filter = 0;
 		}
 
-		//fill the lpl with the found matches
-		/*if(redirect(db, &lpl, &hvpair) < 0)
-			return -1;*/
-		if(redirect2(&lstack, &hvpair) < 0)
+		//fill the lstack with the found matches
+		if(redirect(&lstack, &hvpair) < 0)
 			return -1;
 
 		i++;
@@ -218,20 +151,9 @@ parseline(char *line)
 	}
 
 
-	//modify the gpl according to the lpl and if the first value was an exception
-	if(exception){
-		pl_remfrom(&gpl, &lpl);
-		strstack_remfrom(&gstack, &lstack);
-	}else if(filter){
-		strstack_filter(&gstack, &lstack);
-	}else{
-		pl_addfrom(&gpl, &lpl);
-		strstack_addto(&gstack, &lstack);
-	}
+	//modify the gstack according to the lstack and the modifiers
+	modifystack(&gstack, &lstack, exception, filter);
 
-	printf("exception =%d filter =%d\n", exception, filter);
-
-	pl_free(&lpl);
 	stack_free(&lstack);
 	return 0;
 }
@@ -259,19 +181,6 @@ gethv(char **s, Hvpair *hvpair)
 
 	memcpy(hvpair->value, value, strlen(value)+1);
 
-
-	/*//tell if the value is an exception or a filter
-	if(hvpair->value[0] == '!'){
-		hvpair->exception = 1;
-		hvpair->filter = 0;
-		strremc(hvpair->value, 0);
-	}else if(hvpair->value[0] == '}'){
-		hvpair->filter = 1;
-		hvpair->exception = 0;
-		strremc(hvpair->value, 0);
-	}else*/
-
-
 	hvpair->exception = 0;
 	hvpair->filter = 0;
 
@@ -292,20 +201,8 @@ gethv(char **s, Hvpair *hvpair)
 	return 0;
 }
 
-/*
 static int
-redirect(Csv *db, Pl* pl, Hvpair *hvpair)
-{
-	if(strcmp(hvpair->header, "date") == 0)
-		return date_add(db, pl, hvpair);
-	if(strcmp(hvpair->header, "path") == 0)
-		return path_add(db, pl, hvpair);
-	return defield_add(db, pl, hvpair);
-}
-*/
-
-static int
-redirect2(Stack *res, Hvpair *hvpair)
+redirect(Stack *res, Hvpair *hvpair)
 {
 	Stack tmp;
 	stack_init(&tmp, 64, 512, HAT_PATHLEN);
@@ -313,22 +210,17 @@ redirect2(Stack *res, Hvpair *hvpair)
 	if(strcmp(hvpair->header, "date") == 0)
 		date_search(&tmp, hvpair);
 	else if(strcmp(hvpair->header, "path") == 0)
-		path_search(&tmp, hvpair);
+		hat_pathsearch(&tmp, hvpair->value);
 	else
-		defield_search(&tmp, hvpair);
+		hat_defsearch(&tmp, hvpair->header, hvpair->value);
 
-	if(hvpair->exception)
-		strstack_remfrom(res, &tmp);
-	else if(hvpair->filter){
-		strstack_filter(res, &tmp);
-	}else
-		strstack_addto(res, &tmp);
+	modifystack(res, &tmp, hvpair->exception, hvpair->filter);
 
 	stack_free(&tmp);
 	return 0;
 }
 
-//copy the file to the new location
+//copy the file to the new location (move)
 static int
 copy(char *ofile)
 {
@@ -346,5 +238,19 @@ copy(char *ofile)
 		return -1;
 	if(fcopy(ofile, nfile) < 0)
 		return -1;
+	return 0;
+}
+
+//modify the stack according to the other stack and the modifiers
+static int
+modifystack(Stack *this, Stack *with, int exception, int filter)
+{
+	if(exception){
+		strstack_remfrom(this, with);
+	}else if(filter){
+		strstack_filter(this, with);
+	}else{
+		strstack_addto(this, with);
+	}
 	return 0;
 }

@@ -5,82 +5,19 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <errno.h>
-#include "str.h"
-#include "csv.h"
-#include "pl.h"
 
 #include <stack.h>
+#include "str.h"
 #include "copy.h"
-
 
 static int isdir(char *);
 
-
-int
-getallfiles(Pl *pl, char *path)
-{
-	//static variable to check if the function doesn't go haywire
-	//currently the function recurses around 1900 times
-	static int recurse = RECURSE_LIMIT;
-	DIR *dir;
-	struct dirent *ent;
-
-	recurse--;
-	if(recurse < 0){
-		fprintf(stderr, "Error: getallfiles() recursed an abnormally high number of times!!\n");
-		return -1;
-	}
-
-	if((dir = opendir(path)) == NULL){
-		fprintf(stderr, "Error: getallfiles(): could not open directory %s\n", path);
-		return -1;
-	}
-
-	while((ent = readdir(dir)) != NULL){
-		if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0){
-			continue;
-		}
-
-			//add new file/folder to the path
-			strcat(path, "/");
-			strcat(path, ent->d_name);
-
-			//if file, add it to the pathlist and move on
-			if(isdir(path) == 0){
-				char tmp[1024];
-				strcpy(tmp, path);
-				strswap(tmp, INPUT_DIR, "");
-				strswap(tmp, "/", "");
-				pl_add(pl, tmp);
-				//printf("found %s\n", tmp);
-
-				//go back one level
-				path[strrchr(path, '/')-path] = '\0';
-
-				continue;
-			}
-
-			//else, recurse!
-			if(getallfiles(pl, path) < 0)
-				return -1;
-
-	}
-	//go back one level
-	path[strrchr(path, '/')-path] = '\0';
-
-	closedir(dir);
-	free(ent);
-
-	if(recurse < 0)
-		return -1;
-	return 0;
-}
 
 //add all the filepaths under path into the stack res
 //Warning: path is modified, and need to be large enough
 //to contain the largest path in the tree.
 int
-getallfiles2(Stack *res, char *path)
+getallfiles(Stack *res, char *path)
 {
 	static int recurse = RECURSE_LIMIT;
 	DIR *dir;
@@ -115,7 +52,7 @@ getallfiles2(Stack *res, char *path)
 			continue;
 		}
 		//else, recurse!
-		if(getallfiles2(res, path) < 0)
+		if(getallfiles(res, path) < 0)
 			return -1;
 	}
 
@@ -123,7 +60,6 @@ getallfiles2(Stack *res, char *path)
 	path[strrchr(path, '/')-path] = '\0';
 
 	closedir(dir);
-	//free(ent);
 
 	if(recurse < 0)
 		return -1;
@@ -163,7 +99,6 @@ rmtree(char *path)
 
 			if(remove(path) < 0){
 				fprintf(stderr, "Error: could not remove file \"%s\"\n", path);
-				free(ent);
 				closedir(dir);
 				return -1;
 			}
@@ -179,7 +114,6 @@ rmtree(char *path)
 
 	}
 
-	free(ent);
 	closedir(dir);
 	//apparently I must use rmdir to please Windows
 	if(rmdir(path) < 0){
@@ -228,7 +162,7 @@ makedirs(char *path, int rights)
 {
 	char tmp[1024] = {0};
 
-	char **list = strsplit(path, "/");
+	char **list = strsplit(path, "/"); //bad function, to change
 
 	for(int i = 0; list[i] != NULL; i++){
 		strcat(tmp, list[i]);
@@ -243,6 +177,7 @@ makedirs(char *path, int rights)
 
 		strcat(tmp, "/");
 	}
+	free(list);
 	return 0;
 }
 

@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-#include "arg.h"
-#include "csv.h"
-#include "parser.h"
-
-//#include <csv.h>
-#include <stack.h>
 #include <time.h>
-#include "hat.h"
 
+#include <stack.h>
+#include "arg.h"
+#include "parser.h"
+#include "hat.h"
 
 //should make it "line length agnostic"
 #define LINE_LENGTH 254
@@ -22,27 +19,11 @@ static void rmnl(char *);
 
 
 int
-main(int argc, char **args)
+main(int argc, char **argv)
 {
 	//parse the given arguments
-	for(int i = 1; i < argc; i++){
-		if(args[i][0] == '-'){
-			int len = strlen(args[i]);
-			for(int a = 1; a < len; a++){
-				switch(args[i][a]){
-				case 'q':
-					quiet = 1;
-					break;
-				case 'p':
-					print = 1;
-					break;
-				default:
-					fprintf(stderr, "Error: unkown option \"%c\"\n", args[i][a]);
-					return 1;
-				}
-			}
-		}
-	}
+	if(arg_process(argc, argv)<0)
+		return 1;
 
 	if(hat_init()<0){
 		fprintf(stderr, "hat_init() failed\n");
@@ -58,7 +39,6 @@ main(int argc, char **args)
 		return 1;
 	}
 
-
 	char line[LINE_LENGTH] = {0};
 	int err = 0;
 
@@ -72,11 +52,11 @@ main(int argc, char **args)
 	int remove = 1;
 	if(strcmp(line, "keep") == 0){
 		if(!quiet)
-			printf("<keep>\n");
+			printf("mode: keep listed files\n");
 		remove = 0;
 	}else if (strcmp(line, "remove") == 0){
 		if(!quiet)
-			printf("<remove>\n");
+			printf("mode: remove listed files\n");
 		remove = 1;
 	}else{
 		if(!quiet)
@@ -85,18 +65,8 @@ main(int argc, char **args)
 		return 1;
 	}
 
-	if(!quiet)
-		printf("loading the database...\n");
-	Csv *db;
-	if((db = csv_load("database.csv")) == NULL){
-		fprintf(stderr, "Error: could not load the database\n");
-		fclose(conf);
-		return 1;
-	}
-
-	if(parser_init(db, remove) < 0){
+	if(parser_init(remove) < 0){
 		fprintf(stderr, "Error: could not initialize the parser\n");
-		csv_unload(db);
 		fclose(conf);
 		return 1;
 	}
@@ -112,7 +82,6 @@ main(int argc, char **args)
 
 	if(err){
 		fprintf(stderr, "Errors occured, aborting.\n");
-		csv_unload(db);
 		fclose(conf);
 		parser_clean();
 		return 1;
@@ -123,7 +92,6 @@ main(int argc, char **args)
 	else
 		parser_exec();
 
-	csv_unload(db);
 	fclose(conf);
 	parser_clean();
 
