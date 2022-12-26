@@ -1,11 +1,12 @@
 /*
- * requires: "csv.h"
+ * requires: hat.h
  */
 
 typedef struct Hvpair{
-	char header[CSV_FIELD];
-	char value[CSV_FIELD];
+	char header[1024];
+	char value[1024];
 	int exception; //wether the value should be removed or added
+	int filter;
 }Hvpair;
 
 int parser_init(Csv *, int);

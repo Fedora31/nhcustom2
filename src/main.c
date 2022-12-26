@@ -6,6 +6,7 @@
 
 //#include <csv.h>
 #include <stack.h>
+#include <time.h>
 #include "hat.h"
 
 

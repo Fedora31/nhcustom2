@@ -1,6 +1,7 @@
 #include <sys/stat.h>
 #include "../csv.h"
 #include "../pl.h"
+#include <stack.h>
 #include "../copy.h"
 
 

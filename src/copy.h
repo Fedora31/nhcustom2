@@ -1,5 +1,5 @@
 /*
- * requires: "pl.h"
+ * requires: "pl.h", stack.h
  */
 
 
@@ -14,3 +14,4 @@ int fcopy(char *, char *);
 int makedirs(char *, int);
 int makedir(char *, int);
 int direxist(char *);
+int getallfiles2(Stack *, char *);

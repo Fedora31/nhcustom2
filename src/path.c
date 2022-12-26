@@ -3,7 +3,9 @@
 #include "csv.h"
 #include "pl.h"
 #include "parser.h"
+#include <stack.h>
 #include "path.h"
+#include "hat.h"
 
 
 int
@@ -59,4 +61,10 @@ path_add(Csv *db, Pl *pl, Hvpair *hvpair)
 	regfree(&regex);
 	pl_free(&tpl);
 	return 0;
+}
+
+int
+path_search(Stack *res, Hvpair *hv)
+{
+	return hat_pathsearch(res, hv->value);
 }

@@ -9,6 +9,8 @@
 #include "csv.h"
 #include "parser.h"
 #include "pl.h"
+
+#include <stack.h>
 #include "copy.h"
 
 
@@ -77,7 +79,7 @@ pl_rem(Pl *pl, char *path)
 			continue;
 		if(strcmp(pl->path[i], path) == 0){
 			memset(pl->path[i], 0, CSV_FIELD);
-			//printf("removed %s\n", path);	
+			//printf("removed %s\n", path);
 			return;
 		}
 	}
@@ -211,7 +213,7 @@ getfiles(Pl *pl, char *path, int remove)
 	char pattern[128] = {".*"};
 	char *pd;
 
-	
+
 	strcat(fpath, path);
 
 	if(path[len-1] == '*'){

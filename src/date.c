@@ -6,14 +6,15 @@
 #include "csv.h"
 #include "parser.h"
 #include "pl.h"
+#include <stack.h>
 #include "date.h"
+#include "hat.h"
 
 
 
-static void formatdate(char *, char *);
-static time_t getepoch(char *);
+//static void formatdate(char *, char *);
 
-
+/*
 int
 date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 {
@@ -50,9 +51,9 @@ date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 	char *d1, *d2, *ptr = date;
 	d1 = wstrsep(&ptr, "/");
 	d2 = ptr;
-	if((time1 = getepoch(d1)) < 0)
+	if((time1 = date_getepoch(d1)) < 0)
 		return -1;
-	if((time2 = getepoch(d2)) < 0)
+	if((time2 = date_getepoch(d2)) < 0)
 		return -1;
 
 	//printf("time1 %ld\ntime2 %ld\n", time1, time2);
@@ -66,7 +67,7 @@ date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 		y++;
 
 		time_t t;
-		if((t = getepoch(csv_ptr(db, pos))) < 0){
+		if((t = date_getepoch(csv_ptr(db, pos))) < 0){
 			//maybe the error is due to a date being before the UNIX or Windows epoch?
 			printf("Warning: bad date in the csv file, pos %d/%d\n", pos[0], pos[1]);
 			continue;
@@ -85,8 +86,35 @@ date_add(Csv *db, Pl *pl, Hvpair *hvpair)
 	}
 	return 0;
 }
+*/
 
-static void
+int
+date_search(Stack *res, Hvpair *hv)
+{
+	char date[HAT_VALLEN] = {0};
+	time_t from, to;
+	char *d1, *d2, *ptr = date;
+
+	strncpy(date, hv->value, HAT_VALLEN-1);
+	d1 = wstrsep(&ptr, "/");
+	d2 = ptr;
+
+	if((from = date_getepoch(d1)) < 0)
+		return -1;
+	if((to = date_getepoch(d2)) < 0)
+		return -1;
+
+	return hat_datesearch(res, from, to);
+}
+
+
+
+
+
+
+
+
+/*static void
 formatdate(char *d, char *fd)
 {
 	//I'm aware that this is the most basic and useless code ever written to format a date.
@@ -100,9 +128,10 @@ formatdate(char *d, char *fd)
 	//copy the first year over to the second year if it's empty
 	if(fd[11] == '0' && fd[12] == '0' && fd[13] == '0' && fd[14] == '0')
 		memcpy(fd + 11, d, 4);
-}
+}*/
 
-static time_t getepoch(char *date)
+time_t
+date_getepoch(char *date)
 {
 	//Windows doesn't have strptime(), gaaah
 
@@ -121,7 +150,7 @@ static time_t getepoch(char *date)
 	tm.tm_isdst = -1;
 	time = mktime(&tm);
 	if(time < 0){
-		fprintf(stderr, "Error: mktime()\n");
+		fprintf(stderr, "err: mktime() failed\n");
 		return -4;
 	}
 

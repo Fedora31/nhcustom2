@@ -6,13 +6,19 @@
 #include <dirent.h>
 #include "str.h"
 
+#include <time.h>
 #include <csv.h>
 #include <stack.h>
+#include "strstack.h"
 #include "hat.h"
+
+#include "parser.h"
+#include "date.h"
 
 static Hat *getdefhat(int);
 static int formatpaths(Stack *, char *, char *);
 static int getfiles(Stack *);
+static int getdate(time_t *, char *);
 static void splitfield(Stack *, char *, char *, int);
 
 Stack list;
@@ -22,7 +28,7 @@ int
 hat_init(void)
 {
 	Csv *csv;
-	int y = 1;
+	int y = 1; //to ignore the first line
 	stack_init(&list, 512, 512, sizeof(Hat));
 
 	if((csv = csvload("database.csv", ';')) == NULL){
@@ -67,6 +73,7 @@ hat_init(void)
 	int namei;
 	int pathi;
 	int classi;
+	int datei;
 
 	if((namei = hat_getptyi("hat"))<0){
 		fprintf(stderr, "err: name (or \"hat\") property not found\n");
@@ -83,27 +90,33 @@ hat_init(void)
 		return -1;
 	}
 
+	if((datei = hat_getptyi("date"))<0){
+		fprintf(stderr, "err: date property not found\n");
+		return -1;
+	}
+
 	if((defhat = getdefhat(namei)) == NULL){
 		fprintf(stderr, "err: couldn't find the default hat (defhat)\n");
 		return -1;
 	}
 
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
-		Pty *name = stack_get(&hat->ptys, namei);
-		printf("Hat %d: %s\n", i, name->val);
 
 		Pty *path = stack_get(&hat->ptys, pathi);
 		Pty *class = stack_get(&hat->ptys, classi);
+		Pty *date = stack_get(&hat->ptys, datei);
+
 		if(strcmp(class->val, "All classes") == 0)
 			class = stack_get(&defhat->ptys, classi);
 
 		formatpaths(&hat->paths, class->val, path->val);
 		getfiles(&hat->paths);
+		getdate(&hat->date, date->val);
 
-		printf("Files:\n");
+		/*printf("Files:\n");
 		char *file;
 		for(int e = 0; (file = stack_getnextused(&hat->paths, &e)) != NULL;)
-			printf("%s\n", file);
+			printf("%s\n", file);*/
 
 	}
 	return 0;
@@ -120,6 +133,92 @@ hat_getptyi(char *key)
 			return i-1; //-1 bc stack_getnextused() increments it
 	}
 	return -1;
+}
+
+int
+hat_defsearch(Stack *paths, char *key, char *pattern)
+{
+	int id;
+	Pty *pty;
+	Hat *hat;
+	regex_t reg;
+	regmatch_t match[1];
+	int res;
+
+	if((id = hat_getptyi(key))<0)
+		return -1;
+
+	if((res = regcomp(&reg, pattern, REG_ICASE | REG_EXTENDED))){ // don't care about case
+		char err[44];
+		regerror(res, &reg, err, 44);
+		fprintf(stderr, "err: regex error %d: %s\n", res, err);
+		return -2;
+	}
+
+	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
+		pty = stack_get(&hat->ptys, id);
+		if(!regexec(&reg, pty->val, sizeof(match) / sizeof(match[0]), match, 0)){
+			strstack_addto(paths, &hat->paths);
+			//printf("Found %s\n", ((Pty*)stack_get(&hat->ptys, id))->val);
+		}
+	}
+
+	regfree(&reg);
+	return 0;
+}
+
+int
+hat_pathsearch(Stack *paths, char *pattern)
+{
+	Hat *hat;
+	char *path;
+	regex_t reg;
+	regmatch_t match[1];
+	int res;
+
+	if((res = regcomp(&reg, pattern, REG_EXTENDED))){ //we do care about case here
+		char err[44];
+		regerror(res, &reg, err, 44);
+		fprintf(stderr, "err: regex error %d: %s\n", res, err);
+		return -1;
+	}
+
+	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
+		for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;){
+			if(!regexec(&reg, path, sizeof(match) / sizeof(match[0]), match, 0))
+				stack_add(paths, path);
+		}
+	}
+
+	return 0;
+}
+
+int
+hat_datesearch(Stack *paths, time_t from, time_t to)
+{
+	Hat *hat;
+	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;)
+		if(hat->date >= from && hat->date <= to)
+			strstack_addto(paths, &hat->paths);
+	return 0;
+}
+
+Hat *
+hat_get(int id)
+{
+	return stack_getused(&list, id);
+}
+
+int
+getdate(time_t *res, char *str)
+{
+	time_t tmp = date_getepoch(str);
+	if(tmp<0){
+		*res = 0;
+		return -1;
+	}
+	*res = tmp;
+	return 0;
 }
 
 static Hat *

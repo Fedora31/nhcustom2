@@ -2,7 +2,10 @@
 #include "csv.h"
 #include "parser.h"
 #include "pl.h"
+#include <stack.h>
 #include "defield.h"
+#include <time.h>
+#include "hat.h"
 
 
 //add the paths of the matches in the database in pl.
@@ -30,4 +33,10 @@ defield_add(Csv *db, Pl* pl, Hvpair *hvpair)
 
 	}
 	return 0;
+}
+
+int
+defield_search(Stack *res, Hvpair *hv)
+{
+	return hat_defsearch(res, hv->header, hv->value);
 }

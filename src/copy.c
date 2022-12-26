@@ -8,6 +8,8 @@
 #include "str.h"
 #include "csv.h"
 #include "pl.h"
+
+#include <stack.h>
 #include "copy.h"
 
 
@@ -68,6 +70,60 @@ getallfiles(Pl *pl, char *path)
 
 	closedir(dir);
 	free(ent);
+
+	if(recurse < 0)
+		return -1;
+	return 0;
+}
+
+//add all the filepaths under path into the stack res
+//Warning: path is modified, and need to be large enough
+//to contain the largest path in the tree.
+int
+getallfiles2(Stack *res, char *path)
+{
+	static int recurse = RECURSE_LIMIT;
+	DIR *dir;
+	struct dirent *ent;
+
+	recurse--;
+	if(recurse < 0){
+		fprintf(stderr, "err: getallfiles() recursed an abnormally high number of times!\n");
+		return -1;
+	}
+	if((dir = opendir(path)) == NULL){
+		fprintf(stderr, "err: getallfiles(): could not open directory %s\n", path);
+		return -1;
+	}
+
+	while((ent = readdir(dir)) != NULL){
+		if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0){
+			continue;
+		}
+
+		//add new file/folder to the path
+		strcat(path, "/");
+		strcat(path, ent->d_name);
+
+		//if file, add it to the pathlist and move on
+		if(isdir(path) == 0){
+			stack_add(res, path);
+			//printf("found %s\n", tmp);
+
+			//go back one level
+			path[strrchr(path, '/')-path] = '\0';
+			continue;
+		}
+		//else, recurse!
+		if(getallfiles2(res, path) < 0)
+			return -1;
+	}
+
+	//go back one level
+	path[strrchr(path, '/')-path] = '\0';
+
+	closedir(dir);
+	//free(ent);
 
 	if(recurse < 0)
 		return -1;
@@ -160,7 +216,7 @@ fcopy(char *from, char *to)
 			fclose(of);
 			return -1;
 		}
-	} 
+	}
 
 	fclose(nf);
 	fclose(of);
