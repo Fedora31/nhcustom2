@@ -8,7 +8,6 @@
 #define RECURSE_LIMIT 10000
 
 
-int rmtree(char *);
 int fcopy(char *, char *);
 int makedirs(char *, int);
 int makedir(char *, int);

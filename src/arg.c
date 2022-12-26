@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "str.h"
 #include "arg.h"
+
+static char input[ARG_FOLDERLEN] = {"./input\0"};
+static char output[ARG_FOLDERLEN] = {"./output\0"};
+
+static void formatfolder(char *, char *);
 
 
 int
@@ -22,6 +28,18 @@ arg_process(int argc, char **argv)
 				case 'p':
 					print = 1;
 					break;
+				case 'i':
+					step++;
+					if(i+step >= argc)
+						return -1;
+					formatfolder(input, argv[i+step]);
+					break;
+				case 'o':
+					step++;
+					if(i+step >= argc)
+						return -1;
+					formatfolder(output, argv[i+step]);
+					break;
 				default:
 					fprintf(stderr, "fatal: option not recognized: %c\n", argv[i][e]);
 					return -1;
@@ -30,5 +48,28 @@ arg_process(int argc, char **argv)
 			i+=step; //to not get args that were already parsed in the switch
 		}
 	}
+	printf("input = %s\noutput = %s\n", input, output);
+
 	return 0;
+}
+
+char *
+arg_getinput(void)
+{
+	return input;
+}
+
+char *
+arg_getoutput(void)
+{
+	return output;
+}
+
+static void formatfolder(char *res, char *arg)
+{
+	int len = strlen(arg);
+	strncpy(res, arg, ARG_FOLDERLEN-1);
+	strswapall(res, "\\", "/");
+	if(res[len-1] == '/')
+		res[len-1] = '\0';
 }

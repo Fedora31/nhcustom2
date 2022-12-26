@@ -39,21 +39,10 @@ parser_init(int flag)
 	removeflag = flag;
 	stack_init(&gstack, 64, 512, HAT_PATHLEN);
 
-	char opath[1024] = OUTPUT_DIR;
-
-	if(!direxist(INPUT_DIR)){
-		fprintf(stderr, "Error: input directory \"%s\" doesn't exist\n", INPUT_DIR);
+	if(!direxist(arg_getinput())){
+		fprintf(stderr, "err: input directory \"%s\" doesn't exist\n", arg_getinput());
 		return -1;
 	}
-
-	//only touch the files if the print flag isn't set
-	if(!print){
-		if(direxist(opath))
-			if(rmtree(opath) < 0)
-				return -1;
-		makedir(OUTPUT_DIR, 0755);
-	}
-
 	return 0;
 }
 
@@ -75,7 +64,8 @@ parser_exec(void)
 			copy(path);
 	else{ //keep flag, copy the paths we haven't found
 		Stack tmp;
-		char str[HAT_PATHLEN] = {INPUT_DIR};
+		char str[HAT_PATHLEN] = {0};
+		strcpy(str, arg_getinput());
 
 		stack_init(&tmp, 1024, 1024, HAT_PATHLEN);
 		printf("scanning the input folder...\n");
@@ -230,7 +220,7 @@ copy(char *ofile)
 
 	char nfile[HAT_PATHLEN], dirs[HAT_PATHLEN];
 	strcpy(nfile, ofile);
-	strswap(nfile, INPUT_DIR, OUTPUT_DIR);
+	strswap(nfile, arg_getinput(), arg_getoutput());
 	strcpy(dirs, nfile);
 	strrchr(dirs, '/')[0] = '\0';
 

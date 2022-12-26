@@ -20,7 +20,7 @@ static int getfiles(Stack *);
 static int getdate(time_t *, char *);
 static void splitfield(Stack *, char *, char *, int);
 
-Stack list;
+static Stack list;
 
 
 //fill the list stack with Hat structs
