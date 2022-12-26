@@ -284,7 +284,7 @@ Classified Coif;Soldier;Coat;2014-06-18;Love & War Update;models/workshop/player
 Classy Capper;Sniper;Head;2017-10-20;Jungle Inferno Update;models/workshop/player/items/sniper/fall17_hunter
 Claws And Infect;Scout;Hands;2014-10-29;Scream Fortress 2014;models/workshop/player/items/scout/sf14_scout_hunter_arm
 Climbing Commander;Soldier;Hat;2018-12-19;Smissmas 2018;models/workshop/player/items/soldier/dec18_climbing_commander
-Clockwerk's Helm;Engineer;Hat;1970-01-01;None;models/player/items/engineer/clockwerk_hat.*
+Clockwerk's Helm;Engineer;Hat;2011-08-18;None;models/player/items/engineer/clockwerk_hat.*
 Cloud Crasher;Soldier;Hat;2013-06-13;Second Workshop Content Pack;models/workshop/player/items/soldier/cloud_crasher
 Clubsy The Seal;Engineer;Pocket;2014-12-22;Smissmas 2014;models/workshop/player/items/engineer/dec2014_engineer_seal
 Co-Pilot;All classes;Hat;2014-12-22;Smissmas 2014;models/workshop/player/items/all_class/dec2014_copilot_2014
@@ -1255,7 +1255,7 @@ Snaggletoothed Stetson;Pyro|Engineer|Sniper;Hat;2013-10-29;Scream Fortress 2013;
 Snapped Pupil;Demo;Glasses;2012-02-14;None;models/player/items/demo/eyephoto.*
 Sneaky Spats of Sneaking;Spy;Feet;2012-05-17;None;models/player/items/spy/spy_spats.*
 Sniper Mask;All classes;Whole Head;2010-10-27;Scream Fortress Update;models/player/items/all_class/halloween_bag_sniper_demo.*|models/player/items/all_class/halloween_bag_sniper_engineer.*|models/player/items/all_class/halloween_bag_sniper_heavy.*|models/player/items/all_class/halloween_bag_sniper_medic.*|models/player/items/all_class/halloween_bag_sniper_pyro.*|models/player/items/all_class/halloween_bag_sniper_scout.*|models/player/items/all_class/halloween_bag_sniper_sniper.*|models/player/items/all_class/halloween_bag_sniper_soldier.*|models/player/items/all_class/halloween_bag_sniper_spy.*
-Sniper's Snipin' Glass;Sniper;Glasses;1970-01-01;None;models/player/items/sniper/dotasniper_hat.*
+Sniper's Snipin' Glass;Sniper;Glasses;2011-08-18;None;models/player/items/sniper/dotasniper_hat.*
 Snow Scoper;Sniper;Shirt;2013-12-20;Smissmas 2013;models/workshop/player/items/sniper/xms2013_sniper_jacket
 Snow Sleeves;Demo|Heavy|Sniper;Shirt;2014-12-08;End of the Line Update;models/workshop/player/items/all_class/hiphunter_jacket
 Snow Stompers;Engineer;Feet;2014-12-08;End of the Line Update;models/workshop/player/items/engineer/eotl_winter_pants
@@ -1325,7 +1325,7 @@ Steel-Toed Stompers;Heavy;Feet;2011-10-27;Very Scary Halloween Special;models/pl
 Stereoscopic Shades;Scout;Glasses;2011-10-13;Manniversary Update & Sale;models/player/items/scout/fwk_scout_3d.*
 Stockbroker's Scarf;Pyro;Necklace;2010-12-13;None;models/player/items/pyro/pyro_tripwire_tie.*
 Stocking Stuffer;Engineer;Pocket;2011-12-15;Australian Christmas 2011;models/player/items/engineer/xms_engineer_stocking.*
-Storm Spirit's Jolly Hat;Heavy;Hat;1970-01-01;None;models/player/items/heavy/stormspirit_hat.*
+Storm Spirit's Jolly Hat;Heavy;Hat;2011-08-18;None;models/player/items/heavy/stormspirit_hat.*
 Storm Stompers;Demo;Feet;2014-12-22;Smissmas 2014;models/workshop/player/items/demo/dec2014_viking_boots
 Stormin' Norman;Demo;Hat;2013-07-10;Summer Event 2013;models/workshop/player/items/demo/jul13_stormn_normn
 Stout Shako;Soldier;Hat;2010-09-30;Mann-Conomy Update;models/player/items/soldier/soldier_shako.*
