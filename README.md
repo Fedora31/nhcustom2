@@ -259,7 +259,7 @@ Below are some examples of what could be entered in the configuration file.
 
 ```
 #find hats that can be worn by mutiple classes but that are not all-class
-class:.*:class:!All classes
+class:.*\|.*:class:!All classes
 
 #deselect hats that came out between 2008 and march 1st, 2013, except
 #if they can be worn by the soldier (along with other classes)
