@@ -17,9 +17,11 @@ static void rmnl(char *);
 int
 main(int argc, char **argv)
 {
+	int res;
 	//parse the given arguments
-	if(arg_process(argc, argv)<0){
-		prnte("fatal: incorrect arguments\n");
+	if((res = arg_process(argc, argv))<0){
+		if(res == -1)
+			prnte("fatal: incorrect arguments\n");
 		return 1;
 	}
 
