@@ -364,7 +364,6 @@ getfiles(Stack *paths)
 
 		//don't forget to cleanup
 		closedir(dir);
-		free(file);
 		regfree(&reg);
 	}
 
