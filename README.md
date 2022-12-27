@@ -1,6 +1,6 @@
 # nhcustom2
 
-> Note (Dec 2022): v2 is out! The main changes are: the "edit" flag `}` has been added, the
+> Note (Dec 2022): v2 is out! The main changes are: the "filter" flag `}` has been added, the
 > output folder is *no longer wiped* at each startup, the `date` header now *only* accepts
 > fully written dates (YYYY-MM-DD/YYYY-MM-DD), and new arguments have been introduced.
 
