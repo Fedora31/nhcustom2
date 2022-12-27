@@ -13,6 +13,7 @@
 #include "hat.h"
 #include "parser.h" //only for date.h
 #include "date.h"
+#include "arg.h"
 
 static Hat *getdefhat(int);
 static int formatpaths(Stack *, char *, char *);
@@ -31,7 +32,7 @@ hat_init(void)
 	int y = 1; //to ignore the first line
 	stack_init(&list, 512, 512, sizeof(Hat));
 
-	if((csv = csvload("database.csv", ';')) == NULL){
+	if((csv = csvload(arg_getcsv(), arg_getsep())) == NULL){
 		fprintf(stderr, "err: couldn't load the database\n");
 		return -1;
 	}
@@ -310,7 +311,8 @@ getfiles(Stack *paths)
 		//printf("pattern: %s\n", path);
 
 		int len = strlen(path);
-		char fpath[HAT_PATHLEN] = {"./input"};
+		char fpath[HAT_PATHLEN] = {0};
+		strcpy(fpath, arg_getinput());
 		strcat(fpath, "/");
 		strcat(fpath, path);
 
