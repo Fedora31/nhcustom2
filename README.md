@@ -1,5 +1,9 @@
 # nhcustom2
 
+> Note (Dec 2022): v2 is out! The main changes are: the "edit" flag `}` has been added, the
+> output folder is *no longer wiped* at each startup, the `date` header now *only* accepts
+> fully written dates (YYYY-MM-DD/YYYY-MM-DD), and new arguments have been introduced.
+
 This program is the second version of [nhcustom](https://github.com/Fedora31/nhcustom),
 a program created to modify the Team Fortress 2 mod "no hats mod". If you plan to modify
 it to stop seeing specific hats or handpick those you want to still see, this program makes
@@ -17,10 +21,6 @@ Some improvements have been made, including:
 * A more advanced config syntax
 * The use of regular expressions (regexes)
 * The ability to search and filter paths
-
-The main drawback of this version is its speed: the program is a bit slower than
-its predecessor, especially on slow pcs. This is partly due to a lack of
-optimization (this will hopefully be fixed at some point).
 
 Some parts of the program work differently than in the first version, making the
 configuration files made for the original program unusable. However, They are
@@ -40,13 +40,11 @@ as I won't make new releases for small changes.
 
 ## How to use
 
-The `output` directory is deleted each time the program is run. Backup any mod
-previously generated if you want to keep them.
+Add the parameters you want in the configuration file, then execute the program. An `input`
+folder must be present next to the executable, or another folder must be specified with
+the option `-i`.
 
-Add the parameters you want in the configuration file, then execute the program.
-The program **MUST** be executed while being in the same directory.
-
-The `input` folder must be filled with the content of
+The input folder must be filled with the content of
 [this zip file](https://github.com/Fedora31/no-hats-bgum/blob/master/nhm_source/mechbgum_no_hats_mod/no_hats_bgum.zip), or any other version of "no hats mod".
 
 Make sure to keep the database and the input folder up do date.
@@ -56,8 +54,14 @@ Make sure to keep the database and the input folder up do date.
 
 The program accepts the following arguments:
 
-* `-q`, don't print info messages
-* `-p`, don't modify the outpout folder and print the found paths to stdout.
+* `-q`, don't print info messages.
+* `-p`, print the found paths to stdout.
+* `-n`, don't touch to any file (the program has no effect).
+* `-i`, specify the input folder. (default: `./input`)
+* `-o`, specify the output folder. (default: `./output`)
+* `-f`, specify the configuration file. (default: `./config.txt`)
+* `-d`, specify the database. (default: `./database.csv`)
+* `-s`, specify the separator used in the database. (default: `;`)
 
 
 ## The database
@@ -115,13 +119,13 @@ care:
 
 ```
 date:2021
-#will expand to 2021-01-01/2021-12-31
 date:2021-05
-#will expand to 2021-05-01/2021-12-31
 date:2021-05-06
-#will expand to 2021-05-06/2021-12-31
 date:2021-05-06/2022
-#will expand to 2021-05-06/2022-12-31
+#since v2 (Dec 2022), the dates above are NOT valid.
+
+date:2021-05-06/2022-12-31
+#this date is valid.
 ```
 
 writing
@@ -172,6 +176,22 @@ syntax, this statement could also have been written like this:
 date:2007:hat:!Fancy Fedora
 ```
 
+
+## The filter (`}`) flag
+
+Since v2, you can use this new flag to filter out any previous matches that
+do not match with the following statement. This is especially useful when you
+are interested in a small subset of previous results. For example, if you wanted
+to select all the cosmetics that came out in the Smissmas 2022 update for the Medic
+and the Pyro, you could write the following:
+
+```
+update:Smissmas 2022:class:}^Medic$|^Pyro$
+```
+
+Note that flags can only be used separately.
+
+
 ## Regular expressions (asterisks replacement)
 
 The original program had a concept of "asterisks" (`*`) to select, for example, all
@@ -198,22 +218,27 @@ used by this program isn't the most feature-complete one, which could cause
 some "modern" regexes to fail. The standard used is the [POSIX Extended Regular
 Syntax](https://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended).
 
-Also, there is currently no way of writing regexes with colons in it, or that begin with a `!`.
+Also, there is currently no way of writing regexes with colons in it, or that begin with a
+character that a flag uses.
 
 Another important point is that regexes **cannot** be used with the `date` header.
 
 
-## The `input` and `output` folders
+## The input and output folders
 
-The `input` folder is where must be an **uncompiled** version of the
+The input folder is where must be an **uncompiled** version of the
 no-hats-mod. If done correctly, the path should start with the following:
 `input/models/...`
 
-The program will refuse to run if there isn't an `input` folder.
+The program will refuse to run if there isn't an input folder.
 
-After the program is run, the resulting mod will be placed in the `output` folder,
-and is ready to be compiled into a .vpk file by the program of your choice. Like I
-wrote previously, the `output` folder is wiped at every start of the program.
+After the program is run, the resulting mod will be placed in the output folder,
+and is ready to be compiled into a .vpk file by the program of your choice.
+
+As of v2, The output folder is *no longer wiped at each startup*, so old generated
+mods won't be deleted. This has been changed with the release of the `-o` option,
+as I judged the old behavior to be too dangerous now that the user can specify
+their own, potentially wrong or misspelled, output folder.
 
 
 ## Compiling
@@ -250,5 +275,8 @@ path:.*scout.*
 
 #find only the first style of the Foppish Physician
 hat:foppish physician:path:!necktie
+
+#find only the third style of the medic cosmetics from Smissmas 2022
+update:Smissmas 2022:class:}^Medic$:path:}style3
 
 ```
