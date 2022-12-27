@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "str.h"
+#include "io.h"
 #include "arg.h"
 
 static char input[ARG_ARGLEN] = {"./input\0"};
@@ -9,6 +10,13 @@ static char output[ARG_ARGLEN] = {"./output\0"};
 static char conf[ARG_ARGLEN] = {"./config.txt\0"};
 static char csv[ARG_ARGLEN] = {"./database.csv\0"};
 static char sep = ';';
+
+//don't print and information, appart from errors.
+int quiet = 0;
+//don't touch any files and print the found paths instead.
+int print = 0;
+//dont copy any files over.
+int norun = 0;
 
 static void formatpath(char *, char *);
 static int incrstep(int *, int, int);
@@ -32,6 +40,10 @@ arg_process(int argc, char **argv)
 
 				case 'p':
 					print = 1;
+					break;
+
+				case 'n':
+					norun = 1;
 					break;
 
 				case 'i':
@@ -66,7 +78,7 @@ arg_process(int argc, char **argv)
 					break;
 
 				default:
-					fprintf(stderr, "fatal: option not recognized: %c\n", argv[i][e]);
+					prnte("fatal: option not recognized: %c\n", argv[i][e]);
 					return -1;
 				}
 			}

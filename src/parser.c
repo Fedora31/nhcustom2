@@ -11,6 +11,7 @@
 #include "parser.h"
 #include "date.h"
 #include "copy.h"
+#include "io.h"
 
 #define PARSER_LINELEN 512
 
@@ -34,13 +35,12 @@ static int modifystack(Stack *, Stack *, int, int);
 int
 parser_init(int flag)
 {
-	if(!quiet)
-		printf("initializing the parser...\n");
+	prnt("initializing the parser...\n");
 	removeflag = flag;
 	stack_init(&gstack, 64, 512, HAT_PATHLEN);
 
 	if(!direxist(arg_getinput())){
-		fprintf(stderr, "err: input directory \"%s\" doesn't exist\n", arg_getinput());
+		prnte("err: input directory \"%s\" doesn't exist\n", arg_getinput());
 		return -1;
 	}
 	return 0;
@@ -55,43 +55,38 @@ parser_clean(void)
 int
 parser_exec(void)
 {
-	if(!quiet)
-		printf("copying found files...\n");
+	prnt("copying found files...\n");
 
 	char *path;
-	if(removeflag)
-		for(int i = 0; (path = stack_getnextused(&gstack, &i)) != NULL;)
-			copy(path);
+	if(removeflag) //remove flag, copy the paths we found
+		for(int i = 0; (path = stack_getnextused(&gstack, &i)) != NULL;){
+			if(print)
+				printf("%s\n", path);
+			if(!norun)
+				copy(path);
+		}
+
 	else{ //keep flag, copy the paths we haven't found
 		Stack tmp;
 		char str[HAT_PATHLEN] = {0};
 		strcpy(str, arg_getinput());
 
 		stack_init(&tmp, 1024, 1024, HAT_PATHLEN);
-		printf("scanning the input folder...\n");
+		prnt("scanning the input folder...\n");
 
 		if(getallfiles(&tmp, str)<0)
 			return -1;
 
 		for(int i = 0; (path = stack_getnextused(&tmp, &i)) != NULL;)
-			if(strstack_contain(&gstack, path)<0)
-				copy(path);
+			if(strstack_contain(&gstack, path)<0){
+				if(print)
+					printf("%s\n", path);
+				if(!norun)
+					copy(path);
+			}
 
 		stack_free(&tmp);
 	}
-
-	return 0;
-}
-
-int
-parser_show(void)
-{
-	//incomplete, to merge with parser_exec()
-
-	char *p;
-	for(int i = 0; (p = stack_getnextused(&gstack, &i)) != NULL;)
-		printf("%s\n", p);
-
 
 	return 0;
 }
@@ -123,8 +118,7 @@ parseline(char *line)
 		//the matches of the first value of the line will always be added to the stack, but it's exception
 		//status is saved and will determine if the stack will be added to or deleted from the gstack
 		if(i == 0) {
-			if(!quiet)
-				printf("%s\n", line);
+			prnt("%s\n", line);
 			exception = hvpair.exception;
 			filter = hvpair.filter;
 			hvpair.exception = 0;

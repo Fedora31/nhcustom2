@@ -1,5 +1,6 @@
 extern int quiet;
 extern int print;
+extern int norun;
 
 #define ARG_ARGLEN 128
 

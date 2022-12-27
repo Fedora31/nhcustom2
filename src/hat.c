@@ -10,10 +10,11 @@
 #include <stack.h>
 #include "strstack.h"
 #include "str.h"
-#include "hat.h"
 #include "parser.h" //only for date.h
 #include "date.h"
 #include "arg.h"
+#include "io.h"
+#include "hat.h"
 
 static Hat *getdefhat(int);
 static int formatpaths(Stack *, char *, char *);
@@ -33,7 +34,7 @@ hat_init(void)
 	stack_init(&list, 512, 512, sizeof(Hat));
 
 	if((csv = csvload(arg_getcsv(), arg_getsep())) == NULL){
-		fprintf(stderr, "err: couldn't load the database\n");
+		prnte("err: couldn't load the database\n");
 		return -1;
 	}
 
@@ -58,13 +59,13 @@ hat_init(void)
 			pty.val[HAT_VALLEN-1] = '\0';
 
 			if(stack_add(&hat.ptys, &pty)<0){
-				printf("err: couldn't add pty (key=%s, val=%s) to ptys\n", pty.key, pty.val);
+				prnte("err: couldn't add pty (key=%s, val=%s) to ptys\n", pty.key, pty.val);
 				return -1;
 			}
 		}
 
 		if(stack_add(&list, &hat)<0){
-			printf("err: couldn't add hat (index %d) to list\n", y);
+			prnte("err: couldn't add hat (index %d) to list\n", y);
 			return -1;
 		}
 	}
@@ -77,27 +78,27 @@ hat_init(void)
 	int datei;
 
 	if((namei = hat_getptyi("hat"))<0){
-		fprintf(stderr, "err: name (or \"hat\") property not found\n");
+		prnte("err: name (or \"hat\") property not found\n");
 		return -1;
 	}
 
 	if((classi = hat_getptyi("class"))<0){
-		fprintf(stderr, "err: class property not found\n");
+		prnte("err: class property not found\n");
 		return -1;
 	}
 
 	if((pathi = hat_getptyi("path"))<0){
-		fprintf(stderr, "err: path property not found\n");
+		prnte("err: path property not found\n");
 		return -1;
 	}
 
 	if((datei = hat_getptyi("date"))<0){
-		fprintf(stderr, "err: date property not found\n");
+		prnte("err: date property not found\n");
 		return -1;
 	}
 
 	if((defhat = getdefhat(namei)) == NULL){
-		fprintf(stderr, "err: couldn't find the default hat (defhat)\n");
+		prnte("err: couldn't find the default hat (defhat)\n");
 		return -1;
 	}
 
@@ -113,11 +114,6 @@ hat_init(void)
 		formatpaths(&hat->paths, class->val, path->val);
 		getfiles(&hat->paths);
 		getdate(&hat->date, date->val);
-
-		/*printf("Files:\n");
-		char *file;
-		for(int e = 0; (file = stack_getnextused(&hat->paths, &e)) != NULL;)
-			printf("%s\n", file);*/
 
 	}
 	return 0;
@@ -152,7 +148,7 @@ hat_defsearch(Stack *paths, char *key, char *pattern)
 	if((res = regcomp(&reg, pattern, REG_ICASE | REG_EXTENDED))){ // don't care about case
 		char err[44];
 		regerror(res, &reg, err, 44);
-		fprintf(stderr, "err: regex error %d: %s\n", res, err);
+		prnte("err: regex error %d: %s\n", res, err);
 		return -2;
 	}
 
@@ -160,7 +156,6 @@ hat_defsearch(Stack *paths, char *key, char *pattern)
 		pty = stack_get(&hat->ptys, id);
 		if(!regexec(&reg, pty->val, sizeof(match) / sizeof(match[0]), match, 0)){
 			strstack_addto(paths, &hat->paths);
-			//printf("Found %s\n", ((Pty*)stack_get(&hat->ptys, id))->val);
 		}
 	}
 
@@ -180,7 +175,7 @@ hat_pathsearch(Stack *paths, char *pattern)
 	if((res = regcomp(&reg, pattern, REG_EXTENDED))){ //we do care about case here
 		char err[44];
 		regerror(res, &reg, err, 44);
-		fprintf(stderr, "err: regex error %d: %s\n", res, err);
+		prnte("err: regex error %d: %s\n", res, err);
 		return -1;
 	}
 
@@ -308,7 +303,6 @@ getfiles(Stack *paths)
 	stack_init(&matches, 2, 3, HAT_PATHLEN);
 
 	for(int i = 0; (path = stack_getnextused(paths, &i)) != NULL;){
-		//printf("pattern: %s\n", path);
 
 		int len = strlen(path);
 		char fpath[HAT_PATHLEN] = {0};
@@ -330,7 +324,7 @@ getfiles(Stack *paths)
 		if((res = regcomp(&reg, pattern, REG_EXTENDED))){
 			char err[44];
 			regerror(res, &reg, err, 44);
-			fprintf(stderr, "err: regex error %d: %s\n", res, err);
+			prnte("err: regex error %d: %s\n", res, err);
 
 			stack_free(&matches);
 			return -1;
@@ -340,7 +334,7 @@ getfiles(Stack *paths)
 		DIR *dir;
 
 		if((dir = opendir(fpath)) == NULL){
-			fprintf(stderr, "err: couldn't open directory %s\n", fpath);
+			prnte("err: couldn't open directory %s\n", fpath);
 
 			stack_free(&matches);
 			return -1;
@@ -373,7 +367,6 @@ getfiles(Stack *paths)
 
 	for(int i = 0; (path = stack_getnextused(&matches, &i)) != NULL;){
 		stack_add(paths, path);
-		//printf("MATCH: %s\n", path);
 	}
 
 	stack_free(&matches);

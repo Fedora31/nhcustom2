@@ -5,8 +5,9 @@
 #include <stack.h>
 #include "str.h"
 #include "parser.h"
-#include "date.h"
+#include "io.h"
 #include "hat.h"
+#include "date.h"
 
 
 int
@@ -39,7 +40,7 @@ date_getepoch(char *date)
 	time_t time;
 
 	if(sscanf(date, "%d-%d-%d", &year, &month, &day) < 3){
-		fprintf(stderr, "err: date_getepoch(): sscanf() failed\n");
+		prnte("err: date_getepoch(): sscanf() failed\n");
 		return -3;
 	}
 
@@ -50,7 +51,7 @@ date_getepoch(char *date)
 	time = mktime(&tm);
 
 	if(time < 0){
-		fprintf(stderr, "err: mktime() failed on date %s\n", date);
+		prnte("err: mktime() failed on date %s\n", date);
 		return -4;
 	}
 

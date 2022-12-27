@@ -8,6 +8,7 @@
 
 #include <stack.h>
 #include "str.h"
+#include "io.h"
 #include "copy.h"
 
 static int isdir(char *);
@@ -25,11 +26,11 @@ getallfiles(Stack *res, char *path)
 
 	recurse--;
 	if(recurse < 0){
-		fprintf(stderr, "err: getallfiles() recursed an abnormally high number of times!\n");
+		prnte("err: getallfiles() recursed an abnormally high number of times!\n");
 		return -1;
 	}
 	if((dir = opendir(path)) == NULL){
-		fprintf(stderr, "err: getallfiles(): could not open directory %s\n", path);
+		prnte("err: getallfiles(): could not open directory %s\n", path);
 		return -1;
 	}
 
@@ -45,7 +46,6 @@ getallfiles(Stack *res, char *path)
 		//if file, add it to the pathlist and move on
 		if(isdir(path) == 0){
 			stack_add(res, path);
-			//printf("found %s\n", tmp);
 
 			//go back one level
 			path[strrchr(path, '/')-path] = '\0';
@@ -79,7 +79,7 @@ fcopy(char *from, char *to)
 
 	while((n = fread(buf, sizeof(char), sizeof(buf), of)) > 0){
 		if(fwrite(buf, sizeof(char), n, nf) < n){
-			fprintf(stderr, "Error: an error occured while writing file %s\n", to);
+			prnte("Error: an error occured while writing file %s\n", to);
 			fclose(nf);
 			fclose(of);
 			return -1;
@@ -102,9 +102,8 @@ makedirs(char *path, int rights)
 		strcat(tmp, list[i]);
 
 		if(!direxist(tmp)){
-			//printf("should make %s\n", tmp);
 			if(makedir(tmp, rights) < 0){
-				fprintf(stderr, "Error: could not create directory \"%s\"\n", tmp);
+				prnte("Error: could not create directory \"%s\"\n", tmp);
 				return -1;
 			}
 		}
