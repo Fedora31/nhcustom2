@@ -62,6 +62,7 @@ The program accepts the following arguments:
 * `-f`, specify the configuration file. (default: `./config.txt`)
 * `-d`, specify the database. (default: `./database.csv`)
 * `-s`, specify the separator used in the database. (default: `;`)
+* `-h -?`, show the help.
 
 
 ## The database
