@@ -188,15 +188,19 @@ gethv(char **s, Hvpair *hvpair)
 static int
 redirect(Stack *res, Hvpair *hvpair)
 {
+	int ok;
 	Stack tmp;
 	stack_init(&tmp, 64, 512, HAT_PATHLEN);
 
 	if(strcmp(hvpair->header, "date") == 0)
-		date_search(&tmp, hvpair);
+		ok = date_search(&tmp, hvpair);
 	else if(strcmp(hvpair->header, "path") == 0)
-		hat_pathsearch(&tmp, hvpair->value);
+		ok = hat_pathsearch(&tmp, hvpair->value);
 	else
-		hat_defsearch(&tmp, hvpair->header, hvpair->value);
+		ok = hat_defsearch(&tmp, hvpair->header, hvpair->value);
+
+	if(ok<0)
+		return -1;
 
 	modifystack(res, &tmp, hvpair->exception, hvpair->filter);
 
