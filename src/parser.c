@@ -147,41 +147,64 @@ parseline(char *line)
 static int
 gethv(char **s, Hvpair *hvpair)
 {
-	//get the header
-	char *tmph = wstrsep(s, ":");
-	memcpy(hvpair->header, tmph, strlen(tmph)+1);
-
-	//we shouldn't be at the end of the string, no values have been found!
-	if (*s == NULL)
-		return -1;
-
-	//get the value (the string up until the beginning of another header:value pair
-	//(delimited by another colon) or a '\0'
-	char *value = wstrsep(s, ":");
-
-	//likewise, there should be values after the ":" notation in header:value
-	if(strlen(value) == 0)
-		return -1;
-
-	memcpy(hvpair->value, value, strlen(value)+1);
-
+	hvpair->header[0] = '\0';
+	hvpair->value[0] = '\0';
 	hvpair->exception = 0;
 	hvpair->filter = 0;
+	int e = 0, i = 0;
+	int stop = 0;
 
-	//tell if the value is an exception or a filter
-	if(hvpair->value[0] == '!' || hvpair->value[0] == '}'){
+	//get the header, simple enough
+	char *tmph = wstrsep(s, ":");
+	strcpy(hvpair->header, tmph);
 
-		if(hvpair->value[0] == '!')
-			hvpair->exception = 1;
-		if(hvpair->value[0] == '}')
-			hvpair->filter = 1;
+	//if true, it means the header wasn't correctly written (missing ':')
+	if(*s == NULL)
+		return -1;
 
-		strremc(hvpair->value, 0);
+	//get the length of the **new** string, needed to know if we've arrived
+	//at the end of the line or not
+	int len = strlen(*s);
+
+	//Get the value. This allows special characters to be escaped by a '\' if
+	//we want to write them literally. This means that literal '\'s must also
+	//be escaped.
+	for(; (*s)[i] != '\0' && !stop; i++){
+		switch((*s)[i]){
+		case '\\':
+			i++;
+			break;
+		case ':':
+			stop = 1;
+			continue;
+		case '!':
+			if(i == 0){
+				hvpair->exception = 1;
+				continue; //we don't want the flags printed
+			}
+			//act as a normal char in any other position
+			break;
+		case '}':
+			if(i == 0){
+				hvpair->filter = 1;
+				continue;
+			}
+			break;
+		}
+		hvpair->value[e++] = (*s)[i];
 	}
+	hvpair->value[e] = '\0';
 
-	//have we arrived at the end of the string?
-	if (*s == NULL)
+	//new string starts at 1 past the end colon
+	*s = &(*s)[i];
+
+	//if true, the value of the header:value pair was probably missing
+	if(hvpair->value[0] == '\0')
+		return -1;
+
+	if(i >= len)
 		return -2;
+
 	return 0;
 }
 
