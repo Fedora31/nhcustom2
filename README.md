@@ -109,7 +109,7 @@ By default, the values that can go in place of `header` are the following:
 
 Those values are taken from the first line of the database. One could modify them
 or add extra fields, assuming that any new fields are added *in every line* of the
-database.
+database. Note that headers **cannot** contain a colon (`:`).
 
 `path` is a new addition. It lets the user specify  paths, which coupled with the new
 syntax can for example allow to show/remove specific styles of cosmetics.
@@ -156,8 +156,12 @@ The program is now case-insensitive, there is now no need to open the wiki to
 get the name of the cosmetic exactly right. (This is only true for the pattern, the
 header is case-sensitive.)
 
+If one wants to write a literal colon that mustn't be interpreted as a separator,
+they can escape it with a backslash like so: `\:`. This means that literal backslashes
+must also be escaped (`\\`).
+
 *The syntax can be a bit cryptic, I encourage to take a look at the end of the
-file where some examples are given, after reading the other points.*
+file where some examples are given after reading the other points.*
 
 
 ## The exception (`!`) flag
@@ -190,7 +194,9 @@ and the Pyro, you could write the following:
 update:Smissmas 2022:class:}^Medic$|^Pyro$
 ```
 
-Note that flags can only be used separately.
+Note that flags cannot be used together. If one wants to use a flag character as a
+literal character, they can also write a backslash before it (ex: `\!`), but this
+is only needed when the character is at the beginning of the string.
 
 
 ## Regular expressions (asterisks replacement)
