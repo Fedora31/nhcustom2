@@ -225,10 +225,7 @@ used by this program isn't the most feature-complete one, which could cause
 some "modern" regexes to fail. The standard used is the [POSIX Extended Regular
 Syntax](https://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended).
 
-Also, there is currently no way of writing regexes with colons in it, or that begin with a
-character that a flag uses.
-
-Another important point is that regexes **cannot** be used with the `date` header.
+An important point is that regexes **cannot** be used with the `date` header.
 
 
 ## The input and output folders
