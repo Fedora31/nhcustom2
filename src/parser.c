@@ -97,6 +97,16 @@ parseline(char *line)
 	if(strlen(line) == 0 || line[0] == '#')
 		return 0;
 
+	if(strcmp(line, "keep") == 0){
+		prnt("mode: keep listed parameters\n");
+		removeflag = 0;
+		return 0;
+	}else if (strcmp(line, "remove") == 0){
+		prnt("mode: remove listed parameters\n");
+		removeflag = 1;
+		return 0;
+	}
+
 	char l[PARSER_LINELEN] = {0};
 	char *li = l; //line index
 	Hvpair hvpair;

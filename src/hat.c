@@ -33,6 +33,7 @@ hat_init(void)
 	int y = 1; //to ignore the first line
 	stack_init(&list, 512, 512, sizeof(Hat));
 
+	prnt("loading the database...\n");
 	if((csv = csvload(arg_getcsv(), arg_getsep())) == NULL){
 		prnte("err: couldn't load the database\n");
 		return -1;
