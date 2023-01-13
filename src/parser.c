@@ -13,8 +13,6 @@
 #include "copy.h"
 #include "io.h"
 
-#define PARSER_LINELEN 512
-
 //global pathlist, containing paths gotten during the
 //execution of the configuration file
 static Stack gstack;
@@ -107,12 +105,17 @@ parseline(char *line)
 		return 0;
 	}
 
-	char l[PARSER_LINELEN] = {0};
+	char *l;
+	int linelen = strlen(line);
+	if((l = malloc(linelen+1)) == NULL){
+		prnte("fatal: parseline() malloc() failed\n");
+		return -1;
+	}
+	strcpy(l, line);
+
 	char *li = l; //line index
 	Hvpair hvpair;
 	Stack lstack; //local stack for the line
-
-	strncpy(l, line, PARSER_LINELEN-1);
 
 	stack_init(&lstack, 64, 128, HAT_PATHLEN);
 
@@ -136,8 +139,11 @@ parseline(char *line)
 		}
 
 		//fill the lstack with the found matches
-		if(redirect(&lstack, &hvpair) < 0)
+		if(redirect(&lstack, &hvpair) < 0){
+			stack_free(&lstack);
+			free(l);
 			return -1;
+		}
 
 		i++;
 		if(res == -2) //no more values to get from the string
@@ -149,6 +155,7 @@ parseline(char *line)
 	modifystack(&gstack, &lstack, exception, filter);
 
 	stack_free(&lstack);
+	free(l);
 	return 0;
 }
 
