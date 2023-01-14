@@ -1372,7 +1372,9 @@ Teufort Tooth Kicker;Scout|Soldier|Demo|Engineer|Sniper;Feet;2012-03-01;None;mod
 Teutonic Toque;Medic;Hat;2014-02-07;Strongbox Pack;models/workshop/player/items/medic/sbox2014_teutonic_toque
 Teutonkahmun;Medic;Hat|Beard;2013-10-29;Scream Fortress 2013;models/workshop/player/items/medic/hw2013_teutonkahmun
 Texas Half-Pants;Engineer;Pants;2012-04-17;None;models/player/items/engineer/engineer_chaps.*
-Texas Slim's Dome Shine;Engineer;Hat;2009-08-13;Classless Update;models/player/items/engineer/engineer_chaps.*
+Texas Slim's Dome Shine;Engineer;Hat;2009-08-13;Classless Update;models/player/items/engineer/engineer_nohat.*
+Ritzy Rick's Hair Fixative;Sniper;Hat;2009-08-13;Classless Update;models/player/items/sniper/sniper_nohat.*
+Baseball Bill's Sports Shine;Scout;Hat;2009-08-13;Classless Update;models/player/items/scout/scout_nohat.*
 Texas Ten Gallon;Engineer;Hat;2009-08-13;Classless Update;models/player/items/engineer/engineer_cowboy_hat.*
 Texas Tin-Gallon;Engineer;Hat;2013-05-17;Robotic Boogaloo;models/workshop/player/items/engineer/robo_engineer_texastingallon
 Texas Toast;Engineer;Hat;2019-07-25;Summer 2019 Pack;models/workshop/player/items/engineer/sum19_texas_toast
