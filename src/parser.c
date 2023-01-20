@@ -28,6 +28,8 @@ static int gethv(char **, Hvpair *);
 static int redirect(Stack *, Hvpair *);
 static int copy(char *);
 static int modifystack(Stack *, Stack *, int, int);
+static int iscmd(char *);
+static int execcmd(char *);
 
 
 int
@@ -89,20 +91,64 @@ parser_exec(void)
 	return 0;
 }
 
+//check if the given string is a command
+//A command string must not contain a colon, or must have a space before it.
+static int
+iscmd(char *s)
+{
+	char *spacei, *coloni;
+
+	if((coloni = strchr(s, ':')) == NULL) //if no colon, it's a command
+		return 1;
+	if((spacei = strchr(s, ' ')) == NULL) //if no space but a colon, it's not a command
+		return 0;
+	if(spacei < coloni)
+		return 1;
+	return 0;
+}
+
+static int
+execcmd(char *s)
+{
+	char *c, *args;
+	int r = 0;
+	int len = strlen(s);
+	if((c = malloc(len + 1)) == NULL){
+		prnte("fatal: execcmd() malloc() failed\n");
+		return -1;
+	}
+	strcpy(c, s);
+
+	if((args = strchr(c, ' ')) == NULL)
+		args = &c[len]; //make args point to '\0'
+	else{
+		args[0] = '\0';
+		args++; //go past the \0
+	}
+
+	if(strcmp(c, "keep") == 0){
+		prnt("mode: keep listed parameters\n");
+		removeflag = 0;
+	}else if(strcmp(c, "remove") == 0){
+		prnt("mode: remove listed parameters\n");
+		removeflag = 1;
+	}else if(strcmp(c, "list") == 0){
+		prnt("LIST\n");
+	}
+
+	free(c);
+	return r;
+}
+
 int
 parseline(char *line)
 {
 	if(strlen(line) == 0 || line[0] == '#')
 		return 0;
 
-	if(strcmp(line, "keep") == 0){
-		prnt("mode: keep listed parameters\n");
-		removeflag = 0;
-		return 0;
-	}else if (strcmp(line, "remove") == 0){
-		prnt("mode: remove listed parameters\n");
-		removeflag = 1;
-		return 0;
+	if(iscmd(line)){
+		prnt("This here is a command: %s\n", line);
+		return execcmd(line);
 	}
 
 	char *l;
