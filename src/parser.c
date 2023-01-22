@@ -17,8 +17,16 @@
 //execution of the configuration file
 static Stack gstack;
 
+//stack containing lists
+static Stack lists;
+
 //remove flag (if not 1, means keep flag)
 static int removeflag = 1;
+
+typedef struct List{
+	char *name;
+	Stack stack;
+}List;
 
 //get from the given string the header and the value(s) to search in it
 //the given string is modified.
@@ -30,6 +38,9 @@ static int copy(char *);
 static int modifystack(Stack *, Stack *, int, int);
 static int iscmd(char *);
 static int execcmd(char *);
+static int newlist(char *, char *);
+static int listsearch(Stack *, char *);
+static int parsestr(char *, Stack *);
 
 
 int
@@ -38,6 +49,7 @@ parser_init(int flag)
 	prnt("initializing the parser...\n");
 	removeflag = flag;
 	stack_init(&gstack, 64, 512, HAT_PATHLEN);
+	stack_init(&lists, 1, 1, sizeof(List));
 
 	if(!direxist(arg_getinput())){
 		prnte("err: input directory \"%s\" doesn't exist\n", arg_getinput());
@@ -49,7 +61,9 @@ parser_init(int flag)
 void
 parser_clean(void)
 {
+	//TODO: complete this
 	stack_free(&gstack);
+	stack_free(&lists); //lists must also be freed
 }
 
 int
@@ -133,11 +147,67 @@ execcmd(char *s)
 		prnt("mode: remove listed parameters\n");
 		removeflag = 1;
 	}else if(strcmp(c, "list") == 0){
-		prnt("LIST\n");
+		char *str = strchr(args, ' ');
+		str[0] = '\0';
+		str++;
+		r = newlist(args, str);
 	}
 
 	free(c);
 	return r;
+}
+
+
+//Create a new list "name" with the content from str.
+//If a list with the same name already exists, it's replaced.
+static int
+newlist(char *name, char *str)
+{
+	List tmp;
+	int len;
+	stack_init(&tmp.stack, 64, 512, HAT_PATHLEN);
+
+	len = strlen(name);
+	if((tmp.name = malloc(len+1)) == NULL){
+		prnte("fatal: parseline() malloc() failed\n");
+		stack_free(&tmp.stack);
+		return -1;
+	}
+	strcpy(tmp.name, name);
+
+	parsestr(str, &tmp.stack);
+
+	//if the list already exists, remove it
+	List *c;
+	for(int i = 0; (c = stack_getnextused(&lists, &i)) != NULL;){
+		if(strcmp(c->name, tmp.name) == 0){
+			free(c->name);
+			stack_free(&c->stack);
+			stack_rem(&lists, i-1);
+		}
+	}
+
+	//add the new list
+	stack_add(&lists, &tmp);
+
+	prnt("new list \"%s\" with content \"%s\"\n", tmp.name, str);
+
+	return 0;
+}
+
+//copy entries from the specified list to res
+static int
+listsearch(Stack *res, char *name)
+{
+	List *c;
+	for(int i = 0; (c = stack_getnextused(&lists, &i)) != NULL;){
+		if(strcmp(c->name, name) == 0){
+			strstack_addto(res, &c->stack);
+			return 0;
+		}
+	}
+	prnte("err: list \"%s\" not found\n", name);
+	return -1;
 }
 
 int
@@ -146,26 +216,30 @@ parseline(char *line)
 	if(strlen(line) == 0 || line[0] == '#')
 		return 0;
 
-	if(iscmd(line)){
-		prnt("This here is a command: %s\n", line);
+	if(iscmd(line))
 		return execcmd(line);
-	}
 
+	return parsestr(line, &gstack);
+}
+
+static int
+parsestr(char *s, Stack *stack)
+{
 	char *l;
-	int linelen = strlen(line);
-	if((l = malloc(linelen+1)) == NULL){
+	int len = strlen(s);
+	if((l = malloc(len+1)) == NULL){
 		prnte("fatal: parseline() malloc() failed\n");
 		return -1;
 	}
-	strcpy(l, line);
+	strcpy(l, s);
 
-	char *li = l; //line index
+	char *li = l; //string index
 	Hvpair hvpair;
-	Stack lstack; //local stack for the line
+	Stack lstack; //local stack for the string
 
 	stack_init(&lstack, 64, 128, HAT_PATHLEN);
 
-	int exception; //holds if the first value of the line is an exception
+	int exception; //holds if the first value of the string is an exception
 	int filter; //same for the filter
 	int res;
 	int i = 0;
@@ -174,10 +248,10 @@ parseline(char *line)
 			return -1;
 
 
-		//the matches of the first value of the line will always be added to the stack, but it's exception
-		//status is saved and will determine if the stack will be added to or deleted from the gstack
+		//the matches of the first value of the string will always be added to the stack, but it's exception
+		//status is saved and will determine if the lstack will be added to or deleted from the stack
 		if(i == 0) {
-			prnt("%s\n", line);
+			prnt("%s\n", s);
 			exception = hvpair.exception;
 			filter = hvpair.filter;
 			hvpair.exception = 0;
@@ -197,8 +271,8 @@ parseline(char *line)
 	}
 
 
-	//modify the gstack according to the lstack and the modifiers
-	modifystack(&gstack, &lstack, exception, filter);
+	//modify the stack according to the lstack and the modifiers
+	modifystack(stack, &lstack, exception, filter);
 
 	stack_free(&lstack);
 	free(l);
@@ -282,6 +356,8 @@ redirect(Stack *res, Hvpair *hvpair)
 		ok = date_search(&tmp, hvpair);
 	else if(strcmp(hvpair->header, "path") == 0)
 		ok = hat_pathsearch(&tmp, hvpair->value);
+	else if(strcmp(hvpair->header, "list") == 0)
+		ok = listsearch(&tmp, hvpair->value);
 	else
 		ok = hat_defsearch(&tmp, hvpair->header, hvpair->value);
 
@@ -294,7 +370,7 @@ redirect(Stack *res, Hvpair *hvpair)
 	return 0;
 }
 
-//copy the file to the new location (move)
+//copy the file to the new location (TODO: move this function)
 static int
 copy(char *ofile)
 {
