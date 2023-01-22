@@ -1,8 +1,7 @@
 # nhcustom2
 
-> Note (Dec 2022): v2 is out! The main changes are: the "filter" flag `}` has been added, the
-> output folder is *no longer wiped* at each startup, the `date` header now *only* accepts
-> fully written dates (YYYY-MM-DD/YYYY-MM-DD), and new arguments have been introduced.
+> Note (Jan 2023): v3 is out! The main changes are: A new system called "lists" has been
+> introduced, which can simplify configurations or allow to create more complex ones.
 
 This program is the second version of [nhcustom](https://github.com/Fedora31/nhcustom),
 a program created to modify the Team Fortress 2 mod "no hats mod". If you plan to modify
@@ -79,13 +78,13 @@ file containing the script used by the program. Lines beginning with a
 pound sign (`#`) are taken as comments and not parsed. It should contain only
 ASCII characters.
 
-The **first** line of the file MUST contain either the word (called flag) `remove`
-or `keep`. This informs the program whether the hats the file specifies must be
-removed from the game, or kept in with everything else removed.
+The configuration file should contain either the word (called command, previously
+flag) `remove` or `keep`. This informs the program whether the hats the file
+specifies must be removed from the game, or kept in with everything else removed.
 
-If you plan to remove a lot of cosmetics, I recommand using the `keep` flag. The
+If you plan to remove a lot of cosmetics, I recommand using the `keep` command. The
 database doesn't cover all the cosmetics (like medals) and probably contains
-errors. the `keep` flag makes the program work with paths from the input
+errors. the `keep` command makes the program work with paths from the input
 directory instead, which greatly reduces the risk of encountering unwanted
 cosmetics in game.
 
@@ -106,13 +105,16 @@ By default, the values that can go in place of `header` are the following:
 * `class`
 * `date`
 * `path`
+* `list`
 
-Those values are taken from the first line of the database. One could modify them
-or add extra fields, assuming that any new fields are added *in every line* of the
-database. Note that headers **cannot** contain a colon (`:`).
+Those values, appart from `list`, are taken from the first line of the database. One could
+add extra fields in it, assuming that any new fields are added *in every line* of the database.
+Note that headers **cannot** contain a colon (`:`).
 
-`path` is a new addition. It lets the user specify  paths, which coupled with the new
-syntax can for example allow to show/remove specific styles of cosmetics.
+`list` is a reserved keyword and so cannot be used in the database (See [Lists](#lists)).
+
+`path` lets the user specify  paths, which coupled with the new syntax can for example allow to
+show/remove specific styles of cosmetics.
 
 `hat`, `update`, `equip`, `class` or `path` can take any word or string, as long as something
 in the database matches it. The `date` header, however, **must** be written with
@@ -123,6 +125,7 @@ date:2021
 date:2021-05
 date:2021-05-06
 date:2021-05-06/2022
+date:2021-05-06/2022-12
 #since v2 (Dec 2022), the dates above are NOT valid.
 
 date:2021-05-06/2022-12-31
@@ -164,41 +167,6 @@ must also be escaped (`\\`).
 file where some examples are given after reading the other points.*
 
 
-## The exception (`!`) flag
-
-Like in the previous program, you can decide wether or not the pattern to search
-is an exception or not. For example,
-
-```
-date:2007
-hat:!Fancy Fedora
-```
-
-will remove every hat from 2007, **except** the Fancy Fedora. With the new
-syntax, this statement could also have been written like this:
-
-```
-date:2007:hat:!Fancy Fedora
-```
-
-
-## The filter (`}`) flag
-
-Since v2, you can use this new flag to filter out any previous matches that
-do not match with the following statement. This is especially useful when you
-are interested in a small subset of previous results. For example, if you wanted
-to select all the cosmetics that came out in the Smissmas 2022 update for the Medic
-and the Pyro, you could write the following:
-
-```
-update:Smissmas 2022:class:}^Medic$|^Pyro$
-```
-
-Note that flags cannot be used together. If one wants to use a flag character as a
-literal character, they can also write a backslash before it (ex: `\!`), but this
-is only needed when the character is at the beginning of the string.
-
-
 ## Regular expressions (asterisks replacement)
 
 The original program had a concept of "asterisks" (`*`) to select, for example, all
@@ -225,7 +193,85 @@ used by this program isn't the most feature-complete one, which could cause
 some "modern" regexes to fail. The standard used is the [POSIX Extended Regular
 Syntax](https://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended).
 
-An important point is that regexes **cannot** be used with the `date` header.
+An important point is that regexes **cannot** be used with the `date` and `list` headers.
+
+
+## The exception (`!`) flag
+
+Like in the previous program, you can decide wether or not the pattern to search
+is an exception or not. For example,
+
+```
+date:2007
+hat:!Fancy Fedora
+```
+
+will search every hat from 2007, **except** the Fancy Fedora. With the new
+syntax, this statement could also have been written like this:
+
+```
+date:2007:hat:!Fancy Fedora
+```
+
+
+## The filter (`}`) flag
+
+Since v2, you can use this new flag to filter out any previous matches that
+do not match with the following statement. This is especially useful when you
+are interested in a small subset of previous results. For example, if you wanted
+to select all the cosmetics that came out in the Smissmas 2022 update for the Medic
+and the Pyro, you could write the following:
+
+```
+update:Smissmas 2022:class:}^Medic$|^Pyro$
+```
+
+Note that flags cannot be used together. If one wants to use a flag character as a
+literal character, they can also write a backslash before it (ex: `\!`), but this
+is only needed when the character is at the beginning of the string.
+
+
+## Lists
+
+This is a new addition which came with v3. With the `list` command, one is able to
+store results from searches into "lists" which later can be used in other searches.
+It was created to allow users to store results from multiple lines with no effect on
+previous results.
+
+Example:
+
+```
+list foo update:Smissmas 2022:list:!bar
+```
+
+This creates a new list called `foo` which contains all the cosmetics from Smissmas
+2022, except whichever result was in the already existing list `bar`.
+
+It's also possible to redeclare lists and even reuse the old content to do so:
+
+```
+list foo update:Smissmas 2022
+list foo list:foo:hat:A Rather Festive Tree
+```
+
+With this example, you end up with a list `foo` containing the cosmetics from
+Smissmas 2022 and the hat "A Rather Festive Tree" (this example isn't very useful,
+it's just for demonstration).
+
+Lists can also achieve advanced configurations that were previously impossible, like
+this example:
+
+```
+date:2009-01-01/2015-12-31
+# ...
+
+list globalfilter class:^Scout$:equip:}^Feet$
+list globalfilter class:^Pyro$:equip:}^Back$:list:globalfilter
+list:}globalfilter
+#only Pyro's backpacks and Scout's shoes remain
+```
+
+Note: List names mustn't contain any spaces in them.
 
 
 ## The input and output folders
@@ -282,5 +328,9 @@ hat:foppish physician:path:!necktie
 
 #find only the third style of the medic cosmetics from Smissmas 2022
 update:Smissmas 2022:class:}^Medic$:path:}style3
+
+#create a list containing the Engineer's shirts and all VALVe-made hats for the spy
+list mylist class:^Engineer$:equip:}Shirt
+list mylist class:^Spy$:equip:}Hat:path:}models/player/items:list:mylist
 
 ```
