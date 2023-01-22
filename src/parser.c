@@ -175,7 +175,10 @@ newlist(char *name, char *str)
 	}
 	strcpy(tmp.name, name);
 
-	parsestr(str, &tmp.stack);
+	if(parsestr(str, &tmp.stack) < 0){
+		stack_free(&tmp.stack);
+		return -1;
+	}
 
 	//if the list already exists, remove it
 	List *c;
