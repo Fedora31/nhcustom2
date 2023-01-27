@@ -82,7 +82,7 @@ The configuration file should contain either the word (called command, previousl
 flag) `remove` or `keep`. This informs the program whether the hats the file
 specifies must be removed from the game, or kept in with everything else removed.
 
-If you plan to remove a lot of cosmetics, I recommand using the `keep` command. The
+If you plan to remove a lot of cosmetics, I recommend using the `keep` command. The
 database doesn't cover all the cosmetics (like medals) and probably contains
 errors. the `keep` command makes the program work with paths from the input
 directory instead, which greatly reduces the risk of encountering unwanted
@@ -139,9 +139,6 @@ date:2021/2022
 ```
 
 will **NOT** work, as opposed to the previous program.
-
-This is due to a limitation of the program. As a rule of thumb, always write
-dates entirely to avoid confusion.
 
 You can also "stack" statements one after the other, by separating them with
 a colon `:`. Doing this allows to filter out results found in the first statement.
@@ -229,6 +226,11 @@ update:Smissmas 2022:class:}^Medic$|^Pyro$
 Note that flags cannot be used together. If one wants to use a flag character as a
 literal character, they can also write a backslash before it (ex: `\!`), but this
 is only needed when the character is at the beginning of the string.
+
+Also, flags apply to all the previous results if written in the first statement or
+to all the results found in the current line, not only to the statement just before
+it. If you need more options you could probably get something to work with the
+'list' command.
 
 
 ## Lists
