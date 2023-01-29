@@ -13,7 +13,7 @@
 #include "copy.h"
 #include "io.h"
 
-//global pathlist, containing paths gotten during the
+//global stack, containing paths gotten during the
 //execution of the configuration file
 static Stack gstack;
 
@@ -61,9 +61,16 @@ parser_init(int flag)
 void
 parser_clean(void)
 {
-	//TODO: complete this
+	//free all lists
+	List *c;
+	for(int i = 0; (c = stack_getnextused(&lists, &i)) != NULL;){
+		free(c->name);
+		stack_free(&c->stack);
+		stack_rem(&lists, i-1);
+	}
+
+	stack_free(&lists);
 	stack_free(&gstack);
-	stack_free(&lists); //lists must also be freed
 }
 
 int

@@ -101,12 +101,13 @@ main(int argc, char **argv)
 	if(err){
 		prnte("fatal: errors occured, aborting\n");
 		parser_clean();
+		hat_free();
 		return 1;
 	}
 
 	parser_exec();
 	parser_clean();
-	//TODO: free the hat list
+	hat_free();
 
 	prnt("done.\n");
 	return 0;

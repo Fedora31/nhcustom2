@@ -66,7 +66,7 @@ hat_init(void)
 		}
 
 		if(stack_add(&list, &hat)<0){
-			prnte("err: couldn't add hat (index %d) to list\n", y);
+			prnte("err: couldn't add database entry (index %d) to internal list\n", y);
 			return -1;
 		}
 	}
@@ -118,6 +118,17 @@ hat_init(void)
 
 	}
 	return 0;
+}
+
+void
+hat_free(void)
+{
+	Hat *hat;
+	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
+		stack_free(&hat->ptys);
+		stack_free(&hat->paths);
+	}
+	stack_free(&list);
 }
 
 int

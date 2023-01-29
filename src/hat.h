@@ -23,3 +23,4 @@ int hat_defsearch(Stack *, char *, char *);
 int hat_datesearch(Stack *, time_t, time_t);
 int hat_pathsearch(Stack *, char *);
 Hat *hat_get(int);
+void hat_free(void);
