@@ -389,10 +389,15 @@ copy(char *ofile)
 	//dirs: <output>/models/player/... up until the last folder in the path
 
 	char nfile[HAT_PATHLEN], dirs[HAT_PATHLEN];
+	char *offset;
 	strcpy(nfile, ofile);
 	strswap(nfile, arg_getinput(), arg_getoutput());
 	strcpy(dirs, nfile);
-	strrchr(dirs, '/')[0] = '\0';
+	offset = strrchr(dirs, '/');
+
+	if(offset == NULL)
+		return -1;
+	offset[0] = '\0';
 
 	if(makedirs(dirs, 0755) < 0)
 		return -1;
