@@ -43,8 +43,8 @@ Add the parameters you want in the configuration file, then execute the program.
 folder must be present next to the executable, or another folder must be specified with
 the option `-i`.
 
-The input folder must be filled with the content of
-[this zip file](https://github.com/Fedora31/no-hats-bgum/blob/master/nhm_source/mechbgum_no_hats_mod/no_hats_bgum.zip), or any other version of "no hats mod".
+The input folder must be filled with a **decompiled** version of no-hats-bgum, or any other
+version of "no hats mod".
 
 Make sure to keep the database and the input folder up do date.
 
@@ -67,8 +67,7 @@ The program accepts the following arguments:
 ## The database
 
 The database is now in the .csv format, making it usable with spreadsheet
-programs. It should contain only ASCII characters and must not possess
-any carriage returns in it (the CR in CR+LF line endings), only line feeds.
+programs. It should be encoded in UTF-8 with no BOM, with LF line endings.
 
 
 ## The configuration file
