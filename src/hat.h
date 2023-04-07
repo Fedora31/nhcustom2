@@ -7,8 +7,8 @@
 #define HAT_PATHLEN 2048 //must be >= HAT_VALLEN
 
 typedef struct Pty{
-	char key[HAT_KEYLEN];
-	char val[HAT_VALLEN];
+	const char *key;
+	const char *val;
 }Pty;
 
 typedef struct Hat{

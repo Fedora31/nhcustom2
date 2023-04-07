@@ -17,19 +17,19 @@
 #include "hat.h"
 
 static Hat *getdefhat(int);
-static int formatpaths(Stack *, char *, char *);
+static int formatpaths(Stack *, const char *, const char *);
 static int getfiles(Stack *);
-static int getdate(time_t *, char *);
+static int getdate(time_t *, const char *);
 static void splitfield(Stack *, char *, char *, int);
 
 static Stack list;
+static Csv *csv;
 
 
 //fill the list stack with Hat structs
 int
 hat_init(void)
 {
-	Csv *csv;
 	int y = 1; //to ignore the first line
 	stack_init(&list, 512, 512, sizeof(Hat));
 
@@ -54,10 +54,8 @@ hat_init(void)
 			val = csvsxy(csv, x, y);
 			Pty pty;
 
-			strncpy(pty.key, key, HAT_KEYLEN);
-			pty.key[HAT_KEYLEN-1] = '\0';
-			strncpy(pty.val, val, HAT_VALLEN);
-			pty.val[HAT_VALLEN-1] = '\0';
+			pty.key = key;
+			pty.val = val;
 
 			if(stack_add(&hat.ptys, &pty)<0){
 				prnte("err: couldn't add pty (key=%s, val=%s) to ptys\n", pty.key, pty.val);
@@ -153,6 +151,7 @@ hat_defsearch(Stack *paths, char *key, char *pattern)
 	regex_t reg;
 	regmatch_t match[1];
 	int res;
+	char *path;
 
 	if((id = hat_getptyi(key))<0)
 		return -1;
@@ -167,7 +166,8 @@ hat_defsearch(Stack *paths, char *key, char *pattern)
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
 		pty = stack_get(&hat->ptys, id);
 		if(!regexec(&reg, pty->val, sizeof(match) / sizeof(match[0]), match, 0)){
-			strstack_addto(paths, &hat->paths);
+			for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;)
+				stack_add(paths, &path);
 		}
 	}
 
@@ -194,7 +194,7 @@ hat_pathsearch(Stack *paths, char *pattern)
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
 		for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;){
 			if(!regexec(&reg, path, sizeof(match) / sizeof(match[0]), match, 0))
-				stack_add(paths, path);
+				stack_add(paths, &path);
 		}
 	}
 
@@ -205,9 +205,12 @@ int
 hat_datesearch(Stack *paths, time_t from, time_t to)
 {
 	Hat *hat;
+	char *path;
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;)
-		if(hat->date >= from && hat->date <= to)
-			strstack_addto(paths, &hat->paths);
+		if(hat->date >= from && hat->date <= to){
+			for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;)
+				stack_add(paths, &path);
+		}
 	return 0;
 }
 
@@ -218,7 +221,7 @@ hat_get(int id)
 }
 
 int
-getdate(time_t *res, char *str)
+getdate(time_t *res, const char *str)
 {
 	time_t tmp = date_getepoch(str);
 	if(tmp<0){
@@ -245,7 +248,7 @@ getdefhat(int namei)
 //is for and replace it with the class, and do a regex with the paths to
 //find all the hat's files
 static int
-formatpaths(Stack *npaths, char *cpty, char *ppty)
+formatpaths(Stack *npaths, const char *cpty, const char *ppty)
 {
 	Stack classes, paths;
 	char c[HAT_VALLEN] = {0}, p[HAT_PATHLEN] = {0};
@@ -377,9 +380,8 @@ getfiles(Stack *paths)
 	for(int i = 0; (path = stack_getnextused(paths, &i)) != NULL;)
 		stack_rem(paths, i-1);
 
-	for(int i = 0; (path = stack_getnextused(&matches, &i)) != NULL;){
+	for(int i = 0; (path = stack_getnextused(&matches, &i)) != NULL;)
 		stack_add(paths, path);
-	}
 
 	stack_free(&matches);
 	return 0;

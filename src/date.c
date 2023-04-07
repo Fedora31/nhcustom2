@@ -30,7 +30,7 @@ date_search(Stack *res, Hvpair *hv)
 }
 
 time_t
-date_getepoch(char *date)
+date_getepoch(const char *date)
 {
 	//Windows doesn't have strptime(), gaaah
 

@@ -48,7 +48,7 @@ parser_init(int flag)
 {
 	prnt("initializing the parser...\n");
 	removeflag = flag;
-	stack_init(&gstack, 64, 512, HAT_PATHLEN);
+	stack_init(&gstack, 64, 512, sizeof(char*));
 	stack_init(&lists, 1, 1, sizeof(List));
 
 	if(!direxist(arg_getinput())){
@@ -78,16 +78,16 @@ parser_exec(void)
 {
 	prnt("copying found files...\n");
 
-	char *path;
-	if(removeflag) //remove flag, copy the paths we found
-		for(int i = 0; (path = stack_getnextused(&gstack, &i)) != NULL;){
+	if(removeflag){ //remove flag, copy the paths we found
+		char **path_p;
+		for(int i = 0; (path_p = stack_getnextused(&gstack, &i)) != NULL;){
 			if(print)
-				printf("%s\n", path);
+				printf("%s\n", *path_p);
 			if(!norun)
-				copy(path);
+				copy(*path_p);
 		}
-
-	else{ //keep flag, copy the paths we haven't found
+	}else{ //keep flag, copy the paths we haven't found
+		char *path;
 		Stack tmp;
 		char str[HAT_PATHLEN] = {0};
 		strcpy(str, arg_getinput());
@@ -172,7 +172,7 @@ newlist(char *name, char *str)
 {
 	List tmp;
 	int len;
-	stack_init(&tmp.stack, 64, 512, HAT_PATHLEN);
+	stack_init(&tmp.stack, 64, 512, sizeof(char*));
 
 	len = strlen(name);
 	if((tmp.name = malloc(len+1)) == NULL){
@@ -247,7 +247,7 @@ parsestr(char *s, Stack *stack)
 	Hvpair hvpair;
 	Stack lstack; //local stack for the string
 
-	stack_init(&lstack, 64, 128, HAT_PATHLEN);
+	stack_init(&lstack, 64, 128, sizeof(char*));
 
 	int exception; //holds if the first value of the string is an exception
 	int filter; //same for the filter
@@ -360,7 +360,7 @@ redirect(Stack *res, Hvpair *hvpair)
 {
 	int ok;
 	Stack tmp;
-	stack_init(&tmp, 64, 512, HAT_PATHLEN);
+	stack_init(&tmp, 64, 512, sizeof(char*));
 
 	if(strcmp(hvpair->header, "date") == 0)
 		ok = date_search(&tmp, hvpair);
@@ -371,8 +371,10 @@ redirect(Stack *res, Hvpair *hvpair)
 	else
 		ok = hat_defsearch(&tmp, hvpair->header, hvpair->value);
 
-	if(ok<0)
+	if(ok<0){
+		stack_free(&tmp);
 		return -1;
+	}
 
 	modifystack(res, &tmp, hvpair->exception, hvpair->filter);
 
@@ -388,11 +390,11 @@ copy(char *ofile)
 	//nfile: <output>/models/...
 	//dirs: <output>/models/player/... up until the last folder in the path
 
-	char nfile[HAT_PATHLEN], dirs[HAT_PATHLEN];
+	char nfile[HAT_PATHLEN] = {0}, dirs[HAT_PATHLEN] = {0};
 	char *offset;
-	strcpy(nfile, ofile);
+	strncpy(nfile, ofile, HAT_PATHLEN-1);
 	strswap(nfile, arg_getinput(), arg_getoutput());
-	strcpy(dirs, nfile);
+	strncpy(dirs, nfile, HAT_PATHLEN-1);
 	offset = strrchr(dirs, '/');
 
 	if(offset == NULL)

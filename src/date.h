@@ -3,4 +3,4 @@
  */
 
 int date_search(Stack *, Hvpair *);
-time_t date_getepoch(char *);
+time_t date_getepoch(const char *);
