@@ -167,7 +167,7 @@ hat_defsearch(Stack *paths, char *key, char *pattern)
 		pty = stack_get(&hat->ptys, id);
 		if(!regexec(&reg, pty->val, sizeof(match) / sizeof(match[0]), match, 0)){
 			for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;)
-				stack_add(paths, &path);
+				strstack_add(paths, &path);
 		}
 	}
 
@@ -194,7 +194,7 @@ hat_pathsearch(Stack *paths, char *pattern)
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
 		for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;){
 			if(!regexec(&reg, path, sizeof(match) / sizeof(match[0]), match, 0))
-				stack_add(paths, &path);
+				strstack_add(paths, &path);
 		}
 	}
 
@@ -209,7 +209,7 @@ hat_datesearch(Stack *paths, time_t from, time_t to)
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;)
 		if(hat->date >= from && hat->date <= to){
 			for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;)
-				stack_add(paths, &path);
+				strstack_add(paths, &path);
 		}
 	return 0;
 }

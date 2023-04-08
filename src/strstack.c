@@ -9,6 +9,13 @@
 
 
 void
+strstack_add(Stack *to, char **strp)
+{
+	if(strstack_contain(to, *strp)<0)
+		stack_add(to, strp);
+}
+
+void
 strstack_remfrom(Stack *from, Stack *this)
 {
 	char **s;
@@ -23,7 +30,8 @@ strstack_addto(Stack *to, Stack *from)
 {
 	char **item;
 	for(int i = 0; (item = stack_getnextused(from, &i)) != NULL;)
-		stack_add(to, item);
+		if(strstack_contain(to, *item)<0)
+			stack_add(to, item);
 }
 
 //if a string exists in from but not in this, remove it
