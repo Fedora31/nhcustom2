@@ -1,7 +1,7 @@
 # nhcustom2
 
-> Note (Jan 2023): v3 is out! The main changes are: A new system called "lists" has been
-> introduced, which can simplify configurations or allow to create more complex ones.
+> Note (Apr 2023): v4 is out! The main changes are: Some bug fixes and large improvements
+> on memory usage have been made.
 
 This program is the second version of [nhcustom](https://github.com/Fedora31/nhcustom),
 a program created to modify the Team Fortress 2 mod "no hats mod". If you plan to modify
