@@ -18,7 +18,7 @@
 
 static Hat *getdefhat(int);
 static int formatpaths(Stack *, const char *, const char *);
-static int getfiles(Stack *);
+static int getfiles(Stack *, Stack *);
 static int getdate(time_t *, const char *);
 static void splitfield(Stack *, char *, char *, int);
 
@@ -43,8 +43,8 @@ hat_init(void)
 	for(; csvy(csv, y); y++){
 
 		Hat hat;
-		stack_init(&hat.ptys, 4, 2, sizeof(Pty));
-		stack_init(&hat.paths, 1, 4, HAT_PATHLEN);
+		stack_init(&hat.ptys, 4, 1, sizeof(Pty));
+		stack_init(&hat.paths, 1, 1, sizeof(char*));
 
 		int x = 0;
 		char *key, *val;
@@ -102,6 +102,8 @@ hat_init(void)
 	}
 
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
+		Stack tmppaths;
+		stack_init(&tmppaths, 9, 9, HAT_PATHLEN);
 
 		Pty *path = stack_get(&hat->ptys, pathi);
 		Pty *class = stack_get(&hat->ptys, classi);
@@ -110,9 +112,11 @@ hat_init(void)
 		if(strcmp(class->val, "All classes") == 0)
 			class = stack_get(&defhat->ptys, classi);
 
-		formatpaths(&hat->paths, class->val, path->val);
-		getfiles(&hat->paths);
+		formatpaths(&tmppaths, class->val, path->val);
+		getfiles(&tmppaths, &hat->paths);
 		getdate(&hat->date, date->val);
+
+		stack_free(&tmppaths);
 
 	}
 	return 0;
@@ -151,7 +155,6 @@ hat_defsearch(Stack *paths, char *key, char *pattern)
 	regex_t reg;
 	regmatch_t match[1];
 	int res;
-	char *path;
 
 	if((id = hat_getptyi(key))<0)
 		return -1;
@@ -166,8 +169,7 @@ hat_defsearch(Stack *paths, char *key, char *pattern)
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
 		pty = stack_get(&hat->ptys, id);
 		if(!regexec(&reg, pty->val, sizeof(match) / sizeof(match[0]), match, 0)){
-			for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;)
-				strstack_add(paths, &path);
+			strstack_addto(paths, &hat->paths);
 		}
 	}
 
@@ -179,7 +181,7 @@ int
 hat_pathsearch(Stack *paths, char *pattern)
 {
 	Hat *hat;
-	char *path;
+	char **path;
 	regex_t reg;
 	regmatch_t match[1];
 	int res;
@@ -193,8 +195,8 @@ hat_pathsearch(Stack *paths, char *pattern)
 
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;){
 		for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;){
-			if(!regexec(&reg, path, sizeof(match) / sizeof(match[0]), match, 0))
-				strstack_add(paths, &path);
+			if(!regexec(&reg, *path, sizeof(match) / sizeof(match[0]), match, 0))
+				strstack_add(paths, path);
 		}
 	}
 
@@ -205,12 +207,9 @@ int
 hat_datesearch(Stack *paths, time_t from, time_t to)
 {
 	Hat *hat;
-	char *path;
 	for(int i = 0; (hat = stack_getnextused(&list, &i)) != NULL;)
-		if(hat->date >= from && hat->date <= to){
-			for(int e = 0; (path = stack_getnextused(&hat->paths, &e)) != NULL;)
-				strstack_add(paths, &path);
-		}
+		if(hat->date >= from && hat->date <= to)
+			strstack_addto(paths, &hat->paths);
 	return 0;
 }
 
@@ -272,7 +271,7 @@ formatpaths(Stack *npaths, const char *cpty, const char *ppty)
 			continue;
 
 		Stack tmppaths;
-		stack_init(&tmppaths, 2, 7, HAT_PATHLEN);
+		stack_init(&tmppaths, 1, 8, HAT_PATHLEN);
 
 		//duplicate the path and replace [CLASS] by each class
 		for(int e = 0; (class = stack_getnextused(&classes, &e)) != NULL;){
@@ -309,15 +308,12 @@ formatpaths(Stack *npaths, const char *cpty, const char *ppty)
 //replace the paths from the stack (which are used as regexes) with the
 //filepaths of the files they point to.
 static int
-getfiles(Stack *paths)
+getfiles(Stack *regexes, Stack *paths)
 {
-	Stack matches;
 	char *path;
 	char pattern[HAT_PATHLEN] = {".*"};
 
-	stack_init(&matches, 2, 3, HAT_PATHLEN);
-
-	for(int i = 0; (path = stack_getnextused(paths, &i)) != NULL;){
+	for(int i = 0; (path = stack_getnextused(regexes, &i)) != NULL;){
 
 		int len = strlen(path);
 		char fpath[HAT_PATHLEN] = {0};
@@ -340,8 +336,6 @@ getfiles(Stack *paths)
 			char err[44];
 			regerror(res, &reg, err, 44);
 			prnte("err: regex error %d: %s\n", res, err);
-
-			stack_free(&matches);
 			return -1;
 		}
 
@@ -350,40 +344,33 @@ getfiles(Stack *paths)
 
 		if((dir = opendir(fpath)) == NULL){
 			prnte("err: couldn't open directory %s\n", fpath);
-
-			stack_free(&matches);
 			return -1;
 		}
 
 		//go through all the files and see which ones match with the regex
 		while((file = readdir(dir)) != NULL){
-			char npath[HAT_PATHLEN] = {0};
+			char *mpath;
 
 			if(strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
 				continue;
 			if(regexec(&reg, file->d_name, sizeof(match) / sizeof(match[0]), match, 0))
 				continue;
 
-			//format the filepath and add it to the stack
-			strcpy(npath, fpath);
-			strcat(npath, "/");
-			strcat(npath, file->d_name);
-			stack_add(&matches, npath);
+			//alloc, format the filepath and add it to the stack
+			if((mpath = malloc(strlen(fpath)+1+strlen(file->d_name)+1)) == NULL){
+				prnte("err: could alloc memory for path\n");
+				return -1;
+			}
+			strcpy(mpath, fpath);
+			strcat(mpath, "/");
+			strcat(mpath, file->d_name);
+			stack_add(paths, &mpath);
 		}
 
 		//don't forget to cleanup
 		closedir(dir);
 		regfree(&reg);
 	}
-
-	//empty the path stack and add the matched files instead
-	for(int i = 0; (path = stack_getnextused(paths, &i)) != NULL;)
-		stack_rem(paths, i-1);
-
-	for(int i = 0; (path = stack_getnextused(&matches, &i)) != NULL;)
-		stack_add(paths, path);
-
-	stack_free(&matches);
 	return 0;
 }
 
