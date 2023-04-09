@@ -1,3 +1,5 @@
+![Cool logo](./.github/images/logo.png)
+
 # nhcustom2
 
 > Note (Apr 2023): v4 is out! The main changes are: Some bug fixes and large improvements
