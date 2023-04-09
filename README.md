@@ -1,6 +1,6 @@
-![Cool logo](./.github/images/logo.png)
-
 # nhcustom2
+
+![Cool logo](./.github/images/logo.png)
 
 > Note (Apr 2023): v4 is out! The main changes are: Some bug fixes and large improvements
 > on memory usage have been made.
