@@ -233,6 +233,16 @@ to all the results found in the current line, not only to the statement just bef
 it. If you need more options you could probably get something to work with the
 'list' command.
 
+Here is a theoretical example showing the usage of the flags:
+
+```
+hat:A|B|C:hat:D:hat:!D:hat:}B
+     A      A      A
+     B      B      B      B
+     C      C      C
+            D
+```
+
 
 ## Lists
 
