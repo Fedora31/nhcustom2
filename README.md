@@ -200,7 +200,7 @@ Like in the previous program, you can decide wether or not the pattern to search
 is an exception or not. For example,
 
 ```
-date:2007
+date:2007-01-01/2007-12-31
 hat:!Fancy Fedora
 ```
 
@@ -208,7 +208,7 @@ will search every hat from 2007, **except** the Fancy Fedora. With the new
 syntax, this statement could also have been written like this:
 
 ```
-date:2007:hat:!Fancy Fedora
+date:2007-01-01/2007-12-31:hat:!Fancy Fedora
 ```
 
 
