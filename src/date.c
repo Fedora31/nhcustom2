@@ -4,9 +4,9 @@
 
 #include <stack.h>
 #include "str.h"
-#include "parser.h"
 #include "io.h"
 #include "hat.h"
+#include "parser.h"
 #include "date.h"
 
 

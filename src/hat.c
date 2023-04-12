@@ -10,11 +10,11 @@
 #include <stack.h>
 #include "strstack.h"
 #include "str.h"
-#include "parser.h" //only for date.h
-#include "date.h"
 #include "arg.h"
 #include "io.h"
 #include "hat.h"
+#include "parser.h" //only for date.h
+#include "date.h"
 
 static Hat *getdefhat(int);
 static int formatpaths(Stack *, const char *, const char *);

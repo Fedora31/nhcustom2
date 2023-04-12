@@ -31,6 +31,8 @@ typedef struct List{
 //get from the given string the header and the value(s) to search in it
 //the given string is modified.
 static int gethv(char **, Hvpair *);
+static int gethead(char *, const char *);
+static int getval(char *, const char *);
 
 //redirect the header/values to the function suited to handle them
 static int redirect(Stack *, Hvpair *);
@@ -254,8 +256,25 @@ parsestr(char *s, Stack *stack)
 	int res;
 	int i = 0;
 	while(1){
-		if ((res = gethv(&li, &hvpair)) == -1)
-			return -1;
+
+
+		hvpair.exception = 0;
+		hvpair.filter = 0;
+
+		if(li[0] == ')')
+			break;
+
+		if(li[0] == '!')
+			hvpair.exception = 1;
+		else if(li[0] == '}')
+			hvpair.filter = 1;
+
+		/*Go past the flag. But on the first hvpair, no flag means the add flag and
+		 *the string isn't incremented.
+		 */
+		if(i != 0 || (li[0] == '!' || li[0] == '}' || li[0] == '+'))
+			li++;
+
 
 
 		//the matches of the first value of the string will always be added to the stack, but it's exception
@@ -268,25 +287,102 @@ parsestr(char *s, Stack *stack)
 			hvpair.filter = 0;
 		}
 
-		//fill the lstack with the found matches
-		if(redirect(&lstack, &hvpair) < 0){
-			stack_free(&lstack);
-			free(l);
-			return -1;
-		}
 
+
+		if(li[0] == '('){
+			int offset;
+			Stack cstack;
+			stack_init(&cstack, 64, 128, sizeof(char*));
+
+			li++;
+			if((offset = parsestr(li, &cstack)) < 0){
+				printf("child failed\n");
+				return -1;
+			}
+			li+=offset+1;
+
+			modifystack(&lstack, &cstack, hvpair.exception, hvpair.filter);
+			stack_free(&cstack);
+
+		}else{
+			if((res = gethv(&li, &hvpair)) == -1)
+				return -1;
+
+
+			//fill the lstack with the found matches
+			if(redirect(&lstack, &hvpair) < 0){
+				stack_free(&lstack);
+				free(l);
+				return -1;
+			}
+
+		}
 		i++;
 		if(res == -2) //no more values to get from the string
+			break;
+		if(strlen(li) == 0)
 			break;
 	}
 
 
 	//modify the stack according to the lstack and the modifiers
 	modifystack(stack, &lstack, exception, filter);
-
+	int offset = li - l;
 	stack_free(&lstack);
 	free(l);
-	return 0;
+	return offset;
+}
+
+static int
+getval(char *dest, const char *str)
+{
+	int i, e;
+
+	if(str[0] == '"')
+		for(i = 1, e = 0; str[i] != '\0'; i++){
+			switch(str[i]){
+			case '\\':
+				i++;
+				break;
+			case '"':
+				i++;
+				goto end;
+			}
+			dest[e++] = str[i];
+		}
+	else
+		for(i = 0, e = 0; str[i] != '\0'; i++){
+			switch(str[i]){
+			case '\\':
+				i++;
+				break;
+			case ':':
+			case '+':
+			case '!':
+			case '}':
+			case ')':
+				goto end;
+			}
+			dest[e++] = str[i];
+		}
+end:
+	dest[e++] = '\0';
+	return i;
+}
+
+static int
+gethead(char *dest, const char *str)
+{
+	int len;
+	char *colon = strchr(str, ':');
+	if(!colon)
+		return -1;
+	if((len = colon - str) > HAT_VALLEN-1)
+		return -1;
+
+	strncpy(dest, str, len);
+	dest[len] = '\0';
+	return len+1; /*for the colon*/
 }
 
 //store the header:value pair and the exception status in the hvpair struct
@@ -294,62 +390,16 @@ parsestr(char *s, Stack *stack)
 static int
 gethv(char **s, Hvpair *hvpair)
 {
-	hvpair->header[0] = '\0';
-	hvpair->value[0] = '\0';
-	hvpair->exception = 0;
-	hvpair->filter = 0;
-	int e = 0, i = 0;
-	int stop = 0;
+	int res;
 
-	//get the header, simple enough
-	char *tmph = wstrsep(s, ":");
-	strcpy(hvpair->header, tmph);
-
-	//if true, it means the header wasn't correctly written (missing ':')
-	if(*s == NULL)
+	if((res = gethead(hvpair->header, *s)) == -1)
 		return -1;
-
-	//get the length of the **new** string, needed to know if we've arrived
-	//at the end of the line or not
-	int len = strlen(*s);
-
-	//Get the value. This allows special characters to be escaped by a '\' if
-	//we want to write them literally. This means that literal '\'s must also
-	//be escaped.
-	for(; (*s)[i] != '\0' && !stop; i++){
-		switch((*s)[i]){
-		case '\\':
-			i++;
-			break;
-		case ':':
-			stop = 1;
-			continue;
-		case '!':
-			if(i == 0){
-				hvpair->exception = 1;
-				continue; //we don't want the flags printed
-			}
-			//act as a normal char in any other position
-			break;
-		case '}':
-			if(i == 0){
-				hvpair->filter = 1;
-				continue;
-			}
-			break;
-		}
-		hvpair->value[e++] = (*s)[i];
-	}
-	hvpair->value[e] = '\0';
-
-	//new string starts at 1 past the end colon
-	*s = &(*s)[i];
-
-	//if true, the value of the header:value pair was probably missing
-	if(hvpair->value[0] == '\0')
+	*s += res;
+	if((res = getval(hvpair->value, *s)) == -1)
 		return -1;
+	*s += res;
 
-	if(i >= len)
+	if(strlen((*s)) == 0)
 		return -2;
 
 	return 0;

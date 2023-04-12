@@ -5,8 +5,8 @@
 
 #include <stack.h>
 #include "arg.h"
-#include "parser.h"
 #include "hat.h"
+#include "parser.h"
 #include "io.h"
 
 
