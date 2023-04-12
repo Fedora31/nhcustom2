@@ -257,10 +257,10 @@ parsestr(char *s, Stack *stack)
 	int i = 0;
 	while(1){
 
-
 		hvpair.exception = 0;
 		hvpair.filter = 0;
 
+		/*encountering this means the parser is a child whose job is done*/
 		if(li[0] == ')')
 			break;
 
@@ -277,8 +277,9 @@ parsestr(char *s, Stack *stack)
 
 
 
-		//the matches of the first value of the string will always be added to the stack, but it's exception
-		//status is saved and will determine if the lstack will be added to or deleted from the stack
+		/*the matches of the first value of the string will always be added to the stack, but it's exception
+		 *status is saved and will determine at the end the behaviour of the lstack against the stack.
+		 */
 		if(i == 0) {
 			prnt("%s\n", s);
 			exception = hvpair.exception;
@@ -288,18 +289,21 @@ parsestr(char *s, Stack *stack)
 		}
 
 
-
+		/*Encountering this means that another parser must be called for the content
+		 *between parentheses. The result is then mixed with the lstack.
+		 */
 		if(li[0] == '('){
 			int offset;
 			Stack cstack;
 			stack_init(&cstack, 64, 128, sizeof(char*));
 
-			li++;
+			li++; /*(*/
 			if((offset = parsestr(li, &cstack)) < 0){
-				printf("child failed\n");
+				stack_free(&cstack);
 				return -1;
 			}
-			li+=offset+1;
+
+			li+=offset+1; /*)*/
 
 			modifystack(&lstack, &cstack, hvpair.exception, hvpair.filter);
 			stack_free(&cstack);
@@ -308,8 +312,7 @@ parsestr(char *s, Stack *stack)
 			if((res = gethv(&li, &hvpair)) == -1)
 				return -1;
 
-
-			//fill the lstack with the found matches
+			/*modify the lstack based on the hvpair*/
 			if(redirect(&lstack, &hvpair) < 0){
 				stack_free(&lstack);
 				free(l);
@@ -325,7 +328,7 @@ parsestr(char *s, Stack *stack)
 	}
 
 
-	//modify the stack according to the lstack and the modifiers
+	/*modify the stack according to the lstack and the modifiers*/
 	modifystack(stack, &lstack, exception, filter);
 	int offset = li - l;
 	stack_free(&lstack);
@@ -333,24 +336,31 @@ parsestr(char *s, Stack *stack)
 	return offset;
 }
 
+/*Copy the str to dest until a special char is found,
+ *or until a closing double quote is found for quoted strings.
+ */
 static int
 getval(char *dest, const char *str)
 {
 	int i, e;
 
-	if(str[0] == '"')
+	/*In quoted strings, all litteral double quotes must be written twice ("").*/
+	if(str[0] == '"'){
+		char nc;
 		for(i = 1, e = 0; str[i] != '\0'; i++){
+			nc = str[i+1];
 			switch(str[i]){
-			case '\\':
-				i++;
-				break;
 			case '"':
+				if(nc == '"'){
+					i++;
+					break;
+				}
 				i++;
 				goto end;
 			}
 			dest[e++] = str[i];
 		}
-	else
+	}else
 		for(i = 0, e = 0; str[i] != '\0'; i++){
 			switch(str[i]){
 			case '\\':
@@ -370,6 +380,9 @@ end:
 	return i;
 }
 
+/*Copy the str to dest until the
+ *first found colon.
+ */
 static int
 gethead(char *dest, const char *str)
 {
@@ -385,8 +398,9 @@ gethead(char *dest, const char *str)
 	return len+1; /*for the colon*/
 }
 
-//store the header:value pair and the exception status in the hvpair struct
-//return -1 if an error occured, -2 if all the given string has been read
+/*Store the header:value pair in the hvpair struct.
+ *Return -1 if an error occured, -2 if all the given string has been read.
+ */
 static int
 gethv(char **s, Hvpair *hvpair)
 {
