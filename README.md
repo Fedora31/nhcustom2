@@ -2,8 +2,10 @@
 
 ![Cool logo](./.github/images/logo.png)
 
-> Note (Apr 2023): v4 is out! The main changes are: Some bug fixes and large improvements
-> on memory usage have been made.
+> Note (Apr 2023): v5 is out! The main changes are: The syntax changed and flags must now
+> be placed at the start of statements. Parentheses can now be used to compartmentalise
+> searches. A "new" flag has been added, the "add" flag (which just works like the old
+> colon between statements).
 
 This program is the second version of [nhcustom](https://github.com/Fedora31/nhcustom),
 a program created to modify the Team Fortress 2 mod "no hats mod". If you plan to modify
@@ -142,11 +144,11 @@ date:2021/2022
 will **NOT** work, as opposed to the previous program.
 
 You can also "stack" statements one after the other, by separating them with
-a colon `:`. Doing this allows to filter out results found in the first statement.
+a flag (`+`, `!` or `}`). Doing this allows to modify results found in the first statement.
 For example, doing this:
 
 ```
-Update:Scream Fortress 2020:class:!Soldier:class:!Scout
+Update:Scream Fortress 2020!class:Soldier!class:Scout
 ```
 
 Will find all the hats from the Scream Fortress 2020 update, except the ones
@@ -157,9 +159,16 @@ The program is now case-insensitive, there is now no need to open the wiki to
 get the name of the cosmetic exactly right. (This is only true for the pattern, the
 header is case-sensitive.)
 
-If one wants to write a literal colon that mustn't be interpreted as a separator,
-they can escape it with a backslash like so: `\:`. This means that literal backslashes
-must also be escaped (`\\`).
+If one wants to write one of the special characters that mustn't be interpreted as a separator,
+they can escape it with a backslash like so: `\+`. This means that literal backslashes
+must also be escaped (`\\`). To keep things more readable, it is also possible to quote
+the values.
+
+```
+#These lines are equal.
+hat:MONOCULUS\!
+hat:"MONOCULUS!"
+```
 
 *The syntax can be a bit cryptic, I encourage to take a look at the end of the
 file where some examples are given after reading the other points.*
@@ -191,7 +200,29 @@ used by this program isn't the most feature-complete one, which could cause
 some "modern" regexes to fail. The standard used is the [POSIX Extended Regular
 Syntax](https://en.wikipedia.org/wiki/Regular_expression#POSIX_basic_and_extended).
 
+Regexes consider the parentheses to be special characters that must be escaped to
+be taken literally. The problem is that this program also asks to escape parentheses,
+so if one wants to search for a hat with some in its name, it quickly becomes
+unreadable. To circumvent this problem, it is preferable to automatically quote
+values whenever regexes are used or when special characters are present.
+
+```
+#Not ideal, the string is processed first
+hat:The Voodoo Juju \\\(Slight Return\\\)
+#More readable, the string is what the regex will be
+hat:"The Voodoo Juju \(Slight Return\)"
+```
+
 An important point is that regexes **cannot** be used with the `date` and `list` headers.
+
+
+## The add (`+`) flag
+
+This flag, if present between two statements, will simply add the results of the second
+to those of the first. In other words, `A+B = AB`.
+
+> Note: Up until v4, this was the behaviour of two statements separated by a colon without
+> any extra flags.
 
 
 ## The exception (`!`) flag
@@ -201,14 +232,16 @@ is an exception or not. For example,
 
 ```
 date:2007-01-01/2007-12-31
-hat:!Fancy Fedora
+!hat:Fancy Fedora
 ```
 
-will search every hat from 2007, **except** the Fancy Fedora. With the new
-syntax, this statement could also have been written like this:
+will search every hat from 2007, **except** the Fancy Fedora. It "removes" the
+current results from the previous ones. Or, `AB!B = A`.
+
+With the new syntax, this statement could also have been written like this:
 
 ```
-date:2007-01-01/2007-12-31:hat:!Fancy Fedora
+date:2007-01-01/2007-12-31!hat:Fancy Fedora
 ```
 
 
@@ -221,7 +254,7 @@ to select all the cosmetics that came out in the Smissmas 2022 update for the Me
 and the Pyro, you could write the following:
 
 ```
-update:Smissmas 2022:class:}^Medic$|^Pyro$
+update:Smissmas 2022}class:^Medic$|^Pyro$
 ```
 
 Note that flags cannot be used together. If one wants to use a flag character as a
@@ -230,61 +263,80 @@ is only needed when the character is at the beginning of the string.
 
 Also, flags apply to all the previous results if written in the first statement or
 to all the results found in the current line, not only to the statement just before
-it. If you need more options you could probably get something to work with the
-'list' command.
+it.
 
 Here is a theoretical example showing the usage of the flags:
 
 ```
-hat:A|B|C:hat:D:hat:!D:hat:}B
+hat:A|B|C+hat:D!hat:A}hat:B
      A      A      A
      B      B      B      B
      C      C      C
             D
 ```
 
+## Parentheses `( ... )`
+
+If one needs to filter results based on multiple criteria or if a search mustn't
+impact the rest of the line, enclosing the needed statements between parentheses can
+make the program bundle their results together and isolate them from the rest of the line.
+The opening parenthesis must be placed after any flag.
+
+For example, this selects all the pyro cosmetics that are head replacements or that
+can also be worn by the Medic.
+
+```
+class:Pyro}(equip:^Head Replacement$+class:Medic)
+```
+
+A harder one, this will select the cosmetics released between 2009 and 2012 if they
+are 1: backpacks wearable by the Pyro only or 2: shoes wearable by the Scout only.
+
+```
+date:2009-01-01/2012-12-31}((class:^Pyro$}equip:^Back$)+(class:^Scout$}equip:^Feet$))
+```
+
+This one selects all hats from Smissmas 2022 that can be worn by the Demoman,
+including the specific paths of the cosmetics worn by all the classes.
+
+```
+update:smissmas 2022}(class:Demo+(class:All classes}path:demo))
+```
+
 
 ## Lists
 
-This is a new addition which came with v3. With the `list` command, one is able to
+This is an addition which came with v3. With the `list` command, one is able to
 store results from searches into "lists" which later can be used in other searches.
-It was created to allow users to store results from multiple lines with no effect on
+It was created to allow users to store results from lines with no effect on
 previous results.
 
 Example:
 
 ```
-list foo update:Smissmas 2022:list:!bar
+list foo update:Smissmas 2022!list:bar
 ```
 
 This creates a new list called `foo` which contains all the cosmetics from Smissmas
-2022, except whichever result was in the already existing list `bar`.
+2022, except whichever result was in the already existing list `bar`. Please note
+that list names must not contain spaces.
 
 It's also possible to redeclare lists and even reuse the old content to do so:
 
 ```
 list foo update:Smissmas 2022
-list foo list:foo:hat:A Rather Festive Tree
+list foo list:foo+hat:A Rather Festive Tree
 ```
 
 With this example, you end up with a list `foo` containing the cosmetics from
 Smissmas 2022 and the hat "A Rather Festive Tree" (this example isn't very useful,
 it's just for demonstration).
 
-Lists can also achieve advanced configurations that were previously impossible, like
-this example:
+Lists are useful if you want to reuse the same pattern multiple times in your
+configuration file.
 
-```
-date:2009-01-01/2015-12-31
-# ...
-
-list globalfilter class:^Scout$:equip:}^Feet$
-list globalfilter class:^Pyro$:equip:}^Back$:list:globalfilter
-list:}globalfilter
-#only Pyro's backpacks and Scout's shoes remain
-```
-
-Note: List names mustn't contain any spaces in them.
+> Note: Up until v4, lists were the only way to filter results based on multiple
+> parameters, like their class and equip regions at the same time.
 
 
 ## The input and output folders
@@ -321,29 +373,28 @@ Below are some examples of what could be entered in the configuration file.
 
 ```
 #find hats that can be worn by mutiple classes but that are not all-class
-class:.*\|.*:class:!All classes
+class:".*\|.*"!class:All classes
 
 #deselect hats that came out between 2008 and march 1st, 2013, except
-#if they can be worn by the soldier (along with other classes)
-date:!2008-01-01/2013-3-1:class:!Soldier
+#if they can be worn by the soldier (alongside other classes)
+!date:2008-01-01/2013-03-01!class:Soldier
 
 #find all the hats containing the string "aaa"
 hat:aaa
 
 #find only the 1st style of the Millennial Mercenary
-hat:millennial mercenary:path:!style
+hat:millennial mercenary!path:style
 
 #find every path with the word "scout" in them
 path:.*scout.*
 
 #find only the first style of the Foppish Physician
-hat:foppish physician:path:!necktie
+hat:foppish physician!path:necktie
 
 #find only the third style of the medic cosmetics from Smissmas 2022
-update:Smissmas 2022:class:}^Medic$:path:}style3
+update:Smissmas 2022}class:^Medic$}path:style3
 
 #create a list containing the Engineer's shirts and all VALVe-made hats for the spy
-list mylist class:^Engineer$:equip:}Shirt
-list mylist class:^Spy$:equip:}Hat:path:}models/player/items:list:mylist
+list mylist class:^Engineer$}equip:Shirt+(class:^Spy$}equip:Hat}path:models/player/items)
 
 ```
