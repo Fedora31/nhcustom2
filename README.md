@@ -170,6 +170,8 @@ hat:MONOCULUS\!
 hat:"MONOCULUS!"
 ```
 
+If the quoted string must contain a literal quote, it must be written twice (`""`).
+
 *The syntax can be a bit cryptic, I encourage to take a look at the end of the
 file where some examples are given after reading the other points.*
 
