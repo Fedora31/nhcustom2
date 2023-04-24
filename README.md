@@ -270,7 +270,7 @@ it.
 Here is a theoretical example showing the usage of the flags:
 
 ```
-hat:A|B|C+hat:D!hat:A}hat:B
+hat:A|B|C+hat:D!hat:D}hat:B
      A      A      A
      B      B      B      B
      C      C      C
