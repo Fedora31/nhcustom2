@@ -765,7 +765,7 @@ Sackcloth Spook;All classes;Disconnected Floating Item;2013-10-29;Scream Fortres
 Mucous Membrain;Pyro;Head Replacement|Hat;2013-10-29;Scream Fortress 2013;models/workshop/player/items/pyro/hw2013_mucus_membrane/hw2013_mucus_membrane.*
 Pin Pals;Soldier|Pyro;Grenades;2013-10-29;Scream Fortress 2013;models/workshop/player/items/all_class/hw2013_volatile_voodoo/hw2013_volatile_voodoo_[CLASS].*
 Medimedes;Medic;Whole head;2013-10-29;Scream Fortress 2013;models/workshop/player/items/medic/hw2013_medicmedes/hw2013_medicmedes.*
-Chicken Kiev;Heavy;Head Skin|Whole head|Hat;2013-10-29;Scream Fortress 2013;models/workshop/player/items/heavy/hw2013_heavy_robin/hw2013_heavy_robin.*
+Chicken Kiev;Heavy;Head Skin|Whole head;2013-10-27;None;models/workshop/player/items/heavy/hw2013_heavy_robin/hw2013_heavy_robin.*
 Freedom Feathers;Soldier;Whole head;2013-10-29;Scream Fortress 2013;models/workshop/player/items/soldier/hw2013_feathered_freedom/hw2013_feathered_freedom.*
 Headtaker's Hood;Demo;Whole head;2013-10-29;Scream Fortress 2013;models/workshop/player/items/demo/hw2013_demo_executioner_hood/hw2013_demo_executioner_hood.*
 Transylvania Top;Demo;Hat;2013-10-29;Scream Fortress 2013;models/workshop/player/items/demo/hw2013_demon_fro/hw2013_demon_fro.*
@@ -1384,7 +1384,7 @@ Racc Mann;Soldier;Hat;2019-10-10;Scream Fortress 2019;models/workshop/player/ite
 Voodoo Vizier;Spy;Hat;2019-10-10;Scream Fortress 2019;models/workshop/player/items/spy/hwn2019_voodoo_vizier/hwn2019_voodoo_vizier.*
 Avian Amante;Spy;Head Skin|Whole head;2019-10-10;Scream Fortress 2019;models/workshop/player/items/spy/hwn2019_avian_amante/hwn2019_avian_amante.*
 El Mostacho;Engineer;Hat;2019-10-10;Scream Fortress 2019;models/workshop/player/items/engineer/hwn2019_el_mostacho/hwn2019_el_mostacho.*
-Eingineer;Engineer;Head Skin|Whole head|Hat;2019-10-10;Scream Fortress 2019;models/workshop/player/items/engineer/hwn2019_eingineer/hwn2019_eingineer.*
+Eingineer;Engineer;Head Skin|Whole head;2019-10-10;Scream Fortress 2019;models/workshop/player/items/engineer/hwn2019_eingineer/hwn2019_eingineer.*
 Pyr'o Lantern;Pyro;Head Replacement;2019-10-10;Scream Fortress 2019;models/workshop/player/items/pyro/hwn2019_pyro_lantern/hwn2019_pyro_lantern.*
 Madmann's Muzzle;Medic;Beard;2019-10-10;Scream Fortress 2019;models/workshop/player/items/medic/hwn2019_madmanns_muzzle/hwn2019_madmanns_muzzle.*
 Derangement Garment;Medic;Shirt;2019-10-10;Scream Fortress 2019;models/workshop/player/items/medic/hwn2019_derangement_garment/hwn2019_derangement_garment.*
@@ -1521,10 +1521,10 @@ Death Stare;Demo;Face;2021-10-01;Scream Fortress 2021;models/workshop/player/ite
 Corpse Carrier;Scout;Pants;2021-10-01;Scream Fortress 2021;models/workshop/player/items/scout/hwn2021_corpse_carrier/hwn2021_corpse_carrier.*
 Gruesome Gourd;Spy;Face;2021-10-01;Scream Fortress 2021;models/workshop/player/items/spy/hwn2021_gruesome_gourd/hwn2021_gruesome_gourd.*|models/workshop/player/items/spy/hwn2021_gruesome_gourd_style2/hwn2021_gruesome_gourd_style2.*
 Poopy Doe;Soldier;Head Skin|Whole head;2021-10-01;Scream Fortress 2021;models/workshop/player/items/soldier/hwn2021_poopy_doe/hwn2021_poopy_doe.*
-Batter's Beak;Scout;Head Skin|Whole head|Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/scout/hwn2021_batters_beak/hwn2021_batters_beak.*
+Batter's Beak;Scout;Head Skin|Whole head;2021-10-01;Scream Fortress 2021;models/workshop/player/items/scout/hwn2021_batters_beak/hwn2021_batters_beak.*
 War Dog;Soldier;Head Skin|Whole head;2021-10-01;Scream Fortress 2021;models/workshop/player/items/soldier/hwn2021_war_dog/hwn2021_war_dog.*|models/workshop/player/items/soldier/hwn2021_war_dog_style2/hwn2021_war_dog_style2.*
 Miami Rooster;Pyro;Head Replacement;2021-10-01;Scream Fortress 2021;models/workshop/player/items/pyro/hwn2021_miami_rooster/hwn2021_miami_rooster.*
-Computron 5000;Scout|Engineer|Heavy|Medic|Spy;Head Skin|Whole head|Hat;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_scout.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_engineer.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_heavy.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_medic.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_spy.*
+Computron 5000;Scout|Engineer|Heavy|Medic|Spy;Head Skin|Whole head;2021-10-01;Scream Fortress 2021;models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_scout.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_engineer.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_heavy.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_medic.*|models/workshop/player/items/all_class/hwn2021_computron/hwn2021_computron_spy.*
 El Fiestibrero;All classes;Hat;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_el_fiestibrero/dec21_el_fiestibrero_[CLASS].*
 Gnome Dome;All classes;Beard|Hat;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_gnome_dome/dec21_gnome_dome_[CLASS].*|models/workshop/player/items/all_class/dec21_gnome_dome_style1/dec21_gnome_dome_style1_[CLASS].*|models/workshop/player/items/all_class/dec21_gnome_dome_style2/dec21_gnome_dome_style2_[CLASS].*|models/workshop/player/items/all_class/dec21_gnome_dome_style3/dec21_gnome_dome_style3_[CLASS].*
 Jolly Jester;All classes;Hat;2021-12-02;Smissmas 2021;models/workshop/player/items/all_class/dec21_jolly_jester/dec21_jolly_jester_[CLASS].*
@@ -1589,7 +1589,7 @@ Nightbane Brim;Demo;Hat;2022-10-05;Scream Fortress XIV;models/workshop/player/it
 Bombard Brigadier;Demo;Hat;2022-10-05;Scream Fortress XIV;models/workshop/player/items/demo/hwn2022_bombard_brigadier/hwn2022_bombard_brigadier.*|models/workshop/player/items/demo/hwn2022_bombard_brigadier_style2/hwn2022_bombard_brigadier_style2.*
 Firearm Protector;Soldier;Hat;2022-10-05;Scream Fortress XIV;models/workshop/player/items/soldier/hwn2022_firearm_protector/hwn2022_firearm_protector.*
 Safety Stripes;Soldier;Pocket;2022-10-05;Scream Fortress XIV;models/workshop/player/items/soldier/hwn2022_safety_stripes/hwn2022_safety_stripes.*
-Cranial Cowl;Soldier;Face|Hat;2022-10-05;Scream Fortress XIV;models/workshop/player/items/soldier/hwn2022_cranial_cowl/hwn2022_cranial_cowl.*|models/workshop/player/items/soldier/hwn2022_cranial_cowl_style2/hwn2022_cranial_cowl_style2.*
+Cranial Cowl;Soldier;Whole head;2022-10-05;Scream Fortress XIV;models/workshop/player/items/soldier/hwn2022_cranial_cowl/hwn2022_cranial_cowl.*|models/workshop/player/items/soldier/hwn2022_cranial_cowl_style2/hwn2022_cranial_cowl_style2.*
 Headhunter's Brim;Sniper;Hat;2022-10-05;Scream Fortress XIV;models/workshop/player/items/sniper/hwn2022_headhunters_brim/hwn2022_headhunters_brim.*
 Hunting Cloak;Sniper;Shirt;2022-10-05;Scream Fortress XIV;models/workshop/player/items/sniper/hwn2022_hunting_cloak/hwn2022_hunting_cloak.*
 Misha's Maw;Heavy;Head Skin|Whole head;2022-10-05;Scream Fortress XIV;models/workshop/player/items/heavy/hwn2022_mishas_maw/hwn2022_mishas_maw.*|models/workshop/player/items/heavy/hwn2022_mishas_maw_style2/hwn2022_mishas_maw_style2.*
@@ -2744,7 +2744,7 @@ Brazil Fortress 6v6 Invite First Place;All classes;Medal;2001-01-01;None;models/
 Brazil Fortress 6v6 Invite Second Place;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/brasil_fortress_6v6_segundo_lugar/brasil_fortress_6v6_segundo_lugar_[CLASS].*
 Brazil Fortress 6v6 Invite Third Place;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/brasil_fortress_6v6_terceiro_lugar/brasil_fortress_6v6_terceiro_lugar_[CLASS].*
 Brazil Fortress 6v6 Invite Participant;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/brasil_fortress_6v6_participante/brasil_fortress_6v6_participante_[CLASS].*
-LAN Downunder 1st Place;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/downunder_1st/downunder_1st_[CLASS].*
+LAN Downunder Champion;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/downunder_1st/downunder_1st_[CLASS].*
 LAN Downunder 2nd Place;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/downunder_2nd/downunder_2nd_[CLASS].*
 LAN Downunder 3rd Place;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/downunder_3rd/downunder_3rd_[CLASS].*
 LAN Downunder Participant;All classes;Medal;2001-01-01;None;models/workshop/player/items/all_class/downunder_participant/downunder_participant_[CLASS].*
@@ -3704,3 +3704,28 @@ Voodoo-Cursed Medic Soul;Medic;Zombie Body;2012-10-26;Spectral Halloween Special
 Voodoo-Cursed Spy Soul;Spy;Zombie Body;2012-10-26;Spectral Halloween Special;models/player/items/spy/spy_zombie.*
 Voodoo-Cursed Pyro Soul;Pyro;Zombie Body|Head Replacement;2012-10-26;Spectral Halloween Special;models/player/items/pyro/pyro_zombie.*
 Voodoo-Cursed Sniper Soul;Sniper;Zombie Body;2012-10-26;Spectral Halloween Special;models/player/items/sniper/sniper_zombie.*
+Full Metal Helmet;All classes;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/all_class/sum23_full_metal_helmet/sum23_full_metal_helmet_[CLASS].*
+Brothers in Blues;All classes;Glasses|Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/all_class/sum23_brothers_blues/sum23_brothers_blues_[CLASS].*
+Flame Warrior;Pyro;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/pyro/sum23_flamewarrior_style1/sum23_flamewarrior_style1.*|models/workshop/player/items/pyro/sum23_flamewarrior_style2/sum23_flamewarrior_style2.*
+Soho Sleuth;Pyro;Shirt;2023-07-12;Summer 2023 Pack;models/workshop/player/items/pyro/sum23_soho_sleuth/sum23_soho_sleuth.*
+Firestalker;Pyro;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/pyro/sum23_firestalker/sum23_firestalker.*
+Glorious Gambeson;Sniper;Vest;2023-07-12;Summer 2023 Pack;models/workshop/player/items/sniper/sum23_glorious_gambeson/sum23_glorious_gambeson.*
+Bushman;Sniper;Shirt|Arms;2023-07-12;Summer 2023 Pack;models/workshop/player/items/sniper/sum23_bushman/sum23_bushman.*
+Cranium Cover;Sniper;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/sniper/sum23_cranium_cover_style1/sum23_cranium_cover_style1.*|models/workshop/player/items/sniper/sum23_cranium_cover_style2/sum23_cranium_cover_style2.*
+Preventative Measure;Sniper;Vest;2023-07-12;Summer 2023 Pack;models/workshop/player/items/sniper/sum23_preventative_measure/sum23_preventative_measure.*
+Über-Wear;Medic;Shirt;2023-07-12;Summer 2023 Pack;models/workshop/player/items/medic/sum23_uber_wear/sum23_uber_wear.*
+Medical Emergency;Medic;Hip;2023-07-12;Summer 2023 Pack;models/workshop/player/items/medic/sum23_medical_emergency/sum23_medical_emergency.*
+Brimmed Bootlegger;Scout;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/scout/sum23_brimmed_bootlegger/sum23_brimmed_bootlegger.*
+Prohibition Opposition;Scout;Shirt;2023-07-12;Summer 2023 Pack;models/workshop/player/items/scout/sum23_prohibition_opposition/sum23_prohibition_opposition.*
+Brother Mann;Heavy;Glasses|Beard|Hair;2023-07-12;Summer 2023 Pack;models/workshop/player/items/heavy/sum23_brother_mann_style1/sum23_brother_mann_style1.*|models/workshop/player/items/heavy/sum23_brother_mann_style2/sum23_brother_mann_style2.*|models/workshop/player/items/heavy/sum23_brother_mann_style3/sum23_brother_mann_style3.*
+Heavy Metal;Heavy;Shirt;2023-07-12;Summer 2023 Pack;models/workshop/player/items/heavy/sum23_heavy_metal/sum23_heavy_metal.*
+Hog Heels;Heavy;Pants;2023-07-12;Summer 2023 Pack;models/workshop/player/items/heavy/sum23_hog_heels/sum23_hog_heels.*
+Blast Bowl;Demo;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/demo/sum23_blast_bowl_style1/sum23_blast_bowl_style1.*|models/workshop/player/items/demo/sum23_blast_bowl_style2/sum23_blast_bowl_style2.*
+Shrapnel Shell;Demo;Shirt;2023-07-12;Summer 2023 Pack;models/workshop/player/items/demo/sum23_shrapnel_shell_style1/sum23_shrapnel_shell_style1.*|models/workshop/player/items/demo/sum23_shrapnel_shell_style2/sum23_shrapnel_shell_style2.*
+Cargo Constructor;Engineer;Shirt;2023-07-12;Summer 2023 Pack;models/workshop/player/items/engineer/sum23_cargo_constructor/sum23_cargo_constructor.*
+Hazard Handler;Engineer;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/engineer/sum23_hazard_handler_style1/sum23_hazard_handler_style1.*|models/workshop/player/items/engineer/sum23_hazard_handler_style2/sum23_hazard_handler_style2.*|models/workshop/player/items/engineer/sum23_hazard_handler_style3/sum23_hazard_handler_style3.*|models/workshop/player/items/engineer/sum23_hazard_handler_style4/sum23_hazard_handler_style4.*
+Cranium Cooler;Engineer;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/engineer/sum23_cranium_cooler/sum23_cranium_cooler.*
+Cleaner's Cap;Spy;Glasses|Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/spy/sum23_cleaners_cap_style1/sum23_cleaners_cap_style1.*|models/workshop/player/items/spy/sum23_cleaners_cap_style2/sum23_cleaners_cap_style2.*|models/workshop/player/items/spy/sum23_cleaners_cap_style3/sum23_cleaners_cap_style3.*
+Le Professionnel;Spy;Coat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/spy/sum23_professionnel_style1/sum23_professionnel_style1.*|models/workshop/player/items/spy/sum23_professionnel_style2/sum23_professionnel_style2.*
+Close Quarters Cover;Soldier;Hat;2023-07-12;Summer 2023 Pack;models/workshop/player/items/soldier/sum23_close_quarters_style1/sum23_close_quarters_style1.*|models/workshop/player/items/soldier/sum23_close_quarters_style2/sum23_close_quarters_style2.*|models/workshop/player/items/soldier/sum23_close_quarters_style3/sum23_close_quarters_style3.*|models/workshop/player/items/soldier/sum23_close_quarters_style4/sum23_close_quarters_style4.*
+Stealth Bomber;Soldier;Pants|Grenades;2023-07-12;Summer 2023 Pack;models/workshop/player/items/soldier/sum23_stealth_bomber_style1/sum23_stealth_bomber_style1.*|models/workshop/player/items/soldier/sum23_stealth_bomber_style2/sum23_stealth_bomber_style2.*
