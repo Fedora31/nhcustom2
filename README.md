@@ -41,16 +41,34 @@ If you want the latest version, you should consider building the program from so
 as I won't make new releases for small changes.
 
 
-## How to use
+## TL;DR - How to use
 
-Add the parameters you want in the configuration file, then execute the program. An `input`
-folder must be present next to the executable, or another folder must be specified with
-the option `-i`.
+Add the parameters you want in `config.txt`, then execute the program. An `input`
+folder must be present next to the executable, containing a **decompiled** version
+of no-hats-bgum, or any other version of "no hats mod".
 
-The input folder must be filled with a **decompiled** version of no-hats-bgum, or any other
-version of "no hats mod".
+Example of a basic configuration file:
 
-Make sure to keep the database and the input folder up do date.
+```
+#this is a comment
+#the file must contain either "keep" or "remove"
+keep
+
+#everything will be removed, except the hats corresponding
+#to the following parameters:
+hat:Fancy Fedora
+#quote names if they contain ! + or }
+hat:"MONOCULUS!"
+update:Mann-Conomy Update
+#the "!" means that even though this hat is from the
+#Mann-Conomy Update, it'll still be removed.
+!hat:Bombing Run
+```
+
+Make sure to keep the database and the input folder up do date. **!!! Use the
+database from the repository, not the one shipped with the release !!!**
+
+If you want to know more about the program, carry on reading ;D
 
 
 ## Arguments
