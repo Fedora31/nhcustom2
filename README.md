@@ -1,3 +1,5 @@
+## This project has moved to <https://pevhs.ch/tf2/nhcustom2>. This repository will not be updated again.
+
 # nhcustom2
 
 ![Cool logo](./.github/images/logo.png)
