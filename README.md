@@ -1,4 +1,4 @@
-## This project has moved to <https://pevhs.ch/tf2/nhcustom2>. This repository will not be updated again.
+## This project has moved to <https://pevhs.ch/tf2/nhcustom2/>. This repository will not be updated again.
 
 # nhcustom2
 
